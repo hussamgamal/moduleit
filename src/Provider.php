@@ -88,9 +88,13 @@ class Provider extends ServiceProvider
             $class_name = explode('.', $file)[0];
             $component_name = strtolower($class_name);
             $namespaces = explode("/Modules", $component);
+            if(count($namespaces) == 1){
+                $namespaces = explode("\Modules", $component);   
+            }
             foreach ($namespaces as $namespace) {
                 if (strpos($namespace, 'Components') !== false) {
                     $namespace = "\Modules" . str_replace([$file, '/'], ['', '\\'], $namespace);
+                    // dd($component , "{$namespace}{$class_name}");
                     \Illuminate\Support\Facades\Blade::component("{$namespace}{$class_name}", $component_name);
                 }
             }
