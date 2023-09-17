@@ -52,6 +52,7 @@ class Provider extends ServiceProvider
 
         // $admin_router = Route::middleware(['web', "admin:ads"]);
         $admin_files = glob(base_path("Modules/**/Routes/admin.php"));
+        // dd($admin_files);
         \array_map(function ($file) {
             $module = array_reverse(explode('/', $file))[2];
             Route::middleware(['web' , 'locale' , "admin:$module"])->namespace("Modules\\$module\\Controllers")

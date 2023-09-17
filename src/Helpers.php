@@ -20,14 +20,21 @@ if (!function_exists('api_model_set_pagenation')) {
 
     function api_model_set_pagenation($model)
     {
-        if (is_object($model)) {
+        // if(request()->header('testic')){
+        //     dd(method_exists($model , 'total') , get_class_methods($model) , $model);
+        // }
+        if (is_object($model) && $model instanceOf \Illuminate\Http\Resources\Json\AnonymousResourceCollection) {
             try {
                 $pagnation['total'] = $model->total();
-                $pagnation['lastPage'] = $model->lastPage();
-                $pagnation['perPage'] = $model->perPage();
-                $pagnation['currentPage'] = $model->currentPage();
+                $pagnation['total_pages'] = $model->lastPage();
+                $pagnation['per_page'] = $model->perPage();
+                $pagnation['count'] = $model->perPage();
+                $pagnation['current_page'] = $model->currentPage();
+                $pagnation['next_page_url'] = $model->nextPageUrl();
+                $pagnation['prev_page_url'] = $model->previousPageUrl();
+                // $pagnation['currentPageUrl'] = $model->currentPageUrl();
                 return $pagnation;
-            } catch (\Exception$e) {
+            } catch (\Throwable $e) {
             }
         }
         return null;
