@@ -1,17 +1,38 @@
 <?php
 if (!function_exists('api_response')) {
-    function api_response($status, $message, $data = null, $status_code = 200)
+    function api_response($message = '', $data = null, $status = true, $status_code = 200)
     {
+        if ($status_code == 422) {
+            if ($data && count($data)) {
+                $message = $data[array_key_first($data)];
+                $data = null;
+            }
+        }
         $response = [
             'status' => $status,
             'message' => $message,
             'data' => $data,
         ];
-        $pagination = api_model_set_pagenation($data);
-        if ($pagination) {
-            $response['pagination'] = $pagination;
+        if (is_array($data)) {
+            foreach ($data as $key => $row) {
+                $pagination = api_model_set_pagenation($row);
+                if ($pagination) {
+                    $response['pagination'] = $pagination;
+                    try {
+                        $response['data'][$key] = $row->toArray()['data'];
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                        $response['data'][$key] = $row;
+                    }
+                }
+            }
+        } else {
+            $pagination = api_model_set_pagenation($data);
+            if ($pagination) {
+                $response['pagination'] = $pagination;
+            }
         }
-
+        $status_code = 200;
         return response()->json($response, $status_code);
     }
 }
@@ -20,19 +41,18 @@ if (!function_exists('api_model_set_pagenation')) {
 
     function api_model_set_pagenation($model)
     {
-        // if(request()->header('testic')){
-        //     dd(method_exists($model , 'total') , get_class_methods($model) , $model);
-        // }
-        if (is_object($model) && $model instanceOf \Illuminate\Http\Resources\Json\AnonymousResourceCollection) {
+        if (is_object($model)) {
+            $query_paramters = request()->query();
+            unset($query_paramters['page']);
+            $query_paramters = http_build_query($query_paramters);
             try {
                 $pagnation['total'] = $model->total();
+                $pagnation['lastPage'] = $model->lastPage();
                 $pagnation['total_pages'] = $model->lastPage();
-                $pagnation['per_page'] = $model->perPage();
-                $pagnation['count'] = $model->perPage();
-                $pagnation['current_page'] = $model->currentPage();
-                $pagnation['next_page_url'] = $model->nextPageUrl();
-                $pagnation['prev_page_url'] = $model->previousPageUrl();
-                // $pagnation['currentPageUrl'] = $model->currentPageUrl();
+                $pagnation['perPage'] = $model->perPage();
+                $pagnation['currentPage'] = $model->currentPage();
+                $pagnation['next_page_url'] = ($url = $model->nextPageUrl()) ? $url . '&' . $query_paramters : null;
+                $pagnation['prev_page_url'] = ($url = $model->previousPageUrl()) ? $url . '&' . $query_paramters : null;
                 return $pagnation;
             } catch (\Throwable $e) {
             }
@@ -45,6 +65,25 @@ if (!function_exists('boolean_vals')) {
     function boolean_vals()
     {
         return ['No', 'Yes'];
+    }
+}
+
+if (!function_exists('week_days')) {
+    function week_days()
+    {
+        $days = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+        ];
+        foreach ($days as $day) {
+            $mydays[$day] = __($day);
+        }
+        return $mydays;
     }
 }
 
@@ -128,64 +167,13 @@ if (!function_exists('curl_post')) {
         curl_close($curl);
         return $resp;
     }
-
-}
-
-if (!function_exists('send_fcm')) {
-    function send_fcm($tokens, $platfrom, $message, $model = 'order', $model_id = null, $type = null, $title = null)
-    {
-        // dd($tokens, $message, $card_id);
-        ob_start();
-        $url = "https://fcm.googleapis.com/fcm/send";
-        $serverKey = env('fcm_server_key');
-        $notification = array(
-            'text' => $message,
-            'body' => $message,
-            'body_ar' => $message,
-            'title' => $title ?? 'Foody',
-            'title_ar' => $title ?? 'فوودي',
-            'type' => $type,
-            'model' => $model,
-            'id' => $model_id,
-            'model_id' => $model_id,
-            'sound' => 'default',
-            'badge' => '1',
-        );
-        $tokens = (array) $tokens;
-        if ($platfrom == 'ios') {
-            $arrayToSend = array('registration_ids' => $tokens, 'notification' => $notification, 'data' => $notification, 'priority' => 'high');
-        } else {
-            // return true;
-            $arrayToSend = array('registration_ids' => $tokens, 'data' => $notification, 'priority' => 'high');
-        }
-        $json = json_encode($arrayToSend);
-        $headers = array();
-        $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Authorization: key=' . $serverKey;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        //Send the request
-        $response = curl_exec($ch);
-        // dd($response , $tokens , $platfrom , $json);
-        //Close request
-        if ($response === false) {
-            // die('FCM Send Error: ' . curl_error($ch));
-        }
-        // dd($json);
-        curl_close($ch);
-        ob_end_clean();
-        return true;
-    }
 }
 
 if (!function_exists('get_select_data')) {
-    function get_select_data($rows, $key = 'id', $value = 'name', $with_main = false)
+    function get_select_data($rows, $key = 'id', $value = 'name', $main = false)
     {
         $arr = [];
-        if ($with_main) {
+        if ($main) {
             $arr[0] = __('Main');
         }
         foreach ($rows as $row) {
@@ -193,7 +181,6 @@ if (!function_exists('get_select_data')) {
         }
         return $arr;
     }
-
 }
 
 if (!function_exists('round_me')) {
@@ -232,5 +219,84 @@ if (!function_exists('ar_date_to_en')) {
             }
         }
         return $date;
+    }
+}
+
+if (!function_exists('contact_keys')) {
+    function contact_keys()
+    {
+        return ['email', 'mobile', 'facebook', 'twitter', 'instagram', 'pinterest', 'youtube', 'snapchat', 'whatsapp', 'tiktok'];
+    }
+}
+
+if (!function_exists('social_keys')) {
+    function social_keys()
+    {
+        return ['facebook', 'twitter', 'instagram', 'pinterest', 'youtube', 'snapchat', 'whatsapp', 'tiktok'];
+    }
+}
+
+if (!function_exists('socials')) {
+    function socials()
+    {
+        $rows = \Modules\Common\Models\Setting::whereIn('key', social_keys())->get();
+        return $rows;
+    }
+}
+
+if (!function_exists('app_setting')) {
+    function app_setting($key, $default = null)
+    {
+        $row = \Modules\Common\Models\Setting::where('key', $key)->first();
+        $locale = app()->getLocale();
+        if (!$row) {
+            return $default;
+        }
+        $val = "";
+        // if($key == 'lat') dd('sss');
+        if (!is_object($row->value) && $value = json_decode($row->value)) {
+            if (!is_object($value)) {
+                return $value;
+            }
+
+            $val = $value->all ?? $value->{$locale} ?? $value->ar ?? $value ?? '';
+        } else {
+            $val = $row->value->all ?? $row->value->{$locale} ?? $row->value->ar ?? $row->value ?? '';
+        }
+        if (!is_string($val)) {
+            return "";
+        }
+
+        return strpos($val, 'uploads/') !== false ? url($val) : $val;
+    }
+}
+
+if (!function_exists('sidebar')) {
+    function sidebar()
+    {
+        require_once base_path('Modules/sidebar.php');
+        $roles = auth()->user()->roles ?? [];
+        // dd($roles);
+        foreach ($links as $key => $link) {
+            if (is_string($key)) {
+                if (!in_array($key, $roles)) {
+                    unset($links[$key]);
+                }
+            } elseif (isset($link['links'])) {
+                $sub_links = $link['links'];
+                foreach ($sub_links as $ken => $len) {
+                    if (!in_array($ken, $roles)) {
+                        unset($sub_links[$ken]);
+                    }
+                }
+                if (count($sub_links)) {
+                    $link['links'] = $sub_links;
+                    $links[$key] = $link;
+                } else {
+                    unset($links[$key]);
+                }
+            }
+        }
+        return $links;
     }
 }
