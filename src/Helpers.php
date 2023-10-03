@@ -275,7 +275,7 @@ if (!function_exists('sidebar')) {
     function sidebar()
     {
         require_once base_path('Modules/sidebar.php');
-        $roles = auth()->user()->roles ?? [];
+        $roles = auth()->user()->role->roles ?? [];
         // dd($roles);
         foreach ($links as $key => $link) {
             if (is_string($key)) {
