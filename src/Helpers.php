@@ -267,7 +267,7 @@ if (!function_exists('app_setting')) {
             return "";
         }
 
-        return strpos($val, 'uploads/') !== false ? url($val) : $val;
+        return strpos($val, 'uploads/') !== false ? url(\Illuminate\Support\Facades\Storage::url($val)) : $val;
     }
 }
 
