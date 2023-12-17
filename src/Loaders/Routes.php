@@ -4,20 +4,17 @@ namespace MshMsh\Loaders;
 
 use Illuminate\Support\Facades\Route;
 
-class Routes
+trait Routes
 {
+    public static function loadRoutes(){
+        self::web();
 
-    public function __construct()
-    {
+        self::admin();
 
-        $this->web();
-
-        $this->admin();
-
-        $this->api();
+        self::api();
     }
 
-    private function web()
+    private static function web()
     {
         $web_router = Route::middleware(['web', 'locale']);
         $web_files = glob(base_path("Modules/**/Routes/web.php"));
@@ -27,7 +24,7 @@ class Routes
         }, $web_files);
     }
 
-    private function admin()
+    private static function admin()
     {
         // $admin_router = Route::middleware(['web', "admin:ads"]);
         $admin_files = glob(base_path("Modules/**/Routes/admin.php"));
@@ -40,7 +37,7 @@ class Routes
     }
 
 
-    private function api()
+    private static function api()
     {
         $api_router = Route::middleware(['locale'])->prefix('api');
         $api_files = glob(base_path("Modules/**/Routes/api.php"));

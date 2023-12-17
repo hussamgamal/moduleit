@@ -4,15 +4,10 @@ namespace MshMsh\Loaders;
 
 use \Illuminate\Support\Facades\Blade;
 
-class Components
+trait Components
 {
 
-    public function __construct()
-    {
-        $this->load();
-    }
-
-    public function load()
+    public function loadComponents()
     {
         $components = glob(base_path(('Modules/**/Components/*')));
         array_map(function ($component) {

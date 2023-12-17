@@ -10,14 +10,14 @@ class ApiResponse
         public bool $status = true,
         public int $status_code = 200
     ) {
+        $this->getResponse();
     }
 
-    function api_response()
+    function getResponse()
     {
         $this->emptyDataForNotAuth();
-
         $response = Response::get($this->status, $this->message, $this->data);
-
+        
         $this->status_code = 200;
         return response()->json($response, $this->status_code);
     }

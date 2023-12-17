@@ -1,16 +1,12 @@
 <?php
 
 namespace MshMsh\Loaders;
+
 use Illuminate\Support\ServiceProvider;
 
-class Views extends ServiceProvider;
+trait Views
 {
-    public function __construct()
-    {
-        $this->load();
-    }
-
-    private function load()
+    public function loadViews()
     {
         $views = glob(base_path('Modules/**/Views'));
         array_map(function ($view) {

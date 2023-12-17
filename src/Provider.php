@@ -10,6 +10,9 @@ use MshMsh\Loaders\Views;
 
 class Provider extends ServiceProvider
 {
+    use Views,
+        Routes,
+        Components;
     /**
      * Register any application services.
      *
@@ -43,19 +46,19 @@ class Provider extends ServiceProvider
         /**
          * Load routes for web , admin , api
          */
-        new Routes();
+        $this->loadRoutes();
         /**
          * Load migrations from Modules//DB;
          */
-        new Migrations();
+        $this->loadMigrationsFrom(glob(base_path("Modules/**/DB")));
         /**
          * Load views from Modules//Views;
          */
-        new Views();
+        $this->loadViews();
         /**
          * Load Components from Modules//Components
          */
-        new Components();
+        $this->loadComponents();
 
         /**
          * Set auth User model path configration 
