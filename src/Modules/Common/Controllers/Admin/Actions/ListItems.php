@@ -38,4 +38,6 @@ trait ListItems
             $this->model = $this->model->forStore();
         }
     }
+
+    public function list_builder(){}
 }
