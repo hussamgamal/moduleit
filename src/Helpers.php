@@ -83,32 +83,6 @@ if (!function_exists('admin_roles')) {
     }
 }
 
-if (!function_exists('curl_post')) {
-    function curl_post($url, $fields)
-    {
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $headers = array(
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-
-        $data = json_encode($fields);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-
-        //for debug only!
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        $resp = curl_exec($curl);
-        curl_close($curl);
-        return $resp;
-    }
-}
-
 if (!function_exists('get_select_data')) {
     function get_select_data($rows, $key = 'id', $value = 'name', $main = false)
     {
@@ -120,14 +94,6 @@ if (!function_exists('get_select_data')) {
             $arr[$row->$key] = is_object($row->$value) ? $row->$value->{app()->getLocale()} : $row->$value;
         }
         return $arr;
-    }
-}
-
-if (!function_exists('round_me')) {
-    function round_me($val, $length = 2)
-    {
-        $val = (float) sprintf('%0.2f', $val);
-        return $val < 0 ? 0 : $val;
     }
 }
 

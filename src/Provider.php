@@ -7,6 +7,8 @@ use MshMsh\Loaders\Components;
 use MshMsh\Loaders\Migrations;
 use MshMsh\Loaders\Routes;
 use MshMsh\Loaders\Views;
+use MshMsh\Middlewares\Admin;
+use MshMsh\Middlewares\Locale;
 
 class Provider extends ServiceProvider
 {
@@ -34,14 +36,19 @@ class Provider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(\Illuminate\Routing\Router $router)
     {
         /**
          * Create Modules folder if not exists
          */
+        $router->aliasMiddleware('locale', Locale::class);
+        $router->aliasMiddleware('admin', Admin::class);
+
+
         $this->publishes([
-            __DIR__ . '/Modules'   =>  base_path('Modules')
-        ]);
+            __DIR__ . '/Modules'   =>  base_path('Modules'),
+            // __DIR__ . '/Middlewares'   =>  base_path('app/Http/Middleware')
+        ], 'mshmsh-modules');
 
         /**
          * Load routes for web , admin , api
