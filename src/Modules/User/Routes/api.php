@@ -2,12 +2,13 @@
 Route::group(['namespace' => 'Api', 'middleware' => 'api'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
-    Route::post('activate', 'AuthController@activate');
-    Route::post('forget', 'AuthController@forget');
-    Route::post('reset_code', 'AuthController@reset_code');
-    Route::post('reset', 'AuthController@reset');
-    Route::post('activate', 'AuthController@activate');
-    Route::post('resend_code', 'AuthController@resend_code');
+    
+    Route::post('forget', 'PasswordController@forget');
+    Route::post('reset_code', 'PasswordController@reset_code');
+    Route::post('reset', 'PasswordController@reset');
+
+    Route::post('activate', 'ConfirmationController@activate');
+    Route::post('resend_code', 'ConfirmationController@resend_code');
 
     // Route::get('profile/{id}', 'ApiController@show');
     Route::group(['middleware' => 'auth:api'], function () {
