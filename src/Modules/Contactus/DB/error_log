@@ -1,0 +1,16 @@
+[13-Jan-2023 11:18:41 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php on line 7
+[27-Jan-2023 05:22:52 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php on line 7
+[01-Mar-2023 21:54:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php on line 7
+[16-Mar-2023 21:40:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/DB/2_0_0_0_create_contactus_table.php on line 7

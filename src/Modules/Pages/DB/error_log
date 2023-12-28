@@ -1,0 +1,16 @@
+[13-Jan-2023 11:21:16 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php on line 7
+[27-Jan-2023 05:20:51 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php on line 7
+[03-Mar-2023 14:19:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php on line 7
+[14-Mar-2023 20:42:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/DB/2_0_0_0_create_pages_table.php on line 7

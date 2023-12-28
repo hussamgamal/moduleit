@@ -1,0 +1,24 @@
+{
+    "Users": {
+        "User": [{
+                "title": "Users",
+                "link": "users.index",
+                "icon": "fas fa-users"
+            },
+            {
+                "title": "Roles & Moderators",
+                "link": "#",
+                "icon": "fas fa-users",
+                "childs": [{
+                        "title": "Roles",
+                        "link": "roles.index"
+                    },
+                    {
+                        "title": "Moderators",
+                        "link": "moderators.index"
+                    }
+                ]
+            }
+        ]
+    }
+}

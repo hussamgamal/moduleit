@@ -1,0 +1,16 @@
+[13-Jan-2023 11:19:01 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php on line 12
+[27-Jan-2023 05:23:12 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php on line 12
+[04-Mar-2023 12:35:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php on line 12
+[16-Mar-2023 21:40:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Models/Contactus.php on line 12

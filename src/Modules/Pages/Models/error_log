@@ -1,0 +1,16 @@
+[13-Jan-2023 11:21:52 UTC] PHP Fatal error:  Uncaught Error: Class "Modules\Common\Models\HelperModel" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php on line 7
+[27-Jan-2023 05:21:11 UTC] PHP Fatal error:  Uncaught Error: Class "Modules\Common\Models\HelperModel" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php on line 7
+[09-Mar-2023 18:29:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Modules\Common\Models\HelperModel' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php on line 7
+[14-Mar-2023 20:42:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Modules\Common\Models\HelperModel' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Models/Page.php on line 7

@@ -1,0 +1,60 @@
+[13-Jan-2023 11:21:05 UTC] PHP Fatal error:  Uncaught Error: Class "Modules\Common\Controllers\HelperController" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php on line 8
+[13-Jan-2023 11:21:09 UTC] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php on line 8
+[13-Jan-2023 11:21:12 UTC] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php on line 9
+[27-Jan-2023 05:18:36 UTC] PHP Fatal error:  Uncaught Error: Class "Modules\Common\Controllers\HelperController" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php on line 8
+[27-Jan-2023 05:20:46 UTC] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php on line 8
+[27-Jan-2023 05:20:48 UTC] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php on line 9
+[28-Feb-2023 02:28:48 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php on line 8
+[28-Feb-2023 02:28:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Modules\Common\Controllers\HelperController' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php on line 8
+[28-Feb-2023 02:29:06 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php on line 9
+[28-Feb-2023 19:50:01 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php on line 8
+[03-Mar-2023 09:42:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Modules\Common\Controllers\HelperController' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php on line 8
+[03-Mar-2023 15:58:18 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php on line 9
+[14-Mar-2023 20:42:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Modules\Common\Controllers\HelperController' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/AdminController.php on line 8
+[14-Mar-2023 20:42:22 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/ApiController.php on line 8
+[14-Mar-2023 20:42:23 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Controllers/WebController.php on line 9

@@ -1,0 +1,4 @@
+[16-Mar-2023 11:56:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function __() in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Views/admin/menu.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Pages/Views/admin/menu.php on line 3

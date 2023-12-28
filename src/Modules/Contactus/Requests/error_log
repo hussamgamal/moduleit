@@ -1,0 +1,16 @@
+[13-Jan-2023 11:19:22 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php on line 7
+[27-Jan-2023 05:23:55 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php on line 7
+[05-Mar-2023 02:47:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php on line 7
+[16-Mar-2023 21:40:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Requests/ContactRequest.php on line 7

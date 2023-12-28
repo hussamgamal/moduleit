@@ -1,0 +1,48 @@
+[13-Jan-2023 11:20:04 UTC] PHP Fatal error:  Uncaught Error: Class "Route" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php on line 2
+[13-Jan-2023 11:20:06 UTC] PHP Fatal error:  Uncaught Error: Class "Route" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php on line 3
+[13-Jan-2023 11:20:08 UTC] PHP Fatal error:  Uncaught Error: Class "Route" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php on line 4
+[27-Jan-2023 05:24:07 UTC] PHP Fatal error:  Uncaught Error: Class "Route" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php on line 2
+[27-Jan-2023 05:24:10 UTC] PHP Fatal error:  Uncaught Error: Class "Route" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php on line 3
+[27-Jan-2023 05:24:13 UTC] PHP Fatal error:  Uncaught Error: Class "Route" not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php on line 4
+[01-Mar-2023 09:21:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php on line 4
+[02-Mar-2023 04:02:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php on line 2
+[03-Mar-2023 05:51:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php on line 3
+[16-Mar-2023 21:40:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/admin.php on line 2
+[16-Mar-2023 21:40:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/api.php on line 3
+[16-Mar-2023 21:40:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/alqaryaalzakia/public_html/aqar_MAR/Modules/Contactus/Routes/web.php on line 4

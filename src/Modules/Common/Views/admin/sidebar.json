@@ -1,0 +1,20 @@
+{
+    "Settings": {
+        "Common": [{
+                "title": "Global Settings",
+                "link": "settings.app",
+                "icon": "fas fa-cog"
+            },
+            {
+                "title": "Visit Settings",
+                "link": "settings.visitor",
+                "icon": "fas fa-cog"
+            },
+            {
+                "title": "Contact Information",
+                "link": "settings.contacts",
+                "icon": "fas fa-phone"
+            }
+        ]
+    }
+}
