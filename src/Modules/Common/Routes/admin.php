@@ -8,8 +8,11 @@ Route::group(['namespace' => 'Admin'], function () {
 
     Route::resource('home_sections', 'SectionsController');
 
-    Route::match(['get', 'post'], 'settings', 'Settingstroller@settings')->name('settings.app');
-    Route::match(['get', 'post'], 'app_links', 'Settingstroller@app_links')->name('settings.app_links');
-    Route::match(['get', 'post'], 'contacts', 'Settingstroller@contacts')->name('settings.contacts');
-    Route::get('remove_contact', 'Settingstroller@remove_contact')->name('remove_contact');
+    Route::match(['get', 'post'], 'settings', 'SettingsController@settings')->name('settings.app');
+    Route::match(['get', 'post'], 'app_links', 'SettingsController@app_links')->name('settings.app_links');
+    Route::match(['get', 'post'], 'background', 'SettingsController@backgrounds')->name('settings.backgrounds');
+    Route::match(['get', 'post'], 'home', 'SettingsController@home')->name('settings.home');
+
+    Route::match(['get', 'post'], 'contacts', 'SettingsController@contacts')->name('settings.contacts');
+    Route::get('remove_contact', 'SettingsController@remove_contact')->name('remove_contact');
 });

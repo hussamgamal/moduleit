@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+<div class="{{ count($inputs ?? []) ? 'col-sm-8' : 'col-sm-12' }}">
     <!-- general form elements -->
     <div class="card card-primary">
         <div class="card-header">
@@ -25,7 +25,7 @@
                         class="tab-pane fade {{ $loop->iteration == 1 ? 'in active show' : '' }}">
                         <div class="row">
                             @foreach ($lang_inputs as $myname => $input)
-                                <div class="{{ count($lang_inputs) <= 2 ? 'col-sm-12' : 'col-sm-6' }}">
+                                <div class="{{ count($inputs ?? []) || count($lang_inputs ?? []) <= 2 ? 'col-sm-12' : 'col-sm-6' }}">
                                     <x-input :input="$input" :name="$myname" :model="$model" :lang="$lang_name" />
                                 </div>
                             @endforeach

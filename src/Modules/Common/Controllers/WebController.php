@@ -4,23 +4,27 @@ namespace Modules\Common\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\Areas\Models\Area;
-use Modules\Categories\Models\Category;
 use Modules\Common\Models\Setting;
 use Modules\Common\Models\Subscribe;
-use Modules\ContactReasons\Models\ContactReason;
-use Modules\OurMessages\Models\OurMessage;
+use Modules\Opinions\Models\Opinion;
 use Modules\Pages\Models\Page;
-use Modules\Projects\Models\Project;
+use Modules\Partners\Models\Partner;
 use Modules\Services\Models\Service;
 use Modules\Sliders\Models\Slider;
+use Modules\Teams\Models\Team;
 
 class WebController extends Controller
 {
 
     public function index()
     {
-        return view('welcome');
+        $sliders = Slider::sort()->get();
+        $main_services = Service::where('type' , 'main')->sort()->get();
+        $healthy_services = Service::where('type' , 'healthy')->sort()->get();
+        $team = Team::sort()->get();
+        $partners = Partner::sort()->get();
+        $opinions = Opinion::sort()->get();
+        return view('Common::home' , get_defined_vars());
         
     }
 

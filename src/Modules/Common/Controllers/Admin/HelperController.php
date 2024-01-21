@@ -33,7 +33,7 @@ class HelperController extends Controller
     protected array $queryParams = [];
     protected array $moreActions = [];
     protected array $treeView = [];
-    protected string $roleName;
+    protected string $roleName = "";
     protected string $searchable;
     protected $formRequest;
 }

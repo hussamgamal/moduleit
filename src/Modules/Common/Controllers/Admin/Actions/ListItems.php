@@ -6,7 +6,6 @@ trait ListItems
 {
     protected function index()
     {
-
         if (!isset($this->rows)) {
             $this->rows = $this->model;
         }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserDevicesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateUserDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_devices', function (Blueprint $table) {
+        Schema::create('user_notifications', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->default('global');
             $table->unsignedBigInteger('user_id')->index()->nullable();
-            $table->string('device_type');
-            $table->string('device_token');
+            $table->text('title')->nullable();
+            $table->text('text')->nullable();
+            $table->json('info')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateUserDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_devices');
+        Schema::dropIfExists('user_notifications');
     }
-}
+};

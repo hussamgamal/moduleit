@@ -11,22 +11,23 @@ class AdminController extends HelperController
 {
     public function __construct()
     {
-        $this->roleName = "User";
+        $this->role_name = "User";
 
         $this->model = new User;
         $this->rows = User::whereNull('role_id');
 
         $this->title = "Users";
         $this->name = 'users';
+    }
+
+    public function list_builder()
+    {
         $this->list = [
             'name' => 'الاسم',
             'mobile' => 'رقم الجوال',
             'email' => 'البريد الإلكتروني',
         ];
-        
-
         $this->switches['status'] = route('admin.users.active_status');
-
     }
 
     public function form_builder()
@@ -36,8 +37,8 @@ class AdminController extends HelperController
             'mobile' => ['title' => 'رقم الجوال'],
             'email' => ['title' => 'البريد الإلكتروني'],
             'password' => ['title' => 'كلمة المرور', 'type' => 'password', 'empty' => 1],
-            'status' => ['title' => 'مفعل', 'type' => 'select', 'values' => boolean_vals()],
-            'image' => ['title' => '', 'type' => 'image', 'empty' => 1]
+            // 'status' => ['title' => 'مفعل', 'type' => 'select', 'values' => boolean_vals()],
+            // 'image' => ['title' => '', 'type' => 'image', 'empty' => 1]
         ];
     }
 
@@ -56,4 +57,19 @@ class AdminController extends HelperController
         return api_response('success', '', ['status' => 1]);
     }
 
+
+    public function login(Request $request)
+    {
+        if ($request->isMethod('GET')) {
+            return view('User::admin.login');
+        }
+        $data = $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        if (auth('admin')->attempt($data, true)) {
+            return redirect()->to('/admin');
+        }
+        return back()->with('error', "بيانات الدخول خاطئة");
+    }
 }

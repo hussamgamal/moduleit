@@ -35,8 +35,7 @@
 
 
         @include('Common::admin.layout.header')
-            @include('Common::admin.layout.side')
-        
+        @include('Common::admin.layout.side')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" id="mycontent">
@@ -114,7 +113,8 @@
     <script src="{{ url('assets/admin') }}/plugins/moment/moment.min.js"></script>
     <script src="{{ url('assets/admin') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhrb6fzdSQde8YvPysj152NMMtRfBmAiE&sensor=false&libraries=places&lang=ar">
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhrb6fzdSQde8YvPysj152NMMtRfBmAiE&sensor=false&libraries=places&lang=ar">
     </script>
     <script>
         $('body').on('change', '.change_status', function() {

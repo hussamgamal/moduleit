@@ -1,81 +1,67 @@
-<!DOCTYPE html>
-<html>
+@extends('Common::index')
+@section('title', __('Login'))
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ app_setting('title') }} | تسجيل الدخول</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('page')
+    <main class="registeration_page__">
+        <div class="container">
+            <div class="main_form__ default_form__">
+                <h2 class="registeration_title site_head__ center__">@lang('Login') </h2>
+                <p class="registeration_sub_title center__">
+                    @lang('Select the account type and log in')
+                </p>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ url('assets/admin') }}/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ url('assets/admin') }}/css/adminlte.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: "Cairo";
-        }
-    </style>
-</head>
-
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ url('/') }}"><b>{{ app_setting('title') }}</b></a>
-        </div>
-        <!-- /.login-logo -->
-        @if (session()->has('error'))
-            <div style="font-size:13px; text-align:center" class="alert alert-danger">{{ session('error') }}</div>
-        @endif
-        <div class="card">
-            <div class="card-header">
-                <p class="login-box-msg">تسجيل الدخول</p>
-            </div>
-            <div class="card-body login-card-body">
-
-                <form method="post">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
-                    <div class="input-group mb-3">
-                        <input name="email" type="email" required class="form-control" placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                    <div class="input_group__">
+                        <select name="type" class="select__ selectpicker with_icon__" id="sign_in_select__">
+                            <option inputs_element_class="gest_wrapper" value="visitor" selected>@lang('Visitor Account') </option>
+                            <option inputs_element_class="owner_wrapper" value="renter_owner">@lang('Renter - Owner Account')</option>
+                        </select>
+                    </div>
+
+                    <div class="gest_wrapper">
+                        <div class="input_group__">
+                            <input class="input__" value="{{ old('mobile') }}" type="text" name="mobile"
+                                placeholder="@lang('Mobile')" />
+                            @if ($errors->has('mobile'))
+                                <span class="error">{{ $errors->get('mobile')[0] }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="owner_wrapper">
+                        <div class="input_group__">
+                            <input class="input__" type="text" name="name" placeholder="@lang('Username')" />
+                        </div>
+                        <div class="input_group__">
+                            <div class="password-group-om icon_input_group password__">
+                                <input class="input__" type="password" name="password" placeholder="@lang('Password')" />
+
+                                <button class="show-password-button-om">
+                                    <figure class="figure__">
+                                        <svg class="icon__" id="noun-eye-1219080" xmlns="http://www.w3.org/2000/svg"
+                                            width="20.139" height="13.264" viewBox="0 0 20.139 13.264">
+                                            <path id="Path_59344" data-name="Path 59344"
+                                                d="M118.658,120.03c-4.082-4.646-7.758-5.34-9.584-5.34s-5.5.694-9.584,5.34a1.961,1.961,0,0,0,0,2.584c4.082,4.646,7.758,5.34,9.584,5.34s5.5-.694,9.584-5.34a1.961,1.961,0,0,0,0-2.584Zm-.845,1.842c-1.31,1.489-4.783,4.958-8.739,4.958s-7.43-3.469-8.739-4.958a.836.836,0,0,1,0-1.1c1.31-1.49,4.783-4.958,8.739-4.958s7.429,3.469,8.739,4.958a.836.836,0,0,1,0,1.1Z"
+                                                transform="translate(-99.005 -114.69)" fill="#818181" />
+                                            <path id="Path_59345" data-name="Path 59345"
+                                                d="M248.942,174.16a4.257,4.257,0,1,0,3.014,1.239,4.246,4.246,0,0,0-3.014-1.239Zm0,7.369a3.132,3.132,0,1,1,2.22-.909,3.122,3.122,0,0,1-2.22.909Z"
+                                                transform="translate(-238.873 -171.774)" fill="#818181" />
+                                        </svg>
+                                    </figure>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" required class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
+
+                    <div class="input_group__">
+                        <input class="submit-button__ full_width__ input__" type="submit" value="@lang('Login')" />
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" name="remember" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <hr>
-                        <br>
-                        <!-- /.col -->
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">تسجيل الدخول</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
+
+                    <a class="link__ submit-button__ sign_up_link__" href="{{ route('register') }}"
+                        id="sign_in_page_new_account_link__">@lang('Create new account') </a>
                 </form>
             </div>
-            <!-- /.login-card-body -->
         </div>
-    </div>
-    <!-- /.login-box -->
-</body>
-
-</html>
+    </main>
+@stop

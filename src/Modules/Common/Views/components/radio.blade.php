@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label for="exampleInputEmail1">{{ $mytitle }}</label>
+    <label>{{ $mytitle }}</label>
     @foreach($input['values'] as $key => $value)
     <div class="icheck-primary d-inline">
         <input {{ $required }} type="radio" id="radioPrimary{{ $key }}" name="{{ $name }}">

@@ -6,9 +6,14 @@
                 "icon": "fas fa-cog"
             },
             {
-                "title": "Visit Settings",
-                "link": "settings.visitor",
+                "title": "Home Settings",
+                "link": "settings.home",
                 "icon": "fas fa-cog"
+            },
+            {
+                "title": "Background Settings",
+                "link": "settings.backgrounds",
+                "icon": "fas fa-image"
             },
             {
                 "title": "Contact Information",

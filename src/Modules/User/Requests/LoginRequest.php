@@ -24,8 +24,14 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' =>  'required',
-            'password'  =>  'required'
+            'mobile' =>  ['nullable', 'regex:/^05[0-9]{8}$/'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'mobile.regex' => __('mobile number must be saudi number')
         ];
     }
 }

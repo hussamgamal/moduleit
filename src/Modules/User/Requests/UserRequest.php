@@ -25,8 +25,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'required',
-            'email' => 'nullable|sometimes|email'
+            'role_id'   =>  'required',
+            'name'    =>  'required',
+            'email'   =>  'required|email|unique:users,email,' . request()->url('id'),
+            'mobile' =>  'nullable|unique:users,mobile,' . request()->url('id'),
+            'image' => 'nullable'
         ];
     }
 }
