@@ -11,7 +11,7 @@ class ModeratorsController extends HelperController
 {
     public function __construct()
     {
-        $this->role_name = "Roles";
+        $this->roleName = "Roles";
 
         $this->model = new User;
         $this->rows = User::whereHas('role')->where('id', '!=', 1);

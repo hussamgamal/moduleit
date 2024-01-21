@@ -1,9 +1,6 @@
 @extends('Common::admin.layout.page')
 @section('page')
     <form action="{{ $action }}" method="post" enctype="multipart/form-data" class="action_form" novalidate>
-        @if (auth('stores')->check())
-            <input type="hidden" name="company_id" value="{{ auth('stores')->user()->id }}">
-        @endif
         @foreach (request()->query() as $key => $val)
             <input type="hidden" name="{{ $key }}" value="{{ $val }}">
         @endforeach

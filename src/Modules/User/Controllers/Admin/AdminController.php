@@ -11,7 +11,7 @@ class AdminController extends HelperController
 {
     public function __construct()
     {
-        $this->role_name = "User";
+        $this->roleName = "User";
 
         $this->model = new User;
         $this->rows = User::whereNull('role_id');

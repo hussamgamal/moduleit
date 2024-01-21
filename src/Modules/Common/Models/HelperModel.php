@@ -125,7 +125,6 @@ class HelperModel extends Model
 
     public function model_search($model, $rows , $searchable = null)
     {
-        $queries = request()->query();
         foreach (request()->query() as $key => $value) {
             if (in_array($key, $searchable ?? $model->getFillable())) {
                 $rows = $rows->when(request()->has($key), function ($query) use ($key, $value) {

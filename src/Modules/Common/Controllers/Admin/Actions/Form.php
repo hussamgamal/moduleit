@@ -15,9 +15,6 @@ trait Form{
 
     protected function edit($id)
     {
-        if (auth('stores')->check()) {
-            $this->model = $this->model->forStore();
-        }
         $this->model = $this->model->findOrFail($id);
         $this->form_builder();
         $this->method = 'put';

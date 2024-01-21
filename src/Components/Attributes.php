@@ -6,7 +6,7 @@ trait Attributes
 {
     public function inputTitle()
     {
-        $this->mytitle = app()->getLocale() == 'ar' ? $this->input['title'] : ucfirst(str_replace('[]', '', $this->name));
+        return app()->getLocale() == 'ar' ? $this->input['title'] : ucfirst(str_replace('[]', '', $this->name));
     }
 
     public function isRequired($component)

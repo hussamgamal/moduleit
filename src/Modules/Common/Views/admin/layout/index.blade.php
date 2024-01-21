@@ -35,12 +35,11 @@
 
 
         @include('Common::admin.layout.header')
-        @if (!auth('stores')->check())
             @include('Common::admin.layout.side')
-        @endif
+        
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" id="mycontent" @if (auth('stores')->check()) style="margin:0px" @endif>
+        <div class="content-wrapper" id="mycontent">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">

@@ -19,8 +19,8 @@ class Admin extends Middleware
     {
         $role = $gaurds[0] ?? null;
         
-        $user = auth()->user();
-        if (auth()->check() && auth()->user()->role) {
+        $user = auth('admin')->user();
+        if (auth('admin')->check() && auth('admin')->user()->role) {
             $route_name = Route::currentRouteName();
             if (in_array($route_name, ['admin.home', 'admin.load'])) {
                 return $next($request);
@@ -30,7 +30,7 @@ class Admin extends Middleware
                 return $next($request);
             }
         }
-        auth()->logout();
-        return redirect()->to('admin_login')->with('error', 'ليس لديك تصريح للدخول لهذة الصفحة');
+        auth('admin')->logout();
+        return redirect()->to('admin/login')->with('error', 'ليس لديك تصريح للدخول لهذة الصفحة');
     }
 }

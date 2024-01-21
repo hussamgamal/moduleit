@@ -29,7 +29,7 @@ class Sidebar
         $links = env('CacheSidebar') ? Cache::get('cachedSidebar') : null;
         if (!$links) {
             $links = self::getLinks();
-            $roles = auth()->user()->role->roles ?? [];
+            $roles = auth('admin')->user()->role->roles ?? [];
             foreach ($links as $title => $sub_links) {
                 foreach ($sub_links as $ken => $len) {
                     if (!in_array($ken, $roles)) {
