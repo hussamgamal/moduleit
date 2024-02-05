@@ -13,7 +13,7 @@ class SectionsController extends HelperController
         $this->title = "Home Content";
         $this->name =  'home_sections';
         $this->list = ['type' => 'النوع', 'title' => 'العنوان'];
-        $this->lang_inputs = [
+        $this->langInputs = [
             'title'  =>  ['title' => 'العنوان'],
             'content' => ['title' =>  'الحتوي', 'type'  =>  'editor']
         ];

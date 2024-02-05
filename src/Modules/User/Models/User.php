@@ -2,12 +2,8 @@
 
 namespace Modules\User\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Modules\Aqars\Models\AddRequest;
-use Modules\Aqars\Models\Aqar;
-use Modules\Cards\Models\Card;
 use Modules\Common\Models\HelperModel;
 use Modules\Permits\Models\Contractors;
 use Modules\Permits\Models\Visitor;
@@ -22,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'type'
+        'name', 'email', 'password', 'mobile', 'type', 'status'
     ];
 
     /**
@@ -99,28 +95,9 @@ class User extends Authenticatable
         return $this->mynotifications->whereNotIn('notification_id', $seen)->count();
     }
 
-    public function cards()
-    {
-        return $this->hasMany(Card::class);
-    }
 
-    public function payments()
+    public function model_search($model, $rows, $searchable = null)
     {
-        return $this->hasMany(Payment::class);
-    }
-
-    public function payment_transfer()
-    {
-        return $this->hasMany(PaymentTransfer::class);
-    }
-
-    public function units()
-    {
-        return $this->hasMany(Aqar::class);
-    }
-
-    public function addAqarRequest()
-    {
-        return $this->hasMany(AddRequest::class);
+        return (new HelperModel())->model_search($model, $rows, $searchable);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace MshMsh\Modules\Common\Controllers\Admin\Actions;
+namespace Modules\Common\Controllers\Admin\Actions;
 
 trait Helpers
 {

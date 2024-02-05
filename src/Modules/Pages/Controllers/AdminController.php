@@ -2,7 +2,7 @@
 
 namespace Modules\Pages\Controllers;
 
-use Modules\Common\Controllers\HelperController;
+use Modules\Common\Controllers\Admin\HelperController;
 use Modules\Pages\Models\Page;
 
 class AdminController extends HelperController
@@ -14,7 +14,7 @@ class AdminController extends HelperController
         $this->name =  'pages';
         $this->list = ['title' => 'الاسم'];
 
-        $this->lang_inputs = [
+        $this->langInputs = [
             'title' => ['title' =>  'عنوان الصفحة'],
             'content' => ['title' =>  'محتوي الصفحة', 'type' => 'editor']
         ];

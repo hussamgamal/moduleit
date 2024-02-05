@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>{{ $mytitle }}</label>
+    <label for="exampleInputEmail1">{{ $mytitle }}</label>
     @if(isset($input['values']))
         @foreach($input['values'] as $key => $value)
         <div class="icheck-primary d-inline">

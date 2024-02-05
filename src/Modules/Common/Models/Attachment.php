@@ -14,7 +14,7 @@ class Attachment extends Model
         'thumbnail'
     ];
 
-    protected $hidden = ['created_at', 'updated_at', 'attached_type', 'attached_id'];
+    protected $hidden = ['created_at', 'updated_at' , 'attached_type', 'attached_id'];
 
     protected $appends = ['file_type'];
 
@@ -22,21 +22,21 @@ class Attachment extends Model
     {
         if (is_uploaded_file($file)) {
             $folder = $this->table ?? strtolower($this->model) ?? 'images';
-            $this->attributes['path'] = $path = 'storage/' . $file->store($folder);
-            // $this->attributes['type'] = getFileType($path);
-            // $this->attributes['path'] = $file->storeAs("storage/" . $folder, time() . '-' . urlencode($file->getClientOriginalName()));
+            $this->attributes['path'] = $path = $file->store("uploads/" . $folder);
+            $this->attributes['type'] = getFileType($path);
+            // $this->attributes['path'] = $file->storeAs("uploads/" . $folder, time() . '-' . urlencode($file->getClientOriginalName()));
         }
     }
 
     public function getPathAttribute($file)
     {
-        return $file ? url($file) : url('placeholders/image.png');
+        return $file ? url($file) : url('assets/placeholders/image.png');
     }
 
-    // public function getFileTypeAttribute()
-    // {
-    //     return getFileType($this->path);
-    // }
+    public function getFileTypeAttribute()
+    {
+        return getFileType($this->path);
+    }
 
     public function getThumbnailAttribute($thumbnailPath)
     {

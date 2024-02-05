@@ -1,6 +1,25 @@
 {
     "Users": {
-        "User": [
+        "User": [{
+                "title": "Users",
+                "link": "#",
+                "icon": "fas fa-users",
+                "childs": [{
+                        "title": "Active",
+                        "link": "users.index",
+                        "query": {
+                            "status": 1
+                        }
+                    },
+                    {
+                        "title": "Not active",
+                        "link": "users.index",
+                        "query": {
+                            "status": 0
+                        }
+                    }
+                ]
+            },
             {
                 "title": "Roles & Moderators",
                 "link": "#",

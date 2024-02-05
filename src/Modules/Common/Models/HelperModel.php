@@ -66,7 +66,7 @@ class HelperModel extends Model
 
     public function getImageAttribute($image)
     {
-        return $image ? url($image) : url('placeholders/' . $this->table . '.png');
+        return $image ? url($image) : url('assets/placeholders/' . $this->table . '.png');
     }
 
     public function setBannerAttribute($banner)
@@ -76,7 +76,7 @@ class HelperModel extends Model
 
     public function getBannerAttribute($banner)
     {
-        return $banner ? url($banner) : url('placeholders/banner.png');
+        return $banner ? url($banner) : url('assets/placeholders/banner.png');
     }
 
 

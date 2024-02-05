@@ -3,30 +3,28 @@
 
 @section('page')
     <main class="registeration_page__">
-
         <div class="container">
-
             <div class="main_form__ default_form__">
-                <figure class="form_image__ small_size_image__  figure__ asp-om">
-                    <img class="img-om" src="{{ url('assets/web') }}/images/shapes/forget_password.svg" alt=".."
-                        height="" />
-                </figure>
-                <div class="form_title__ centered ">
-                    <h1 class="title__ title_first__">@lang('Forget password?')</h1>
-                    <p class="parg__ not_full_width__">
-                        @lang('Enter your mobile to send reset code')
-                    </p>
-                </div>
-                <form action="" method="POST">
-                    @csrf
-                    <div class="input_group__">
-                        <div class="icon_input_group phone__">
-                            <input class="input__" type="text" required name="mobile" placeholder="@lang('Mobile')" />
-                        </div>
+                <form action="">
+                    <figure class="figure__ register_figure__ loading-omd center">
+                        <img class="lazy-omd img-om" data-src="assets/images/register/forget_password.png" alt="...">
+                    </figure>
+                    <div class="registeration_head_wrapper__">
+                        <h2 class="registeration_title center__">@lang('Do you forget your password?')</h2>
+                        <p class="registeration_sub_title center__">
+                            @lang('Enter your mobile number to send the verification code')
+                        </p>
                     </div>
-                    <button class="submit-button__  full_width__">
-                        @lang('Send Reset Code')
-                    </button>
+
+                    <div class="input_group__ input_group_with_icon__ phone_input_group__">
+                        <input class="input__" type="text" placeholder="@lang('Mobile')" name="mobile" required />
+                    </div>
+
+
+                    <div class="input_group__">
+                        <input class="submit-button__ full_width__ input__" type="submit" value="@lang('Send Reset Code')" />
+                    </div>
+
                 </form>
             </div>
         </div>

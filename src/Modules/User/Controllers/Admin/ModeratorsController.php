@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
 use Modules\User\Models\Role;
-use Modules\User\Requests\AdminRequest;
 
 class ModeratorsController extends HelperController
 {
@@ -23,7 +22,7 @@ class ModeratorsController extends HelperController
         $this->formRequest = AdminRequest::class;
     }
 
-    public function list_builder()
+    public function listBuilder()
     {
         $this->list = [
             'name' => 'الاسم',
@@ -32,7 +31,7 @@ class ModeratorsController extends HelperController
         $this->switches['status'] = route('admin.users.active_status');
     }
 
-    public function form_builder()
+    public function formBuilder()
     {
         $roles = Role::pluck('name', 'id');
         $this->inputs = [

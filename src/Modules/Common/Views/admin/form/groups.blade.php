@@ -1,3 +1,4 @@
+@php $lang_input_col = count($inputs) <= 2 || (isset($input['type']) && in_array($input['type'], ['editor', 'textarea'])) ? 'col-sm-12' : 'col-sm-6' @endphp
 @foreach ($group_inputs as $group_title => $inputs)
     <!-- general form elements -->
     <div class="card card-success group-inputs">
@@ -8,7 +9,7 @@
             <div class="row">
                 @foreach ($inputs as $myname => $input)
                     <div
-                        class="{{ count($inputs) <= 2 || (isset($input['type']) && in_array($input['type'], ['editor', 'textarea'])) ? 'col-sm-12' : 'col-sm-3' }}">
+                        class="{{ $lang_input_col }}">
                         <x-input :input="$input" :name="$myname" :model="$model" lang="all" />
                     </div>
                 @endforeach

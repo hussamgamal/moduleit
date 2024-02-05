@@ -1,46 +1,42 @@
 @extends('Common::index')
-@section('title', __('Activate Your Account'))
+@section('title', __('Confirmation Code'))
 
 @section('page')
-    <main class="registeration_page__ verification_page__ default_page__" id="verification_page__">
+    <main class="registeration_page__">
         <div class="container">
-            <div class="default_form__ small_padding">
-                <div class="form_title__ centered">
-                    <h1 class="registeration_title center__">@lang('Confirmation Code')</h1>
-                    <p class="parg__ verification_parag__">
-                        @lang('Type the 6-digit verification code that was sent to you via your mobile number')
-                    </p>
-                    <p class="number_parag__">{{ $mobile }}</p>
-                </div>
-                <form method="POST" @if($route = request('route')) action="{{ $route }}" @endif>
-                    @csrf
+            <div class="main_form__ default_form__">
+                <form class="default_form__">
+                    <figure class="figure__ register_figure__ loading-omd center">
+                        <img class="lazy-omd img-om" data-src="assets/images//register/register_verification.png"
+                            alt="..." />
+                    </figure>
+                    <div class="registeration_head_wrapper__">
+                        <h2 class="registeration_title center__">@lang('Confirm Mobile')</h2>
+                        <p class="registeration_sub_title center__">
+                            @lang('Your verification code has been sent, please check your phone and re-type the code to retrieve')
+                        </p>
+                    </div>
+
                     <div class="input_group__">
                         <div class="input-group-om code_shapes__">
-                            <input placeholder="0" name="code[]" class="code-input" required />
-                            <input placeholder="0" name="code[]" class="code-input" required />
-                            <input placeholder="0" name="code[]" class="code-input" required />
-                            <input placeholder="0" name="code[]" class="code-input" required />
-                            <input placeholder="0" name="code[]" class="code-input" required />
-                            <input placeholder="0" name="code[]" class="code-input" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
                         </div>
                     </div>
-                    <div class="final_buttons_wrapper__">
-                        <button class="submit-button__ verification_submit_button full_width__">
-                            @lang('Verify')
-                        </button>
+                    <div class="input_group__">
+                        <input class="submit-button__ full_width__ input__" type="submit" value="@lang('Confirm')" />
                     </div>
-                    <div class="verification_timer_wrapper__">
-                        <span class="timer__ countdown" timerValueInSeconds="120"></span>
-                        <div class="timer_progress_wrapper">
-                            <span class="progress__"></span>
-                        </div>
 
-                        {{-- <h4 class="title__">@lang('Verification code not sent?')</h4>
-                        <button disabled id="send_code_again_button__"
-                            class="submit-button__ sign_up_link__ send_code_again_button__">
-                            @lang('Send code again')
-                        </button> --}}
-                    </div>
+                    {{-- <div class="input_group__">
+                        <button id="send_code_again_button__"
+                            class="link__ submit-button__ sign_up_link__ send_code_again_button__">
+                            <img class="icon__" src="{{ url('assets/web') }}/images/shapes/send_code_again_btn_icon.svg" alt="..." />
+                            @lang('Resend code')
+                        </button>
+                    </div> --}}
                 </form>
             </div>
         </div>

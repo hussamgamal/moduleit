@@ -8,7 +8,7 @@
             {{ method_field('put') }}
         @endif
         @csrf
-        @if (isset($lang_inputs) && count($lang_inputs))
+        @if (isset($langInputs) && count($langInputs))
             <div class="row">
 
                 @include('Common::admin.form.lang_inputs')

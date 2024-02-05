@@ -30,14 +30,14 @@ class Setting extends Model
                 if (is_array($val)) {
                     $rows[$lang] = json_encode($val);
                 } elseif (is_uploaded_file($val)) {
-                    $rows[$lang] = "storage/" . $val->store('settings');
+                    $rows[$lang] = 'storage/' . $val->store('settings');
                 } else {
                     $rows[$lang] = $val;
                 }
             }
             $value = json_encode($rows);
         } elseif (is_uploaded_file($value)) {
-            $value = "storage/" . $value->store('settings');
+            $value = 'storage/' . $value->store('settings');
         }
         if ($value) {
             $this->attributes['value'] = $value;
@@ -57,11 +57,11 @@ class Setting extends Model
 
     public function setImageAttribute($image)
     {
-        $this->attributes['image'] = "storage/" . $image->store("settings");
+        $this->attributes['image'] = 'storage/' . $image->store("settings");
     }
 
     public function getImageAttribute($image)
     {
-        return $image ? url($image) : url('placeholders/icon.png');
+        return $image ? url($image) : url('assets/placeholders/icon.png');
     }
 }

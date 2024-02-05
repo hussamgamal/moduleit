@@ -11,34 +11,69 @@ class AdminController extends HelperController
 {
     public function __construct()
     {
-        $this->role_name = "User";
-
         $this->model = new User;
-        $this->rows = User::whereNull('role_id');
+
+        $this->role_name = "User";
 
         $this->title = "Users";
         $this->name = 'users';
+
+        $this->moreActions[] = 'admin_flag';
     }
 
-    public function list_builder()
+    public function listBuilder()
     {
         $this->list = [
+            'code' => 'الكود',
             'name' => 'الاسم',
             'mobile' => 'رقم الجوال',
+            // 'activation_code' => 'كود التفعيل'
             'email' => 'البريد الإلكتروني',
         ];
+
+
         $this->switches['status'] = route('admin.users.active_status');
+
+        $this->links = [
+            [
+                'title' => 'Orders',
+                'icon' => 'fa-th-list',
+                'url' => route('admin.orders.index'),
+                'key' => 'user_id',
+                'type' => 'success',
+            ],
+            [
+                'title' => 'Added days',
+                'icon' => 'fa-plus',
+                'url' => route('admin.added_days'),
+                'key' => 'user_id',
+                'type' => 'primary',
+            ],
+        ];
     }
 
-    public function form_builder()
+
+    public function admin_flag($model)
     {
+        if ($model->created_at >= date('Y-m-d H:i:s', strtotime('-1 minute'))) {
+            $model->update(['added_from' => 'admin']);
+        }
+    }
+
+    public function formBuilder()
+    {
+        $areas = [];
+        $rows = Area::get();
+        foreach ($rows as $row) {
+            $areas[$row->id] = $row->name->{app()->getLocale()};
+        }
         $this->inputs = [
             'name' => ['title' => 'الاسم '],
             'mobile' => ['title' => 'رقم الجوال'],
-            'email' => ['title' => 'البريد الإلكتروني'],
+            'email' => ['title' => 'البريد الإلكتروني', 'empty' => 1],
             'password' => ['title' => 'كلمة المرور', 'type' => 'password', 'empty' => 1],
-            // 'status' => ['title' => 'مفعل', 'type' => 'select', 'values' => boolean_vals()],
-            // 'image' => ['title' => '', 'type' => 'image', 'empty' => 1]
+            // 'status' => ['title' => 'الحالة', 'type' => 'hidden', 'value' => request('status', 1)],
+            'image' => ['title' => 'الصورة', 'type' => 'image', 'empty' => 1],
         ];
     }
 
@@ -50,13 +85,29 @@ class AdminController extends HelperController
         } else {
             $status = 1;
             if ($user->type == 'provider' && $device = $user->device) {
-                send_fcm([$device->token], $device->platform, __('Your account activated as provider'), 'provider', $user->id, 'provider');
+                send_fcm([$device->device_token], $device->device_type, __('Your account activated as provider'), 'provider', $user->id, 'provider');
             }
         }
         $user->update(['status' => $status]);
         return api_response('success', '', ['status' => 1]);
     }
 
+    public function address()
+    {
+        $user = User::findOrFail(request('user_id'));
+        $address = $user->addresses()->latest()->first();
+        $data = [
+            'age' => $address->info['age'] ?? '',
+            'height' => $address->info['height'] ?? '',
+            'weight' => $address->info['weight'] ?? '',
+            'gender' => $address->info['gender'] ?? '',
+            'address' => $address->address ?? [],
+            'address_area_id' => $address->area_id ?? '',
+            'area_id' => $address->area->area_id ?? '',
+            'mobile' => $user->mobile
+        ];
+        return response()->json($data);
+    }
 
     public function login(Request $request)
     {

@@ -10,7 +10,6 @@
             <div class="card-body">
                 <table class="table table-striped table-bordered">
                     <thead>
-                        {{-- <th>@lang('Icon')</th> --}}
                         <th>@lang('Type')</th>
                         <th>@lang('Value')</th>
                         <th>@lang('Delete')</th>
@@ -18,9 +17,6 @@
                     <tbody>
                         @foreach ($contacts as $contact)
                             <tr>
-                                {{-- <td>
-                                    <x-input :input="$contact" name="image[]" :model="$contact" lang="all" />
-                                </td> --}}
                                 <td>
                                     <select name="key[]" class="form-control" id="">
                                         @foreach (contact_types() as $key => $val)
@@ -39,9 +35,6 @@
                     </tbody>
                     <tfoot>
                         <tr class="contactTr">
-                            {{-- <td>
-                                <x-input :input="$model" name="image[]" :model="$model" lang="all" />
-                            </td> --}}
                             <td>
                                 <select name="key[]" class="form-control" id="">
                                     @foreach (contact_types() as $key => $val)

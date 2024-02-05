@@ -4,28 +4,34 @@ namespace Modules\Common\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Areas\Models\Area;
+use Modules\Categories\Models\Category;
 use Modules\Common\Models\Setting;
 use Modules\Common\Models\Subscribe;
-use Modules\Opinions\Models\Opinion;
+use Modules\ContactReasons\Models\ContactReason;
+use Modules\Features\Models\Feature;
+use Modules\Menus\Models\Menu;
+use Modules\OurMessages\Models\OurMessage;
 use Modules\Pages\Models\Page;
 use Modules\Partners\Models\Partner;
+use Modules\Plans\Models\Plan;
+use Modules\Projects\Models\Project;
 use Modules\Services\Models\Service;
 use Modules\Sliders\Models\Slider;
-use Modules\Teams\Models\Team;
 
 class WebController extends Controller
 {
 
     public function index()
     {
-        $sliders = Slider::sort()->get();
-        $main_services = Service::where('type' , 'main')->sort()->get();
-        $healthy_services = Service::where('type' , 'healthy')->sort()->get();
-        $team = Team::sort()->get();
+        $plans = Plan::sort()->get();
+        $menus = Menu::sort()->get();
+        $page = $about = Page::where('type' , 'about')->first();
+        $features = Feature::sort()->get();
         $partners = Partner::sort()->get();
-        $opinions = Opinion::sort()->get();
-        return view('Common::home' , get_defined_vars());
-        
+
+        $title = __('Home');
+        return view("Common::web.home.index", get_defined_vars());
     }
 
     public function policy()

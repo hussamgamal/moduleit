@@ -1,11 +1,12 @@
 <?php
 
-namespace MshMsh\Modules\Common\Controllers\Admin\Actions;
+namespace Modules\Common\Controllers\Admin\Actions;
 
 trait ListItems
 {
     protected function index()
     {
+
         if (!isset($this->rows)) {
             $this->rows = $this->model;
         }
@@ -14,7 +15,7 @@ trait ListItems
 
         $this->check_user_roles();
 
-        $this->list_builder();
+        $this->listBuilder();
 
         $this->rows = $this->rows->latest()->paginate(25);
 
@@ -32,7 +33,7 @@ trait ListItems
         }
     }
 
-    public function list_builder()
+    public function listBuilder()
     {
     }
 

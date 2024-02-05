@@ -1,17 +1,17 @@
-@extends('Common::index')
-@section('title', __('Change Password'))
+@extends('User::index')
 
-@section('page')
-    <main class="registeration_page__">
+@section('userpage')
+    <main class="default_page__">
         <div class="container">
-            <div class="main_form__ default_form__">
-                <div class="form_title__ centered">
-                    <h1 class="title__ title_first__">@lang('Change Password')</h1>
-                    <p class="parg__">@lang('You can change the password for your account')</p>
+            <div class="page_head_wrapper flex_display">
+                <div class="title_wrapper">
+                    <h1 class="page_main_title__">@lang('Change Password')</h1>
+                    <p class="page_sub_title__">@lang('You can change your account password')</p>
                 </div>
-                <form action="{{ route('password.change') }}" method="POST">
-                    @csrf
-                    <div class="input_group__">
+            </div>
+            <div class="  modify_data_form__ ">
+                <form action="register_verification_code.html">
+                    <div class="input_group__ input_group_with_icon__ password_input_group__">
                         <div class="password-group-om icon_input_group password__">
                             <input class="input__" type="password" name="old_password" required
                                 placeholder="@lang('Current Password')" />
@@ -31,12 +31,16 @@
                             </button>
                         </div>
                     </div>
-                    <a href="{{ route('password.forget') }}" class="forget_password_link__">@lang('Forget password?')</a>
 
-                    <div class="input_group__">
+                    <a href="{{ route('change_password') }}" class="forget_password_link__">
+                        @lang('Did you forget your password?')
+                        <img class="icon__" src="{{ url('assets/web') }}/images/shapes/forget_password_link_arrow.svg"
+                            alt="...">
+                    </a>
+
+                    <div class="input_group__ input_group_with_icon__ password_input_group__">
                         <div class="password-group-om icon_input_group password__">
-                            <input class="input__" type="password" name="password" required
-                                placeholder="@lang('New Password')" />
+                            <input class="input__" type="password" name="password" placeholder="@lang('New Password')" />
 
                             <button class="show-password-button-om">
                                 <figure class="figure__">
@@ -53,9 +57,9 @@
                             </button>
                         </div>
                     </div>
-                    <div class="input_group__">
+                    <div class="input_group__ input_group_with_icon__ password_input_group__">
                         <div class="password-group-om icon_input_group password__">
-                            <input class="input__" type="password" name="password_confirmation"
+                            <input class="input__" type="password" required name="password_confirmation"
                                 placeholder="@lang('New Password Confirmation')" />
 
                             <button class="show-password-button-om">
@@ -74,7 +78,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="submit-button__ full_width__">
+                    <button class="submit-button__ full_width__ modify_my_data_button">
                         @lang('Change Password')
                     </button>
                 </form>

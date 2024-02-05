@@ -11,10 +11,9 @@ class ApiController extends Controller
     public function index($id = null)
     {
         if ($id) {
-            $pages['page'] = Page::where('id', $id)->orWhere('type', $id)->first();
-            $pages['socials'] = socials();
+            $pages = Page::where('id' , $id)->orWhere('type' , $id)->first();
         } else {
-            $pages = Page::where('type', '!=', 'commission')->get(['id', 'title', 'image']);
+            $pages = Page::get(['id', 'title', 'image']);
         }
         return api_response('success', '', $pages);
     }
