@@ -8,10 +8,11 @@
     }],
     "autoload": {
         "psr-4": {
-            "MshMsh\\": "src"
+            "MshMsh\\": "src",
+            "Modules\\": "Modules"
         },
         "files": [
-            "Modules/helpers.php"
+            "src/Helpers.php"
         ]
     },
     "extra": {
