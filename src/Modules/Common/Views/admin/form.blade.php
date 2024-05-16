@@ -1,9 +1,6 @@
 @extends('Common::admin.layout.page')
 @section('page')
     <form action="{{ $action }}" method="post" enctype="multipart/form-data" class="action_form" novalidate>
-        @if (auth('stores')->check())
-            <input type="hidden" name="company_id" value="{{ auth('stores')->user()->id }}">
-        @endif
         @foreach (request()->query() as $key => $val)
             <input type="hidden" name="{{ $key }}" value="{{ $val }}">
         @endforeach
@@ -11,24 +8,26 @@
             {{ method_field('put') }}
         @endif
         @csrf
-        @if (isset($lang_inputs) && count($lang_inputs))
+        @if (isset($langInputs) && count($langInputs))
             <div class="row">
-                
-                @include("Modules::common.admin.form.lang_inputs")
 
-                @php $title =  __('Options') @endphp
-                @include('Modules::common.admin.form.inputs')
+                @include('Common::admin.form.lang_inputs')
+
+                @if (count($inputs ?? []))
+                    @php $title =  __('Options') @endphp
+                    @include('Common::admin.form.inputs')
+                @endif
 
             </div>
         @elseif (isset($group_inputs))
-            @include('Modules::Common.admin.form.groups')
+            @include('Common::admin.form.groups')
         @else
-            @php $title = __($title).' [ '.$method == 'post' ? __('Add') : __('Edit').' ]'; @endphp
-            @include('Modules::common.admin.form.inputs')
+            @php $title = __($title).' [ '.($method == 'post' ? __('Add') : __('Edit')).' ]'; @endphp
+            @include('Common::admin.form.inputs')
         @endif
-        @include('Modules::common.admin.form.includes')
-        @include('Modules::common.admin.form.images')
-        @include('Modules::common.admin.form.map')
+        @include('Common::admin.form.includes')
+        @include('Common::admin.form.images')
+        @include('Common::admin.form.map')
 
 
         <div class="card">

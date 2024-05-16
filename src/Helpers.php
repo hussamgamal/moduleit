@@ -1,5 +1,6 @@
 <?php
 
+use MshMsh\Helpers\Sidebar;
 
 if (!function_exists('boolean_vals')) {
     function boolean_vals()
@@ -135,6 +136,17 @@ if (!function_exists('contact_keys')) {
     }
 }
 
+if (!function_exists('contact_types')) {
+    function contact_types()
+    {
+        $types = [];
+        foreach (contact_keys() as $key) {
+            $types[$key] = __($key);
+        }
+        return $types;
+    }
+}
+
 if (!function_exists('social_keys')) {
     function social_keys()
     {
@@ -173,36 +185,32 @@ if (!function_exists('app_setting')) {
             return "";
         }
 
-        return strpos($val, 'uploads/') !== false ? url(\Illuminate\Support\Facades\Storage::url($val)) : $val;
+        return strpos($val, 'storage/') !== false ? url($val) : $val;
     }
 }
 
 if (!function_exists('sidebar')) {
     function sidebar()
     {
-        require_once base_path('Modules/sidebar.php');
-        $roles = auth()->user()->role->roles ?? [];
-        // dd($roles);
-        foreach ($links as $key => $link) {
-            if (is_string($key)) {
-                if (!in_array($key, $roles)) {
-                    unset($links[$key]);
-                }
-            } elseif (isset($link['links'])) {
-                $sub_links = $link['links'];
-                foreach ($sub_links as $ken => $len) {
-                    if (!in_array($ken, $roles)) {
-                        unset($sub_links[$ken]);
-                    }
-                }
-                if (count($sub_links)) {
-                    $link['links'] = $sub_links;
-                    $links[$key] = $link;
-                } else {
-                    unset($links[$key]);
-                }
-            }
-        }
-        return $links;
+        return Sidebar::list();
+    }
+}
+
+if (!function_exists('admin_actions')) {
+    function admin_actions()
+    {
+        return ['list', 'add', 'edit', 'delete'];
+    }
+}
+
+if (!function_exists('page_types')) {
+    function page_types()
+    {
+        return [
+            'page' => "Normal page",
+            'terms' => "Policy & Rules",
+            'policy' => 'Privacy Policy',
+            'about' => 'About'
+        ];
     }
 }

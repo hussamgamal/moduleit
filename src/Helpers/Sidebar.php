@@ -26,10 +26,10 @@ class Sidebar
 
     static function list()
     {
-        $links = env('CacheSidebar') ? Cache::get('cachedSidebar') : null;
+        $links = env('CacheSidebar') ? Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id()) : null;
         if (!$links) {
             $links = self::getLinks();
-            $roles = auth()->user()->role->roles ?? [];
+            $roles = auth('admin')->user()->role->roles ?? [];
             foreach ($links as $title => $sub_links) {
                 foreach ($sub_links as $ken => $len) {
                     if (!in_array($ken, $roles)) {
@@ -37,12 +37,12 @@ class Sidebar
                     }
                 }
                 if (count($sub_links)) {
-                    $link[$title] = $sub_links;
+                    $links[$title] = $sub_links;
                 } else {
                     unset($links[$title]);
                 }
             }
-            Cache::put('cachedSidebar', $links);
+            Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id(), $links);
         }
         return $links;
     }

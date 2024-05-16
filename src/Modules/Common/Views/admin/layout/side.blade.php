@@ -16,51 +16,18 @@
                         <p>@lang('Homepage')</p>
                     </a>
                 </li>
-                @foreach (sidebar() as $role => $group)
-                    @if (isset($group['link']))
-                        <li class="nav-item">
-                            <a href="{{ route('admin.' . $group['link']) }}" class="nav-link mlink">
-                                <i class="{{ $group['icon'] }}"></i>
-                                <p>{{ $group['title'] }}</p>
-                            </a>
-                        </li>
-                    @else
-                        <li class="nav-header">{{ $group['title'] }}</li>
-                        @foreach ($group['links'] as $row)
-                            <li class="nav-item has-treeview">
-                                @if (isset($row['query']))
-                                    <a href="{{ route('admin.' . $row['link'], $row['query']) }}" class="nav-link mlink">
-                                    @else
-                                        <a href="{{ $row['link'] != '#' ? route('admin.' . $row['link']) : '#' }}"
-                                            class="nav-link {{ $row['link'] != '#' ? 'mlink' : '' }}">
-                                @endif
-                                <i class="nav-icon {{ $row['icon'] ?? '' }}"></i>
-                                <p>
-                                    {{ $row['title'] }}
-                                    @if (isset($row['childs']))
-                                        <i class="fas fa-angle-left right"></i>
-                                    @endif
-                                    @if (isset($row['count']))
-                                        <span class="badge badge-info right">{{ $row['count'] }}</span>
-                                    @endif
-                                </p>
-                                </a>
-                                @if (isset($row['childs']))
-                                    <ul class="nav nav-treeview">
-                                        @foreach ($row['childs'] as $child)
-                                            <li class="nav-item">
-                                                <a href="{{ isset($child['query']) ? route('admin.' . $child['link'], $child['query']) : route('admin.' . $child['link']) }}"
-                                                    class="nav-link mlink">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>{{ $child['title'] }}</p>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                    @endif
+                @foreach (sidebar() as $title => $group)
+                    <li class="nav-header">@lang($title)</li>
+                    @foreach ($group as $links)
+                        @if (is_object($links))
+                            <?php $link = $links ?>
+                            @include('Common::admin.layout.side_link')
+                        @else
+                            @foreach ($links as $link)
+                                @include('Common::admin.layout.side_link')
+                            @endforeach
+                        @endif
+                    @endforeach
                 @endforeach
 
         </nav>

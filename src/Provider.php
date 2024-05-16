@@ -3,6 +3,7 @@
 namespace MshMsh;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\User\Models\Admin as ModelsAdmin;
 use MshMsh\Loaders\Components;
 use MshMsh\Loaders\Migrations;
 use MshMsh\Loaders\Routes;
@@ -70,11 +71,26 @@ class Provider extends ServiceProvider
         /**
          * Set auth User model path configration 
          */
-        config()->set('auth.providers.users.model', \Modules\User\Models\User::class);
+        $this->authGuards();
 
         /**
          * Auto load helpers
          */
         require __DIR__ . '/Helpers.php';
+    }
+
+    private function authGuards()
+    {
+        config()->set('auth.providers.users.model', \Modules\User\Models\User::class);
+
+        config()->set('auth.guards.admin', [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ]);
+
+        config()->set('auth.providers.admin', [
+            'driver' => 'eloquent',
+            'model' => ModelsAdmin::class
+        ]);
     }
 }

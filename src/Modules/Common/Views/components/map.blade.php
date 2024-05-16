@@ -49,7 +49,7 @@
             lng: itemlng
         },
         map: map,
-        icon: "{{ url('placeholders/marker.png') }}",
+        icon: "{{ url('assets/placeholders/marker.png') }}",
         draggable: true,
         animation: google.maps.Animation.xo
     });

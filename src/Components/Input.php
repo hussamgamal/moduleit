@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 class Input extends Component
 {
     use Attributes;
-    
+
 
     public $name;
     public $model;
@@ -36,16 +36,20 @@ class Input extends Component
      */
     public function render()
     {
-        $this->mytitle = $this->inputTitle();
-
-        $component = $this->input['type'] ?? 'input';
-
-        $this->required = $this->isRequired($component);
-
-        if (isset($this->input['setting'])) {
-            $this->settingInputValue();
+        if ($this->name == 'images[]') {
+            $component = 'images';
+            $this->mytitle = __("Images");
         } else {
-            $this->inputValue();
+            $this->mytitle = $this->inputTitle();
+
+            $component = $this->input['type'] ?? 'input';
+
+            $this->required = $this->isRequired($component);
+            if (isset($this->input['setting'])) {
+                $this->settingInputValue();
+            } else {
+                $this->inputValue();
+            }
         }
         try {
             return view('Common::components.' . $component);

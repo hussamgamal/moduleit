@@ -1,4 +1,6 @@
 <?php
+
+Route::get('/', 'WebController@index')->name('home');
 Route::get('remove_img', 'Admin/AdminController@remove_img')->name('remove_img');
 
 Route::get('change_locale', function () {

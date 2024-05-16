@@ -3,7 +3,7 @@
 namespace Modules\Common\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Products\Models\Product;
+use Illuminate\Support\Facades\Crypt;
 use Modules\User\Models\Rate;
 use Modules\User\Models\User;
 
@@ -37,81 +37,49 @@ class HelperModel extends Model
 
     public function getNameAttribute($name)
     {
-        if (json_decode($name) && strpos(request()->url(), 'admin') === false) {
-            $locale = app()->getLocale();
-            return json_decode($name)->$locale;
-        }
-        return json_decode($name);
+        return $this->getLang($name);
     }
 
     public function getBriefAttribute($brief)
     {
-        if (json_decode($brief) && strpos(request()->url(), 'admin') === false) {
-            $locale = app()->getLocale();
-            return json_decode($brief)->$locale;
-        }
-        return json_decode($brief);
+        return $this->getLang($brief);
     }
 
     public function getTitleAttribute($title)
     {
-        if (json_decode($title) && strpos(request()->url(), 'admin') === false) {
-            $locale = app()->getLocale();
-            return json_decode($title)->$locale;
-        }
-        return json_decode($title);
+        return $this->getLang($title);
     }
 
     public function getContentAttribute($content)
     {
-        $url = request()->url();
-        if (json_decode($content) && strpos($url, 'admin') === false) {
-            $locale = app()->getLocale();
-            // if (strpos($url, 'api') !== false) {
-            //     return strip_tags(str_replace("&nbsp;", " ", json_decode($content)->$locale));
-            // }
-            return json_decode($content)->$locale;
-        }
-        return json_decode($content) ? json_decode($content) : '';
+        return $this->getLang($content);
     }
 
     public function setImageAttribute($image)
     {
         if (is_uploaded_file($image)) {
             $folder = $this->table ?? strtolower($this->model) ?? 'images';
-            $this->attributes['image'] = $image->store("uploads/" . $folder);
-            // $this->attributes['image'] = $image->storeAs("uploads/" . $folder, time() . '-' . urlencode($image->getClientOriginalName()));
+            $this->attributes['image'] = "storage/" . $image->store($folder);
+            // $this->attributes['image'] = "storage/" . $image->storeAs( $folder, time() . '-' . urlencode($image->getClientOriginalName()));
         }
     }
 
     public function getImageAttribute($image)
     {
-        return $image ? url($image) : url('placeholders/' . $this->table . '.png');
+        return $image ? url($image) : url('assets/placeholders/' . $this->table . '.png');
     }
 
     public function setBannerAttribute($banner)
     {
-        $this->attributes['banner'] = $banner->store("uploads/" . $this->table);
+        $this->attributes['banner'] = "storage/" . $banner->store($this->table);
     }
 
     public function getBannerAttribute($banner)
     {
-        return $banner ? url($banner) : url('placeholders/banner.png');
+        return $banner ? url($banner) : url('assets/placeholders/banner.png');
     }
 
-    public function rates()
-    {
-        return $this->morphMany(Rate::class, 'rated')->select('id', 'user_id', 'rate');
-    }
 
-    public function getRateAttribute()
-    {
-        // return 0;
-        if ($count = $this->rates()->count()) {
-            return round(($this->rates()->sum('rate') / (5 * $count)) * 5, 1);
-        }
-        return 0;
-    }
 
     public function notifications()
     {
@@ -123,13 +91,18 @@ class HelperModel extends Model
         return date('Y-m-d', strtotime($created_at));
     }
 
-    public function model_search($model, $rows , $searchable = null)
+    public function model_search($model, $rows, $searchable = null)
     {
-        $queries = request()->query();
         foreach (request()->query() as $key => $value) {
             if (in_array($key, $searchable ?? $model->getFillable())) {
                 $rows = $rows->when(request()->has($key), function ($query) use ($key, $value) {
-                    return $query->where($key, $value);
+                    if ($value == 0) {
+                        return $query->where(function ($query) use ($key, $value) {
+                            return $query->whereNull($key)->orWhere($key, $value);
+                        });
+                    } else {
+                        return $query->where($key, $value);
+                    }
                 });
             }
         }
@@ -202,5 +175,30 @@ class HelperModel extends Model
     public function asJson($value)
     {
         return json_encode($value, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function scopeSort($query)
+    {
+        return $query->orderBy('sort', 'asc');
+    }
+
+    public function getLang($val)
+    {
+        if (json_decode($val) && strpos(request()->url(), 'admin') === false) {
+            $locale = app()->getLocale();
+            return json_decode($val)->$locale;
+        }
+        return json_decode($val) ? json_decode($val) : (string) $val;
+    }
+
+    public function getCryptedIdAttribute()
+    {
+        return Crypt::encrypt($this->id);
+    }
+
+    public function getShortAttribute($val)
+    {
+        if ($val) return $val;
+        return strip_tags(str_replace('&nbsp;', ' ', $this->content));
     }
 }

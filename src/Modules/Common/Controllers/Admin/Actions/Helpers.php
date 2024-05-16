@@ -1,6 +1,6 @@
 <?php
 
-namespace MshMsh\Modules\Common\Controllers\Admin\Actions;
+namespace Modules\Common\Controllers\Admin\Actions;
 
 trait Helpers
 {
@@ -15,13 +15,13 @@ trait Helpers
 
     public function syncActions($model)
     {
-        foreach ($this->more_actions as $action) {
+        foreach ($this->moreActions as $action) {
             $this->$action($model);
         }
     }
 
     public function successfullResponse()
     {
-        return response()->json(['url' => route('admin.' . $this->name . '.index', $this->query_params), 'message' => __("Info saved successfully")]);
+        return response()->json(['url' => route('admin.' . $this->name . '.index', $this->queryParams()), 'message' => __("Info saved successfully")]);
     }
 }

@@ -5,12 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{ __($title) }}</h3>
-                    <?php
-                    if (auth()->user()->type == 'owner') {
-                        $can_add = $can_edit = $can_delete = true;
-                    }
-                    ?>
-                    @if ($can_add)
+                    @if ($canAdd)
                         <a href="{{ route("admin.$name.create", request()->query()) }}" class="mlink btn btn-success"><i
                                 class="fa fa-plus"></i>
                             <span>{{ __('Add new') }}</span></a>
@@ -36,14 +31,14 @@
                                         <th>{{ __($stitle) }}</th>
                                     @endforeach
                                 @endif
-                                @if ($can_edit)
+                                @if ($canEdit)
                                     <th>{{ __('Edit') }}</th>
                                 @endif
-                                @if ($can_show)
+                                @if ($canShow)
                                     <th>{{ __('Show') }}</th>
                                 @endif
 
-                                @if ($can_delete)
+                                @if ($canDelete)
                                     <th>{{ __('Delete') }}</th>
                                 @endif
                             </tr>
@@ -54,9 +49,9 @@
                                     <td class="visible">{{ $loop->iteration }}</td>
                                     @foreach ($list as $key => $col_title)
                                         @php
-                                            $value = $key != 'created_at' && is_object($row->$key) ? $row->$key->{app()->getLocale()} : $row->$key;
+                                            $value = $row->$key->{$locale} ?? $row->$key[$locale] ?? $row->$key;
                                         @endphp
-                                        @if ($key != 'created_at' && method_exists($row, explode('_', $key)[0]))
+                                        @if ($key != 'created_at' && !in_array($key , $row->getFillable()) && method_exists($row, explode('_', $key)[0]))
                                             <td class="visible">
                                                 {{ $row->getValOfKey($row, $key) }}
                                             </td>
@@ -89,7 +84,7 @@
                                             </td>
                                         @endforeach
                                     @endif
-                                    @if ($can_edit)
+                                    @if ($canEdit)
                                         <td>
 
                                             <a class="btn btn-primary mlink"
@@ -98,7 +93,7 @@
                                             </a>
                                         </td>
                                     @endif
-                                    @if ($can_show)
+                                    @if ($canShow)
                                         <td>
 
                                             <a class="btn btn-warning mlink"
@@ -107,7 +102,7 @@
                                             </a>
                                         </td>
                                     @endif
-                                    @if ($can_delete)
+                                    @if ($canDelete)
                                         <td>
                                             <form action="{{ route("admin.$name.destroy", $row->id) }}" method="post"
                                                 class="action_form remove">

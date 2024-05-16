@@ -1,3 +1,4 @@
+
 @if (isset($has_images))
     <div class="card">
         <div class="card-body">

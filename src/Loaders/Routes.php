@@ -42,7 +42,9 @@ trait Routes
                 Locale::class,
                 Admin::class . ":$module"
             ])->namespace("Modules\\$module\\Controllers")
-                ->prefix('admin')->as('admin.')->group($file);
+                ->prefix('admin')
+                ->as('admin.')
+                ->group($file);
         }, $admin_files);
     }
 

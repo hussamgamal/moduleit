@@ -1,14 +1,14 @@
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav" style="opacity:{{ auth('stores')->check() ? '0' : '1' }}">
+    <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3" id="search_form" style="opacity:{{ auth('stores')->check() ? '0' : '1' }}">
+    <form class="form-inline ml-3" id="search_form">
         <div class="input-group input-group-sm">
             <input class="form-control form-control-navbar" type="search" name="keyword" placeholder="Search"
                 aria-label="Search">

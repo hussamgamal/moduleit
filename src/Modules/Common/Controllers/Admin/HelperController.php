@@ -3,11 +3,10 @@
 namespace Modules\Common\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use MshMsh\Modules\Common\Controllers\Admin\Actions\CheckRoles;
-use MshMsh\Modules\Common\Controllers\Admin\Actions\Crud;
-use MshMsh\Modules\Common\Controllers\Admin\Actions\Form;
-use MshMsh\Modules\Common\Controllers\Admin\Actions\ListItems;
+use Modules\Common\Controllers\Admin\Actions\CheckRoles;
+use Modules\Common\Controllers\Admin\Actions\Crud;
+use Modules\Common\Controllers\Admin\Actions\Form;
+use Modules\Common\Controllers\Admin\Actions\ListItems;
 
 class HelperController extends Controller
 {
@@ -21,8 +20,8 @@ class HelperController extends Controller
     protected string $myname;
     protected array $list;
     protected array $inputs;
-    protected array $lang_inputs;
-    protected string $method;
+    protected array $langInputs;
+    protected string $method = 'post';
     protected string $action;
     protected bool $canDelete = true;
     protected bool $canAdd = true;
@@ -33,7 +32,7 @@ class HelperController extends Controller
     protected array $queryParams = [];
     protected array $moreActions = [];
     protected array $treeView = [];
-    protected string $roleName;
+    protected $roleName = null;
     protected string $searchable;
     protected $formRequest;
 }

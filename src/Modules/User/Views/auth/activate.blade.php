@@ -1,73 +1,44 @@
 @extends('Common::index')
-@section('title' , __("Activate Your Account"))
+@section('title', __('Confirmation Code'))
 
 @section('page')
-<style>
-    .active_codes{
-        direction: ltr;
-        margin: 10px 0px;
-    }
-    .active_codes input{
-        width: 23%;
-        margin:1%;
-    }
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    }
+    <main class="registeration_page__">
+        <div class="container">
+            <div class="main_form__ default_form__">
+                <form class="default_form__">
+                    <figure class="figure__ register_figure__ loading-omd center">
+                        <img class="lazy-omd img-om" data-src="assets/images//register/register_verification.png"
+                            alt="..." />
+                    </figure>
+                    <div class="registeration_head_wrapper__">
+                        <h2 class="registeration_title center__">@lang('Confirm Mobile')</h2>
+                        <p class="registeration_sub_title center__">
+                            @lang('Your verification code has been sent, please check your phone and re-type the code to retrieve')
+                        </p>
+                    </div>
 
-    /* Firefox */
-    input[type=number] {
-    -moz-appearance: textfield;
-    }
-</style>
-<!-- start main-sign-in-page-om -->
-<main class="main-sign-up-page-om">
-    <div class="container">
-        <div class="login-om signup-om">
-            <h2 class="site-title-om">@lang('Activate Your Account')</h2>
-            <form class="singup-form-om" action="" method="post">
-                @csrf
-                <input type="hidden" name="mobile" value="{{ $mobile }}">
-                <div class="alert alert-success">
-                    {{ $message }}
-                </div>
-                <div class="first-row-om">
-                    <div class="col-om" style="margin: auto;float: none;">
-                        <div class="group-om">
-                            <label class="gr-lable-om" for="name-1">@lang('Activation Code')</label>
-                            <div class="row active_codes">
-                                <input data-count="1" type="number" class="gr-input-om" id="name-1" name="code[]" required>
-                                <input data-count="2" type="number" class="gr-input-om" id="name-1" name="code[]" required>
-                                <input data-count="3" type="number" class="gr-input-om" id="name-1" name="code[]" required>
-                                <input data-count="4" type="number" class="gr-input-om" id="name-1" name="code[]" required>
-                            </div>
+                    <div class="input_group__">
+                        <div class="input-group-om code_shapes__">
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
+                            <input name="code[]" class="code-input" placeholder="__" required />
                         </div>
                     </div>
-                </div>
-                <div class="group-om ">
-                    <input class="gr-input-om subbmit-butt-om" type="submit" value="@lang('Activate Your Account')">
-                </div>
-            </form>
-            <div class="image-of-form-om">
-                <figure class="figure-om loading-omd">
-                    <img class="lazy-omd" data-src="{{ url('assets/web') }}/images/form.svg" alt="..">
-                </figure>
+                    <div class="input_group__">
+                        <input class="submit-button__ full_width__ input__" type="submit" value="@lang('Confirm')" />
+                    </div>
+
+                    {{-- <div class="input_group__">
+                        <button id="send_code_again_button__"
+                            class="link__ submit-button__ sign_up_link__ send_code_again_button__">
+                            <img class="icon__" src="{{ url('assets/web') }}/images/shapes/send_code_again_btn_icon.svg" alt="..." />
+                            @lang('Resend code')
+                        </button>
+                    </div> --}}
+                </form>
             </div>
         </div>
-    </div>
-</main>
-@stop
-@section('scripts')
-<script>
-    $('.active_codes input').keyup(function(){
-        if($(this).val() > 9){
-            $(this).val(9);
-        }
-        var count = $(this).data('count') + 1; 
-        $('.active_codes input:nth-child('+count+')').focus();
-    });
-</script>
+    </main>
 @stop

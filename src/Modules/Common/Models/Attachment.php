@@ -30,7 +30,7 @@ class Attachment extends Model
 
     public function getPathAttribute($file)
     {
-        return $file ? url($file) : url('placeholders/image.png');
+        return $file ? url($file) : url('assets/placeholders/image.png');
     }
 
     public function getFileTypeAttribute()

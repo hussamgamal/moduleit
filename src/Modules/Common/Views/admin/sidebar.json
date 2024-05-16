@@ -1,19 +1,39 @@
 {
     "Settings": {
+        "Notifications": {
+            "title": "Notifications",
+            "link": "notifications",
+            "icon": "far fa-bell"
+        },
         "Common": [{
-                "title": "Global Settings",
+                "title": "Settings",
                 "link": "settings.app",
                 "icon": "fas fa-cog"
             },
             {
-                "title": "Visit Settings",
-                "link": "settings.visitor",
+                "title": "Home Settings",
+                "link": "settings.home",
                 "icon": "fas fa-cog"
             },
             {
-                "title": "Contact Information",
+                "title": "Restaurant Settings",
+                "link": "settings.store",
+                "icon": "fas fa-cog"
+            },
+            {
+                "title": "App Links",
+                "link": "settings.app_links",
+                "icon": "fab fa-apple"
+            },
+            {
+                "title": "Contacts & Socials",
                 "link": "settings.contacts",
                 "icon": "fas fa-phone"
+            },
+            {
+                "title": "Days off",
+                "link": "settings.days_off",
+                "icon": "fa fa-calendar"
             }
         ]
     }
