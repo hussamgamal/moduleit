@@ -15,7 +15,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         if (!$user) {
             return api_response('error', 'User not found');
         }
@@ -28,14 +28,14 @@ class NotificationController extends Controller
 
     public function seen($id)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $user->seen_notifications()->attach($id);
         return api_response('success', '');
     }
     
     public function toggle()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $user->update(['notify' => !$user->notify]);
         return api_response('success', '', ['notify' => $user->notify]);
     }

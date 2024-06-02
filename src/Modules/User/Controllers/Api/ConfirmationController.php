@@ -20,7 +20,7 @@ class ConfirmationController extends Controller
         $user = $token->user;
         $this->addMyDevice($user);
         $user->update(['status' => 1]);
-        $user->access_token = auth('api')->login($user);
+        $user->access_token = auth()->login($user);
 
         if ($user->type == 'provider' && $device = $user->device) {
             $message = __("Please complete your profile to be verified");

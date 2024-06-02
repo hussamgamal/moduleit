@@ -2,6 +2,9 @@
     "name": "mshmsh/modules",
     "description": "Seperate your project to modules , every module has all of its functionality to be seperated and reusable",
     "license": "MIT",
+    "require": {
+        "kreait/laravel-firebase": "*"
+    },
     "authors": [{
         "name": "Hossam MshMsh",
         "email": "hossamgamal.cs@gmail.com"

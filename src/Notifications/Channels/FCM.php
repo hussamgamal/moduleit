@@ -3,19 +3,18 @@
 namespace MshMsh\Notifications\Channels;
 
 use Illuminate\Support\Facades\Http;
+use Kreait\Firebase\Contract\Messaging;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification as MessagingNotification;
 use Modules\User\Models\Device;
 use MshMsh\Notifications\Notification;
 
 class FCM extends Notification
 {
     public array $via = [
-        'fcm',
-        'database'
+        'fcm'
     ];
 
-    public string $url = "https://fcm.googleapis.com/fcm/send";
-    public string $serverKey = "";
-    public array $users = [];
     public array $registerationIds;
     public string $message;
     public string $title;
@@ -23,29 +22,27 @@ class FCM extends Notification
     public string $type = 'global';
 
 
+    public function __construct(public Messaging $messaging)
+    {
+    }
     public function send($notifiable)
     {
         $this->to($notifiable);
+        if (count($this->registerationIds)) {
+            $body = $this->toArray($notifiable);
+            $notification = MessagingNotification::create($body['title'], $body['message']);
 
-        $res = Http::withHeaders($this->headers())->post($this->url, $this->body($notifiable));
-        return $res->body();
-    }
+            $message = CloudMessage::new()->withNotification($notification)
+                ->withData($this->body($notifiable));
 
-    public function headers()
-    {
-        $this->serverKey = env('FCM_TOKEN');
-        return [
-            'Authorization' => 'key=' . $this->serverKey,
-            'Content-Type' => 'application/json'
-        ];
-    }
+            $res = $this->messaging->sendMulticast($message, $this->registerationIds);
 
-
-
-    public function topicSend($topic = '')
-    {
-        $res = Http::withHeaders($this->headers())->post($this->url, $this->body($topic));
-        return $res->body();
+            return [
+                'Successful sends' => $res->successes()->count() . PHP_EOL,
+                'Failed sends' => $res->failures()->count() . PHP_EOL
+            ];
+        }
+        return [];
     }
 
     public function to($notifiable)
@@ -54,13 +51,7 @@ class FCM extends Notification
         return $this;
     }
 
-    public function toUsers($users)
-    {
-        $this->users = $users;
-    }
-
-
-    public function body($notifiable, $topic = null)
+    public function body($notifiable)
     {
         $data = $this->toArray($notifiable);
         $notification = array(
@@ -70,16 +61,6 @@ class FCM extends Notification
             'sound' => 'default',
             'badge' => '1',
         );
-        $data = [
-            'notification' => $notification,
-            'data' => $notification,
-            'priority' => 'high',
-        ];
-        if ($topic) {
-            $data['to'] = "/topics/{$topic}";
-        } else {
-            $data['registration_ids'] = $this->registerationIds;
-        }
-        return $data;
+        return $notification;
     }
 }

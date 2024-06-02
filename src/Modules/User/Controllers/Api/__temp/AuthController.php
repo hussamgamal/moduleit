@@ -14,8 +14,8 @@ class AuthController extends Controller
 {
     public function myprofile()
     {
-        $user = auth('api')->user();
-        $user->access_token = auth('api')->login($user);
+        $user = auth()->user();
+        $user->access_token = auth()->login($user);
         return api_response('success', '', new UserResource($user));
     }
 
@@ -38,7 +38,7 @@ class AuthController extends Controller
             $data['status'] = 1;
             $user = User::create($data);
         }
-        $user->access_token = auth('api')->login($user);
+        $user->access_token = auth()->login($user);
         $code = $this->generate_code($user);
         // $code = 1234;
         $user->token()->delete();
@@ -80,7 +80,7 @@ class AuthController extends Controller
         $user = $token->user;
         $this->add_my_device($user);
         $user->update(['status' => 1]);
-        $user->access_token = auth('api')->login($user);
+        $user->access_token = auth()->login($user);
 
         if ($user->type == 'provider') {
             $device = $user->device;
@@ -117,7 +117,7 @@ class AuthController extends Controller
         ) {
             $code = $user->token()->where('token', $request->code)->latest()->first();
             if ($code) {
-                $user->access_token = auth('api')->login($user);
+                $user->access_token = auth()->login($user);
                 $code->delete();
                 $this->add_my_device($user);
                 return api_response('success', __('Loginned successfully'), new UserResource($user));
@@ -129,7 +129,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         Device::where('user_id', $user->id)->delete();
         return api_response('success', '');
     }
@@ -200,7 +200,7 @@ class AuthController extends Controller
     public function auth3424234232($id)
     {
         $user = User::find($id);
-        $user->access_token = auth('api')->login($user);
+        $user->access_token = auth()->login($user);
         return api_response('success', '', new UserResource($user));
     }
 }

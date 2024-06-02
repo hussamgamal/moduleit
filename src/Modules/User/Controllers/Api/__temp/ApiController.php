@@ -18,13 +18,13 @@ class ApiController extends Controller
     {
         $user = User::findOrFail($id);
         $user = User::where('id', $user->id)->first();
-        // $user->access_token = auth('api')->login($user);
+        // $user->access_token = auth()->login($user);
         return api_response('success', '', new UserResource($user));
     }
 
     public function change_password(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         if (($user->social_id && $user->password) || !$user->social_id) {
             if (!\Hash::check(request('old_password'), $user->password)) {
                 return api_response('error', __("Old password not matched"));
@@ -39,7 +39,7 @@ class ApiController extends Controller
 
     public function update(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -48,13 +48,13 @@ class ApiController extends Controller
         ]);
         $user->update(request()->all());
 
-        $user->access_token = auth('api')->login($user);
+        $user->access_token = auth()->login($user);
         return api_response('success', __("Profile updated successfully"), new UserResource($user));
     }
 
     public function contacts(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $address = $user->addresses()->latest()->first() ?? new Address();
         if ($request->isMethod('GET')) {
             // $orders = Order::get();
@@ -91,7 +91,7 @@ class ApiController extends Controller
 
     public function delete_account()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         if ($user->orders()->valid()->active()->exists()) {
             return api_response('error', __("You can not delete your account until your order ended"));
         }

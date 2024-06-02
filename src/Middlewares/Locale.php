@@ -19,8 +19,8 @@ class Locale
             $locale = request()->header('Accept-Language') ?? request()->header('Lang');
             if (in_array($locale, ['ar', 'en'])) {
                 app()->setLocale($locale);
-            } elseif (auth('api')->check()) {
-                app()->setLocale(auth('api')->user()->lang);
+            } elseif (auth()->check()) {
+                app()->setLocale(auth()->user()->lang);
             } else {
                 app()->setLocale('ar');
             }

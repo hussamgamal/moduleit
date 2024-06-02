@@ -16,13 +16,13 @@ class ApiController extends Controller
     {
         $user = User::findOrFail($id);
         $user = User::where('id', $user->id)->first();
-        // $user->access_token = auth('api')->login($user);
+        // $user->access_token = auth()->login($user);
         return api_response('success', '', new UserResource($user));
     }
 
     public function update(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $data = $this->validate($request, [
             'name' => 'required',
             'image' => 'nullable|image',
@@ -31,13 +31,13 @@ class ApiController extends Controller
         ]);
         $user->update($data);
 
-        $user->access_token = auth('api')->login($user);
+        $user->access_token = auth()->login($user);
         return api_response('success', __("Profile updated successfully"), new UserResource($user));
     }
 
     public function edit_mobile(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         if ($request->mobile != $user->mobile) {
             $request->validate([
                 'mobile' => 'required|unique:users,mobile,' . $user->id,
@@ -53,7 +53,7 @@ class ApiController extends Controller
 
     public function confirm_new_mobile(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $this->validate($request, [
             'code' => 'required'
         ]);
@@ -70,7 +70,7 @@ class ApiController extends Controller
 
     public function change_password(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $request->validate([
             'old_password' => 'required',
             'new_password' => 'required'
@@ -86,7 +86,7 @@ class ApiController extends Controller
 
     public function contacts(Request $request)
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $address = $user->addresses()->first();
         if ($request->isMethod('GET')) {
             return api_response('success', '', $address);
@@ -111,7 +111,7 @@ class ApiController extends Controller
         $aqar = Aqar::where('id', $id)->with('user')->firstOrFail();
         // dd('ddd');
         $user = $aqar->user;
-        $authed = auth('api')->user();
+        $authed = auth()->user();
         $user->rates()->firstOrCreate([
             'user_id' => $authed->id
         ])->update([
@@ -123,14 +123,14 @@ class ApiController extends Controller
 
     public function myrates()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $user = User::with('rates')->where('id', $user->id)->first(['id', 'name', 'image']);
         return api_response('success', '', $user);
     }
 
     public function myaqars()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $rows = $user->aqars()->latest()->paginate(20);
         return api_response('success', '', AqarsResource::collection($rows));
     }

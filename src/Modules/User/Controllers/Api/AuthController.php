@@ -14,7 +14,7 @@ class AuthController extends Controller
 {
     public function myprofile()
     {
-        return ApiResponsder::get('', new UserResource(auth('api')->user()));
+        return ApiResponsder::get('', new UserResource(auth()->user()));
     }
     public function signup(Request $request)
     {
@@ -40,8 +40,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate(['mobile' => 'required', 'password' => 'required']);
-        if ($token = auth('api')->attempt($request->only('mobile', 'password'))) {
-            $user = auth('api')->user();
+        if ($token = auth()->attempt($request->only('mobile', 'password'))) {
+            $user = auth()->user();
             if (!$user->status) {
                 $code = (new ConfirmationController)->sendConfirmationCode($user);
                 return api_response('success', __('Your account is not activated yet , Activation code sent to your mobile'), [
@@ -58,7 +58,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         Device::where('user_id', $user->id)->delete();
         return api_response('success', '');
     }

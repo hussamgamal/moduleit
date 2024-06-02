@@ -26,7 +26,8 @@ class Sidebar
 
     static function list()
     {
-        $links = env('CacheSidebar') ? Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id()) : null;
+        // $links = env('CacheSidebar') ? Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id()) : null;
+        $links = null;
         if (!$links) {
             $links = self::getLinks();
             $roles = auth('admin')->user()->role->roles ?? [];
@@ -42,7 +43,7 @@ class Sidebar
                     unset($links[$title]);
                 }
             }
-            Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id(), $links);
+            // Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id(), $links);
         }
         return $links;
     }

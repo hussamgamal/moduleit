@@ -50,7 +50,7 @@ class AuthController extends Controller
 
     public function deleteAccount()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $user->update([
             'mobile' => "DEL::" . time() . "-" . $user->mobile,
             'password' => null,

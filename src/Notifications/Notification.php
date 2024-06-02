@@ -4,6 +4,7 @@ namespace MshMsh\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification as NotificationClass;
+use MshMsh\Notifications\Channels\Database;
 use MshMsh\Notifications\Channels\FCM;
 use MshMsh\Notifications\Channels\Mail;
 use MshMsh\Notifications\Channels\SMS;
@@ -26,7 +27,8 @@ class Notification extends NotificationClass
         public string $message = '',
         public array $data = [],
         public string $title = "",
-        $via = null
+        $via = null,
+        public bool $saveToDB = false
     ) {
         //
         $this->title = $title ?? app_setting('title');
@@ -48,7 +50,7 @@ class Notification extends NotificationClass
             'mail' => Mail::class,
             'fcm' => FCM::class,
             'sms' => SMS::class,
-            'database' => 'database'
+            'database' => Database::class
         ];
         $through = [];
         foreach ($this->via as $via) {
@@ -66,9 +68,8 @@ class Notification extends NotificationClass
     public function toArray($notifiable): array
     {
         return [
-            'title' => $notifiable->title,
-            'message' => $notifiable->message,
-            'data' => $notifiable->data
+            'title' => __($notifiable->title),
+            'message' => __($notifiable->message, $this->data ?? []),
         ];
     }
 }

@@ -69,6 +69,9 @@ if (!function_exists('admin_roles')) {
     function admin_roles()
     {
         $modules = glob(base_path("Modules/*"));
+        $roles[] = "Roles";
+        $roles[] = "Moderators";
+        $roles[] = "Notifications";
         foreach ($modules as $module) {
             $module = array_reverse(explode('/', $module))[0];
             if (strpos($module, '.php') === false) {
@@ -76,10 +79,11 @@ if (!function_exists('admin_roles')) {
             }
         }
         foreach ($roles as $role) {
-            if (!in_array($role, ['Addresses'])) {
+            if (!in_array($role, ['Chats'])) {
                 $rows[$role] = $role;
             }
         }
+        // dd($rows);
         return $rows;
     }
 }
