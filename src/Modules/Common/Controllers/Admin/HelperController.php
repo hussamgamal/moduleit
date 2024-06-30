@@ -31,8 +31,11 @@ class HelperController extends Controller
     protected array $includes = [];
     protected array $queryParams = [];
     protected array $moreActions = [];
-    protected array $treeView = [];
+    public array $treeView = [];
+    public array $speed_links = [];
     protected $roleName = null;
+    protected $routeSortList = null;
     protected string $searchable;
     protected $formRequest;
+    protected $requestQueries = [];
 }

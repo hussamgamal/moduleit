@@ -1,29 +1,15 @@
 {
     "Settings": {
-        "Notifications": {
-            "title": "Notifications",
-            "link": "notifications",
-            "icon": "far fa-bell"
-        },
-        "Common": [{
+        "Common": [
+            {
                 "title": "Settings",
                 "link": "settings.app",
                 "icon": "fas fa-cog"
             },
             {
-                "title": "Home Settings",
-                "link": "settings.home",
+                "title": "Delegate Schedules",
+                "link": "settings.schedules",
                 "icon": "fas fa-cog"
-            },
-            {
-                "title": "Restaurant Settings",
-                "link": "settings.store",
-                "icon": "fas fa-cog"
-            },
-            {
-                "title": "App Links",
-                "link": "settings.app_links",
-                "icon": "fab fa-apple"
             },
             {
                 "title": "Contacts & Socials",
@@ -31,9 +17,19 @@
                 "icon": "fas fa-phone"
             },
             {
-                "title": "Days off",
-                "link": "settings.days_off",
-                "icon": "fa fa-calendar"
+                "title": "Contact Us",
+                "link": "contactus.index",
+                "icon": "fas fa-envelope"
+            },
+            {
+                "title" : "Notifications",
+                "link" : "notifications",
+                "icon" : "fas fa-bell"
+            },
+            {
+                "title" : "Translations",
+                "link" : "translations",
+                "icon" : "fas fa-language"
             }
         ]
     }

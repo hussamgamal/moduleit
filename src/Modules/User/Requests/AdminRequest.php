@@ -24,16 +24,12 @@ class AdminRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'role_id'   =>  'required',
-            'name'    =>  'required',
-            'email'   =>  'required|email|unique:users,email,' . request()->route('moderator'),
-            'mobile' =>  'nullable|unique:users,mobile,' . request()->route('moderator'),
-            'image' => 'nullable'
+        return [
+            'name' => 'required',
+            'role_id' => 'required',
+            'mobile' => 'required|unique:users,mobile,' . request()->url('id'),
+            'email' => 'nullable|sometimes|email|unique:users,email,' . request()->url('id'),
+            'password' => 'nullable|sometimes|min:6',
         ];
-        if (!request()->route('moderator')) {
-            $rules['password'] = 'required';
-        }
-        return $rules;
     }
 }

@@ -3,7 +3,6 @@
 namespace Modules\User\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\User\Models\User;
 
 class RegisterRequest extends FormRequest
 {
@@ -25,16 +24,25 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:users,name',
-            'mobile' => ['required', 'unique:users,mobile', 'regex:/^05[0-9]{8}$/'],
-            'email' => 'nullable|unique:users,email|email'
+            'name' => 'required|min:1|max:60',
+            'mobile' => 'required|phone:SA|unique:users,mobile,NULL,id,deleted_at,NULL|regex:/^05\d{8}$/',
+            'email' => 'required|unique:users,email,NULL,id,deleted_at,NULL|email',
+            'password' => 'required',
+            'lang' => 'required',
         ];
     }
-
-    public function messages(): array
+    protected function prepareForValidation()
     {
-        return [
-            'mobile.regex' => __('mobile number must be saudi number')
-        ];
+        $mobile = (string) convert_to_english($this->input('mobile'));
+        if($mobile){
+            if(!str_starts_with($mobile,0)){
+                $mobile = '0'.$mobile;
+            }
+            $this->merge([
+                'mobile' => $mobile,
+                'password' => 'P@ssw0rd',
+                'lang' => request()->header('lang','ar'),
+            ]);
+        }
     }
 }

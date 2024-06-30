@@ -18,8 +18,8 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a class="mlink" href="{{ url('admin') }}">{{ __('Home page') }}</a>
                     </li>
-                    @if (isset($tree_view))
-                        @foreach ($tree_view as $row)
+                    @if (isset($treeView))
+                        @foreach ($treeView as $row)
                             <li class="breadcrumb-item"><a class="mlink"
                                     href="{{ $row['link'] }}">{{ __($row['title']) }}</a></li>
                         @endforeach

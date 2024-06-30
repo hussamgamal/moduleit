@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="exampleInputEmail1">{{ $mytitle }}</label>
+    <label for="exampleInputEmail1">{{ $input['title'] }}</label>
     @if(isset($input['values']))
         @foreach($input['values'] as $key => $value)
         <div class="icheck-primary d-inline">
@@ -13,7 +13,7 @@
     <div class="icheck-primary d-inline">
         <input name="{{ $name }}" type="checkbox" id="checkboxPrimary{{ $name }}">
         <label for="checkboxPrimary{{ $name }}">
-            {{ $mytitle }}
+            {{ $input['title'] }}
         </label>
     </div>
     @endif

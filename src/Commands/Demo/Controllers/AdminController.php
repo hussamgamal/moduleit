@@ -15,7 +15,7 @@ class AdminController extends HelperController
         $this->name = 'module_name';
     }
 
-    public function list_builder()
+    public function listBuilder()
     {
         $this->list = [
             'title' => 'العنوان',
@@ -23,7 +23,7 @@ class AdminController extends HelperController
         ];
     }
 
-    public function form_builder()
+    public function formBuilder()
     {
         $this->lang_inputs = [
             'title' => ['title' => 'العنوان '],

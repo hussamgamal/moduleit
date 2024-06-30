@@ -15,14 +15,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(1)->nullable();
             $table->string('name')->nullable();
             $table->string('mobile')->unique()->nullable();
+            $table->string('new_mobile')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
-            $table->string('lang' , 10)->default('ar')->nullable();
+            $table->decimal('wallet',20,2)->default(0);
+            $table->string('lang', 2)->default('ar');
+            $table->string('type', 20)->default(\App\Enum\UserType::CLIENT);
+            $table->boolean('status')->default(false)->comment('for mobile activate');
+            $table->boolean('notify')->default(true)->comment('for notification');
+            $table->boolean('banned')->default(false)->comment('for block and unblock');
+            $table->string('lang' , 10)->default('ar');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

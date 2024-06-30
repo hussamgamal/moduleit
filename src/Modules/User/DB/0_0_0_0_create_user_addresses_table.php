@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAddressesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -22,6 +22,7 @@ class CreateUserAddressesTable extends Migration
             $table->unsignedBigInteger('area_id')->nullable()->index();
             $table->json('address')->nullable();
             $table->json('location')->nullable();
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
         });
     }
@@ -35,4 +36,4 @@ class CreateUserAddressesTable extends Migration
     {
         Schema::dropIfExists('user_addresses');
     }
-}
+};

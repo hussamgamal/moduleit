@@ -2,24 +2,33 @@
 
 namespace Modules\Common\Controllers\Admin\Actions;
 
+use Illuminate\Http\Request;
+
 trait ListItems
 {
-    protected function index()
+    public function index()
     {
 
         if (!isset($this->rows)) {
             $this->rows = $this->model;
         }
+        $this->listBuilder();
 
         $this->search();
 
         $this->check_user_roles();
 
-        $this->listBuilder();
+
+        $this->treeViewBuilder();
 
         $this->rows = $this->rows->latest()->paginate(25);
 
         $this->locale = app()->getLocale();
+
+        $this->requestQueries = request()->query();
+        foreach (request()->query() as $key => $value) {
+            unset($this->requestQueries[$key]);
+        }
 
         return view('Common::admin.list', get_object_vars($this));
     }
@@ -40,10 +49,10 @@ trait ListItems
     public function queryParams()
     {
         $params = $this->queryParams;
-        $rows = [];
-        foreach ($params as $row) {
-            $rows[$row] = request($row);
-        }
-        return $rows;
+        return $params;
+    }
+
+    public function treeViewBuilder()
+    {
     }
 }

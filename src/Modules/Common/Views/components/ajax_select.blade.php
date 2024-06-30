@@ -5,10 +5,10 @@
 
 </style>
 <div class="form-group">
-    <label style="display: block">{{ $mytitle }}
+    <label style="display: block">{{ $input['title'] }}
     </label>
     <select {{ $required }} name="{{ $name }}" class="form-control not_select2 select2"
-        data-title="{{ $mytitle }}" data-placeholder="{{ $mytitle }}">
+        data-title="{{ $input['title'] }}" data-placeholder="{{ $input['title'] }}" {{ $input['multiple'] ?? '' }}>
         @if ($input['values'])
             @foreach ($input['values'] as $id => $val)
                 <option selected value="{{ $id }}">{{ $val }}</option>
@@ -19,6 +19,7 @@
 
 <script>
     $(document).ready(function() {
+        console.log('1111111');
         $("[name='{{ $name }}']").select2({
             placeholder: "Search for an Item",
             minimumInputLength: 2,

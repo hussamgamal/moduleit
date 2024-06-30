@@ -3,7 +3,10 @@
     "description": "Seperate your project to modules , every module has all of its functionality to be seperated and reusable",
     "license": "MIT",
     "require": {
-        "kreait/laravel-firebase": "*"
+        "kreait/laravel-firebase": "*",
+        "spatie/laravel-translatable": "*",
+        "spatie/laravel-medialibrary": "*",
+        "spatie/laravel-permission": "*"
     },
     "authors": [{
         "name": "Hossam MshMsh",

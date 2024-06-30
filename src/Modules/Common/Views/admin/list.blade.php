@@ -10,6 +10,15 @@
                                 class="fa fa-plus"></i>
                             <span>{{ __('Add new') }}</span></a>
                     @endif
+                    @if(count($speed_links) > 0)
+                        <ul class="d-flex list-unstyled">
+                        @foreach($speed_links as $link)
+                            <li class="mx-1">
+                                <a href="{{route($link['link'],@$link['query'])}}" class="mlink btn btn-primary"><i class="{{@$link['icon']}}"></i> {{@$link['title']}} ({{(int) @$link['count']}})</a>
+                            </li>
+                        @endforeach
+                        </ul>
+                    @endif
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
@@ -19,7 +28,7 @@
                                 <th class="visible">#</th>
                                 @foreach ($list as $key => $col_title)
                                     <th class="visible">
-                                        {{ app()->getLocale() == 'ar' ? $col_title : ucfirst($key) }}</th>
+                                        {{ $col_title }}</th>
                                 @endforeach
                                 @if (isset($links))
                                     @foreach ($links as $link)
@@ -45,20 +54,22 @@
                         </thead>
                         <tbody>
                             @foreach ($rows as $row)
-                                <tr>
-                                    <td class="visible">{{ $loop->iteration }}</td>
+                                <tr id="{{$row->id}}">
+                                    <td class="visible">{{ $loop->iteration }} @if(isset($routeSortList))<i class="fa fa-sort"></i>  @endif</td>
                                     @foreach ($list as $key => $col_title)
                                         @php
-                                            $value = $row->$key->{$locale} ?? $row->$key[$locale] ?? $row->$key;
+                                            $value = $row->$key;
                                         @endphp
                                         @if ($key != 'created_at' && !in_array($key , $row->getFillable()) && method_exists($row, explode('_', $key)[0]))
                                             <td class="visible">
                                                 {{ $row->getValOfKey($row, $key) }}
                                             </td>
                                         @elseif(in_array($key, ['image', 'path']))
-                                            <td class="visible"><img src="{{ $value }}" /></td>
+                                            <td class="visible"><img style="width: 200px;" src="{{ $value }}" /></td>
+                                        @elseif(in_array($key, ['color']))
+                                            <td class="visible"><span style="width: 50px;height: 30px;display: block;margin:0 auto;background: {{$value}}"></span></td>
                                         @else
-                                            <td class="visible">{!! __($value) !!}</td>
+                                            <td class="visible">{!! $value !!}</td>
                                         @endif
                                     @endforeach
 
@@ -66,7 +77,7 @@
                                         @foreach ($links as $link)
                                             <td>
                                                 <a class="btn btn-{{ $link['type'] }} mlink"
-                                                    href="{{ $link['url'] . '?' . $link['key'] . '=' . $row->id . '&' . http_build_query(request()->query()) }}">
+                                                    href="{{ $link['url'] . '?' . $link['key'] . '=' . $row->id . '&' . http_build_query($requestQueries) }}">
                                                     <i class="fa {{ $link['icon'] }}"></i>
                                                 </a>
                                             </td>
@@ -133,15 +144,55 @@
 
 
     <script>
+        @if(isset($routeSortList))
+        $(function (){
+            'use strict'
+            $( ".table tbody" ).sortable({
+                items: "tr",
+                cursor: 'move',
+                opacity: 0.6,
+                update: function() {
+                    sendSortToServer();
+                }
+            });
+
+            function sendSortToServer() {
+                var sort = [];
+                $('.table tbody tr').each(function(index,element) {
+                    sort.push({
+                        id: $(this).attr('id'),
+                        sort: index+1
+                    });
+                });
+
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "{{$routeSortList}}",
+                    data: {
+                        sort: sort,
+                    },
+                    success: function(response) {
+                    }
+                });
+            }
+        });
+        @endif
         $('.table').DataTable({
-            dom: 'Bfrtip',
-            searching: false,
-            bInfo: false, //Dont display info e.g. "Showing 1 to 4 of 4 entries"
+            dom: 'Blfrtip',
+            searching: true,
+            bInfo: true, //Dont display info e.g. "Showing 1 to 4 of 4 entries"
             paging: false, //Dont want paging
-            bPaginate: false, //Dont want paging
+            bPaginate: true, //Dont want paging
+            stateSave: true,
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
             buttons: [{
                     extend: 'copyHtml5',
                     text: "<i class='fas fa-copy'></i> {{ __('Copy') }}",
+                    className:'btn btn-info',
                     exportOptions: {
                         columns: ['.visible'],
                         modifier: {
@@ -153,6 +204,7 @@
                 {
                     extend: 'excelHtml5',
                     text: "<i class='fas fa-file-excel'></i> {{ __('Export to excel') }}",
+                    className:'btn btn-primary',
                     exportOptions: {
                         columns: ['.visible'],
                         modifier: {
@@ -164,6 +216,7 @@
                 {
                     extend: 'print',
                     text: "<i class='fas fa-print'></i> {{ __('Print') }}",
+                    className:'btn btn-success',
                     exportOptions: {
                         columns: ['.visible'],
                         modifier: {

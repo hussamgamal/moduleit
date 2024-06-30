@@ -9,15 +9,17 @@
         @endif
         @csrf
         @if (isset($langInputs) && count($langInputs))
-            <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
 
-                @include('Common::admin.form.lang_inputs')
+                    @include('Common::admin.form.lang_inputs')
 
-                @if (count($inputs ?? []))
-                    @php $title =  __('Options') @endphp
-                    @include('Common::admin.form.inputs')
-                @endif
+                    @if (count($inputs ?? []))
+                        @php $group_title =  __('Options') @endphp
+                        @include('Common::admin.form.inputs')
+                    @endif
 
+                </div>
             </div>
         @elseif (isset($group_inputs))
             @include('Common::admin.form.groups')
@@ -25,19 +27,23 @@
             @php $title = __($title).' [ '.($method == 'post' ? __('Add') : __('Edit')).' ]'; @endphp
             @include('Common::admin.form.inputs')
         @endif
-        @include('Common::admin.form.includes')
-        @include('Common::admin.form.images')
-        @include('Common::admin.form.map')
+        <div class="col-sm-12">
+            @include('Common::admin.form.includes')
+            @include('Common::admin.form.images')
+            @include('Common::admin.form.map')
+        </div>
 
 
-        <div class="card">
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary"> <span>{{ __('Save') }}</span>
-                    <i class="fas fa-save"></i></button>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"> <span>{{ __('Save') }}</span>
+                        <i class="fas fa-save"></i></button>
+                </div>
             </div>
         </div>
     </form>
-    @if (!$model->id)
+    @if (!count(request()->query()) && (!isset($isSetting) || !$isSetting) && !$model->id)
         <script>
             $(".select2").val('').trigger('change');
         </script>

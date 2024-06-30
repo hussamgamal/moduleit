@@ -6,12 +6,12 @@
             @foreach($model->images as $image)
             <div class="imgTag">
                 <a id="{{ $image->id }}" class="remove_img"><b>-</b></a>
-                <img src="{{ $image->path }}" alt="">
+                <img src="{{ $image->image ?? $image->path }}" alt="">
             </div>
             @endforeach
             @endif
             <div class="mycustom-file">
-                <input multiple name="images[]" type="file" class="mycustom-file-input" multiple>
+                <input multiple name="images[]" type="file" class="mycustom-file-input" accept="image/*" multiple>
                 <label title="اختر صور" class="mycustom-file-label">
                     <div class="image">
                         <i class="fas fa-image"></i>

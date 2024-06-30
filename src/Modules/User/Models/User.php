@@ -2,15 +2,26 @@
 
 namespace Modules\User\Models;
 
+use App\Enum\NotifyType;
+use App\Traits\DefaultMediaImage;
+use App\Traits\HasActive;
+use App\Traits\WalletRelations;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Modules\Common\Models\HelperModel;
-use Modules\Permits\Models\Contractors;
-use Modules\Permits\Models\Visitor;
+use Laravel\Sanctum\HasApiTokens;
+use Modules\Areas\Models\Area;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable;
+    use Notifiable,InteractsWithMedia,
+        DefaultMediaImage,
+        HasApiTokens,
+        SoftDeletes,HasActive,WalletRelations;
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +29,30 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'type', 'status'
+        'name',
+        'email',
+        'status',
+        'mobile',
+        'new_mobile',
+        'password',
+        'lang',
+        'banned',
+        'type',
+        'wallet',
+        'notify',
+        'image',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime:Y-m-d h:i a',
+            'password' => 'hashed',
+            'banned' => 'boolean',
+            'notify' => 'boolean',
+            'status' => 'boolean'
+        ];
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -30,74 +62,77 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function setPasswordAttribute($pass)
+    public function area()
     {
-        $this->attributes['password'] = bcrypt($pass);
+        return $this->belongsTo(Area::class);
+    }
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 
-    public function setImageAttirubte($img)
+    public function otps()
     {
-        $this->attributes['image'] = 'storage/' . $img->store('users');
+        return $this->hasMany(Otp::class);
+    }
+    public function getMycodeAttribute()
+    {
+        return @Otp::where('user_id', $this->id)->where('status',false)->whereDate('expired_at','>',Carbon::now()->format('Y-m-d'))->first()->otp;
+    }
+    public function scopeOtpCode($value)
+    {
+        return $value->otps()->where('status',false)->whereDate('expired_at','>',Carbon::now()->format('Y-m-d'));
+    }
+    public function setImageAttribute($image)
+    {
+        if (is_uploaded_file($image)) {
+            $this->clearMediaCollection('image');
+            $this->addMediaFromRequest('image')
+                ->toMediaCollection('image');
+        }
     }
 
-    public function getValOfKey($row, $col)
+    public function getImageAttribute()
     {
-        return (new HelperModel())->getValOfKey($row, $col);
+        return $this->getFirstOrDefaultMediaUrl('image');
     }
-
-    public function token()
+    public function allNotifications()
     {
-        return $this->hasOne(Token::class);
+        return \Modules\Common\Models\Notification::whereDate('created_at','>=',$this->created_at)->where(function($q){
+            $q->where('notifiable_id',$this->id)->orWhere(function ($q){
+                $q->where('notifiable_id',0)->where('notifiable_type',User::class);
+            });
+        })->wheredoesnthave('notificationActions',fn($q)=>$q->where('user_id',$this->id)->where('type',NotifyType::DELETE))->with(['notificationActions'=>fn($q)=>$q->where('user_id',$this->id)]);
     }
-
-    public function visitPermits()
+    public function getFullPhoneAttribute()
     {
-        return $this->hasMany(Visitor::class);
+        return '966' . ltrim(@$this->attributes['mobile'], '0');
     }
-
-    public function workerPermits()
+    public function devices()
     {
-        return $this->hasMany(Contractors::class)->whereNull('tools');
-    }
-
-    public function toolsPermits()
-    {
-        return $this->hasMany(Contractors::class)->whereNotNull('tools');
-    }
-
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class);
-    }
-
-    public function seen_notifications()
-    {
-        return $this->belongsToMany(Notification::class, 'user_notification_seen', 'user_id', 'notification_id');
-    }
-
-    public function getMynotificationsAttribute()
-    {
-        return Notification::where('type', 'global')->orWhere('user_id', $this->id)->latest();
-    }
-
-    public function getUnreadNotificationsAttribute()
-    {
-        $seen = $this->seen_notifications()->pluck('notification_id')->toArray();
-        return $this->mynotifications->whereNotIn('notification_id', $seen)->count();
+        return $this->morphMany(Device::class,'user','user_type','user_id')->latest();
     }
 
 
-    public function model_search($model, $rows, $searchable = null)
+    public function addresses()
     {
-        return (new HelperModel())->model_search($model, $rows, $searchable);
+        return $this->hasMany(Address::class);
     }
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
+
+    public function myrates()
+    {
+        return $this->morphMany(Rate::class, 'rated');
+    }
+
+    public function getMyrateAttribute()
+    {
+        return number_format($this->myrates()->avg('rate'), 1);
+    }
+
+
+
 }

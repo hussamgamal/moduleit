@@ -8,7 +8,7 @@ trait Crud
 {
     use Helpers;
 
-    protected function store(Request $request)
+    public function store(Request $request)
     {
         $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
 
@@ -23,10 +23,9 @@ trait Crud
 
 
 
-    protected function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
-
         $this->model = $this->model->findOrFail($id);
         $this->model->update($data);
 

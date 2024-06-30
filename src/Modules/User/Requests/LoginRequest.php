@@ -24,8 +24,16 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' =>  'required',
-            'password'  =>  'required'
+            'mobile' => 'required|phone:SA|exists:users,mobile,deleted_at,NULL',
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $mobile = (string) convert_to_english($this->input('mobile'));
+        if($mobile && !str_starts_with($mobile,0)){
+            $this->merge([
+                'mobile' => '0'.$mobile
+            ]);
+        }
     }
 }

@@ -17,13 +17,12 @@ trait CheckRoles
     public function check_user_roles()
     {
         $this->getRoleName();
-
         $all_roles = auth('admin')->user()->role->all_roles;
-        $this->can_delete = $this->can_add = $this->can_edit = false;
+//        $this->canDelete = $this->canAdd = $this->canEdit = false;
         if (isset($all_roles[$this->roleName]) && $role = $all_roles[$this->roleName]) {
-            $this->can_delete = $role['delete'] ?? false;
-            $this->can_add = $role['add'] ?? false;
-            $this->can_edit = $role['edit'] ?? false;
+            $this->canDelete = $this->canDelete ?? $role['delete'];
+            $this->canAdd = $this->canAdd ?? $role['add'];
+            $this->canEdit = $this->canEdit ?? $role['edit'];
         }
     }
 }
