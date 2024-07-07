@@ -2,11 +2,11 @@
 
 namespace Modules\User\Models;
 
-use App\Enum\NotifyType;
-use App\Traits\DefaultMediaImage;
-use App\Traits\HasActive;
+use Modules\Common\Controllers\Admin\Actions\DefaultMediaImage;
+use Modules\Common\Controllers\Admin\Actions\HasActive;
 use App\Traits\WalletRelations;
 use Carbon\Carbon;
+use MshMsh\Enum\NotifyType;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

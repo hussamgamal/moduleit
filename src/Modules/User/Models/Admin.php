@@ -2,8 +2,8 @@
 
 namespace Modules\User\Models;
 
-use App\Traits\DefaultMediaImage;
-use App\Traits\HasActive;
+use Modules\Common\Controllers\Admin\Actions\DefaultMediaImage;
+use Modules\Common\Controllers\Admin\Actions\HasActive;
 use App\Traits\HelperModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

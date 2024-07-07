@@ -35,7 +35,8 @@
                                     <div class="form-group">
                                         <label class="col-sm-12" for="">@lang('Notice text')</label>
                                         <div class="col-sm-12">
-                                            <textarea required name="content[{{ $lang_name }}]" class="form-control" rows="5" placeholder="نص الاشعار"></textarea>
+                                            <textarea required name="content[{{ $lang_name }}]" class="form-control"
+                                                      rows="5" placeholder="نص الاشعار"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +44,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary"> <span>{{ __('Send') }}</span> <i
+                            <button type="submit" class="btn btn-primary"><span>{{ __('Send') }}</span> <i
                                     class="fas fa-save"></i></button>
                         </div>
                     </div>
@@ -62,8 +63,8 @@
                                 <label for="">@lang('send to')</label>
                                 <select name="for" class="form-control selectpicker" title="@lang('send to')" id="">
                                     <option value="all">@lang('For everyone')</option>
-                                    <option value="{{\App\Enum\UserType::CLIENT}}"> {{__('clients')}}</option>
-                                    <option value="{{\App\Enum\UserType::DELEGATE}}"> {{__('delegates')}}</option>
+                                    <option value="{{MshMsh\Enum\UserType::CLIENT}}"> {{__('clients')}}</option>
+                                    <option value="{{MshMsh\Enum\UserType::DELEGATE}}"> {{__('delegates')}}</option>
                                 </select>
                             </div>
                         </div>

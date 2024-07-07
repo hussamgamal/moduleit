@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('notification_actions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\Modules\User\Models\User::class)->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('notification_id')->constrained('notifications');
-            $table->string('type')->default(\App\Enum\NotifyType::READ);
+            $table->string('type')->default(MshMsh\Enum\NotifyType::READ);
             $table->timestamps();
         });
     }

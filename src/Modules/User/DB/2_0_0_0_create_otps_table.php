@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\Modules\User\Models\User::class)->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('otp')->nullable();
             $table->boolean('status')->default(false);
             $table->dateTime('expired_at')->nullable();

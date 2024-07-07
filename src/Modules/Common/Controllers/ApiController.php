@@ -2,8 +2,8 @@
 
 namespace Modules\Common\Controllers;
 
-use App\Enum\NotifyType;
 use App\Http\Controllers\Controller;
+use MshMsh\Enum\NotifyType;
 use Illuminate\Http\Request;
 use Modules\Common\Models\NotificationAction;
 use Modules\Common\Resources\Notification\NotificationCollection;

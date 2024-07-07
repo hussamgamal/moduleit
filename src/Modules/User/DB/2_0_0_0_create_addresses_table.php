@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\Modules\User\Models\User::class)->index()->constrained();
+            $table->foreignId('user_id')->index()->constrained();
             $table->text('address');
             $table->json('location');
             $table->string('special_marque')->nullable();

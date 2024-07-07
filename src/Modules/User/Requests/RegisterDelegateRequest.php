@@ -2,7 +2,7 @@
 
 namespace Modules\User\Requests;
 
-use App\Enum\UserType;
+use MshMsh\Enum\UserType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterDelegateRequest extends FormRequest
