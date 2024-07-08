@@ -1,5 +1,5 @@
 {
-    "name": "hossam/moduleit",
+    "name": "mshmsh/moduleit",
     "description": "Seperate your project to modules , every module has all of its functionality to be seperated and reusable",
     "license": "MIT",
     "require": {
@@ -29,6 +29,4 @@
             ]
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": false
 }
