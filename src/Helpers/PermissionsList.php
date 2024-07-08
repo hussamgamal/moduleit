@@ -8,20 +8,20 @@ class PermissionsList
 {
     static function getLinks()
     {
-        $sidebarFiles = glob(base_path("Modules/**/Views/admin/sidebar.json"));
-        $links = [];
-        foreach ($sidebarFiles as $file) {
+        $permissionFiles = glob(base_path("Modules/**/Views/permission.json"));
+        $permissions = [];
+        foreach ($permissionFiles as $file) {
             $fileLinks = (array) json_decode(file_get_contents($file));
             foreach ($fileLinks as $sectionTitle => $sectionLinks) {
                 $sectionLinks = (array) $sectionLinks;
-                if (isset($links[$sectionTitle])) {
-                    $links[$sectionTitle] = array_merge($links[$sectionTitle], $sectionLinks);
+                if (isset($permissions[$sectionTitle])) {
+                    $permissions[$sectionTitle] = array_merge($permissions[$sectionTitle], $sectionLinks);
                 } else {
-                    $links[$sectionTitle] = $sectionLinks;
+                    $permissions[$sectionTitle] = $sectionLinks;
                 }
             }
         }
-        return $links;
+        return $permissions;
     }
 
     static function list()

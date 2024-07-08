@@ -3,6 +3,7 @@
 namespace Modules\User\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Areas\Models\Area;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\User;
@@ -13,7 +14,7 @@ class AdminController extends HelperController
     {
         $this->model = new User;
 
-        $this->role_name = "User";
+        $this->roleName = "User";
 
         $this->title = "Users";
         $this->name = 'users';
@@ -27,29 +28,9 @@ class AdminController extends HelperController
             'code' => 'الكود',
             'name' => 'الاسم',
             'mobile' => 'رقم الجوال',
-            // 'activation_code' => 'كود التفعيل'
             'email' => 'البريد الإلكتروني',
         ];
-
-
         $this->switches['status'] = route('admin.users.active_status');
-
-        $this->links = [
-            [
-                'title' => 'Orders',
-                'icon' => 'fa-th-list',
-                'url' => route('admin.orders.index'),
-                'key' => 'user_id',
-                'type' => 'success',
-            ],
-            [
-                'title' => 'Added days',
-                'icon' => 'fa-plus',
-                'url' => route('admin.added_days'),
-                'key' => 'user_id',
-                'type' => 'primary',
-            ],
-        ];
     }
 
 
@@ -122,5 +103,34 @@ class AdminController extends HelperController
             return redirect()->to('/admin');
         }
         return back()->with('error', "بيانات الدخول خاطئة");
+    }
+
+    public function notifications()
+    {
+        $notifications = auth('admin')->user()->notifications()->latest()->paginate(10);
+        $title =   __("notifications") ;
+        return view('User::admin.notifications', get_defined_vars());
+
+    }
+    public function markNotifyRead()
+    {
+        $user = auth('admin')->user();
+        $notifications = $user->unreadnotifications;
+        foreach ($notifications as $notification){
+            $notification->markAsRead();
+        }
+    }
+    public function saveToken()
+    {
+        $token = request()->token;
+        $user = auth('admin')->user();
+        $user->devices()->updateOrCreate(['token' => $token, 'platform' => request()->platform]);
+        return response()->json(['status' => 'success']);
+    }
+
+    public function admin_logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin_login');
     }
 }

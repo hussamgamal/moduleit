@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Cache;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
 use Modules\User\Models\Role;
-use Modules\User\Models\User;
 
 class RolesController extends HelperController
 {

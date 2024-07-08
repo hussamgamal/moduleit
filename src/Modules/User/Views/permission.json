@@ -1,0 +1,62 @@
+{
+    "User": {
+        "Admin": [
+            {
+                "title": "users list",
+                "link": "admin.users.index"
+            },
+            {
+                "title": "create user",
+                "link": "admin.users.create"
+            },
+            {
+                "title": "edit user",
+                "link": "admin.users.edit"
+            },
+            {
+                "title": "delete user",
+                "link": "admin.users.destroy"
+            }
+        ]
+    },
+    "Role": {
+        "Admin": [
+            {
+                "title": "roles list",
+                "link": "admin.roles.index"
+            },
+            {
+                "title": "create role",
+                "link": "admin.roles.create"
+            },
+            {
+                "title": "edit role",
+                "link": "admin.roles.edit"
+            },
+            {
+                "title": "delete role",
+                "link": "admin.roles.destroy"
+            }
+        ]
+    },
+    "Admin": {
+        "Admin": [
+            {
+                "title": "admins list",
+                "link": "admin.admins.index"
+            },
+            {
+                "title": "create admin",
+                "link": "admin.admins.create"
+            },
+            {
+                "title": "edit admin",
+                "link": "admin.admins.edit"
+            },
+            {
+                "title": "delete admin",
+                "link": "admin.admins.destroy"
+            }
+        ]
+    }
+}

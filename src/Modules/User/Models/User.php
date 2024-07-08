@@ -2,9 +2,9 @@
 
 namespace Modules\User\Models;
 
-use Modules\Common\Controllers\Admin\Actions\DefaultMediaImage;
-use Modules\Common\Controllers\Admin\Actions\HasActive;
-use App\Traits\WalletRelations;
+use MshMsh\Actions\DefaultMediaImage;
+use MshMsh\Actions\HasActive;
+use MshMsh\Actions\WalletRelations;
 use Carbon\Carbon;
 use MshMsh\Enum\NotifyType;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Areas\Models\Area;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -21,7 +22,7 @@ class User extends Authenticatable implements HasMedia
         DefaultMediaImage,
         HasApiTokens,
         SoftDeletes,HasActive,WalletRelations;
-
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

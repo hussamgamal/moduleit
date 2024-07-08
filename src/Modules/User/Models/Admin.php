@@ -2,18 +2,20 @@
 
 namespace Modules\User\Models;
 
-use Modules\Common\Controllers\Admin\Actions\DefaultMediaImage;
-use Modules\Common\Controllers\Admin\Actions\HasActive;
-use App\Traits\HelperModel;
+use MshMsh\Actions\DefaultMediaImage;
+use MshMsh\Actions\HasActive;
+use MshMsh\Actions\HelperModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable implements HasMedia
 {
     use Notifiable,InteractsWithMedia,
         DefaultMediaImage,HelperModel,HasActive;
+    use HasRoles;
 
     protected $fillable = [
         'name', 'email', 'password', 'role_id', 'mobile','status','image'

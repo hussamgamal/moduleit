@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Common\Controllers\Admin\Actions;
+namespace MshMsh\Actions;
 
 trait DefaultMediaImage{
 

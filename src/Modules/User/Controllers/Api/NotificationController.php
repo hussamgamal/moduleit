@@ -3,13 +3,8 @@
 namespace Modules\User\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Modules\Aqars\Models\Aqar;
-use Modules\Aqars\Resources\AqarsResource;
 use Modules\Common\Models\Notification;
 use Modules\Common\Resources\NotificationResource;
-use Modules\User\Models\User;
-use Modules\User\Resources\UserResource;
 
 class NotificationController extends Controller
 {
@@ -32,7 +27,7 @@ class NotificationController extends Controller
         $user->seen_notifications()->attach($id);
         return api_response('success', '');
     }
-    
+
     public function toggle()
     {
         $user = auth()->user();

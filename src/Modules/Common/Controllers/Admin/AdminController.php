@@ -30,8 +30,6 @@ class AdminController extends Controller
                 'type' => 'orange'
             ]
         ];
-        $users = User::latest()->get();
-
         $users = User::latest()->take(10)->get();
         $locale = app()->getLocale();
 

@@ -35,7 +35,6 @@
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{ app_setting('map_key') }}&sensor=false&libraries=places,geometry,drawing&lang=ar">
     </script>
-    @vite('resources/js/app.js')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

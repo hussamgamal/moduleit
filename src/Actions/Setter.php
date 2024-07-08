@@ -1,11 +1,11 @@
 <?php
-namespace Modules\Common\Controllers\Admin\Actions;
+namespace MshMsh\Actions;
 
 use Modules\Common\Models\Setting;
 
 trait Setter
 {
-    public functionsetData($type)
+    public function setData($type)
     {
         $data = request()->except('_token');
         foreach ($data as $key => $value) {
@@ -13,7 +13,7 @@ trait Setter
         }
         return response()->json(['url' => route('admin.settings.' . $type), 'message' => 'تم تعديل الإعدادات بنجاح']);
     }
-    public functionformBuilder($type, $data)
+    public function formBuilder($type, $data)
     {
         extract($data);
         $action = route('admin.settings.' . $type);

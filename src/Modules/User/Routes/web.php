@@ -1,5 +1,8 @@
 <?php
-Route::any('admin/login', 'Admin\AdminController@login');
+use Modules\User\Controllers\{
+    Admin\AdminController
+};
+include __DIR__ . '/auth.php';
 
 Route::group(['namespace' => 'Web'], function () {
     Route::resource('users', 'WebController');

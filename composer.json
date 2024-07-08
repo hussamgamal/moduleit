@@ -1,12 +1,13 @@
 {
-    "name": "mshmsh/modules",
+    "name": "hossam/moduleit",
     "description": "Seperate your project to modules , every module has all of its functionality to be seperated and reusable",
     "license": "MIT",
     "require": {
         "kreait/laravel-firebase": "*",
         "spatie/laravel-translatable": "*",
         "spatie/laravel-medialibrary": "*",
-        "spatie/laravel-permission": "*"
+        "spatie/laravel-permission": "*",
+        "propaganistas/laravel-phone": "*"
     },
     "authors": [{
         "name": "Hossam MshMsh",
@@ -27,5 +28,7 @@
                 "MshMsh\\Provider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": false
 }

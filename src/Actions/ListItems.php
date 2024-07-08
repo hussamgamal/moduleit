@@ -1,8 +1,6 @@
 <?php
 
-namespace Modules\Common\Controllers\Admin\Actions;
-
-use Illuminate\Http\Request;
+namespace MshMsh\Actions;
 
 trait ListItems
 {

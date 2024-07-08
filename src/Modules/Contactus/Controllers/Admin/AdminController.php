@@ -2,7 +2,6 @@
 
 namespace Modules\Contactus\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Modules\Common\Controllers\HelperController;
 use Modules\Contactus\Models\Contactus;
 

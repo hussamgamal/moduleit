@@ -18,7 +18,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::delete('notifications/{id}/delete', [NotificationController::class,'notifications_delete'])->name('notifications.destroy');
 
     Route::match(['get', 'post'], 'home', [SettingsController::class,'home'])->name('settings.home');
-    Route::match(['get', 'post'], 'settings', [SettingsController::class,'settings'])->name('settings.settings');
+    Route::match(['get', 'post'], 'settings', [SettingsController::class,'settings'])->name('settings.app');
     Route::match(['get', 'post'], 'app_links', [SettingsController::class,'app_links'])->name('settings.app_links');
     Route::match(['get', 'post'], 'contacts', [SettingsController::class,'contacts'])->name('settings.contacts');
     Route::get('remove_contact', [SettingsController::class,'remove_contact'])->name('settings.remove_contact');

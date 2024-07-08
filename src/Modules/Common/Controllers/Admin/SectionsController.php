@@ -2,6 +2,7 @@
 
 namespace Modules\Common\Controllers;
 
+use Modules\Common\Controllers\Admin\HelperController;
 use Modules\Common\Models\Section;
 
 class SectionsController extends HelperController

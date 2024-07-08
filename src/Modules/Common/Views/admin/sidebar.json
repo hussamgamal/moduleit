@@ -7,11 +7,6 @@
                 "icon": "fas fa-cog"
             },
             {
-                "title": "Delegate Schedules",
-                "link": "settings.schedules",
-                "icon": "fas fa-cog"
-            },
-            {
                 "title": "Contacts & Socials",
                 "link": "settings.contacts",
                 "icon": "fas fa-phone"
