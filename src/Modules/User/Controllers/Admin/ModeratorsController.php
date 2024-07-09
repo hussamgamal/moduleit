@@ -6,14 +6,13 @@ use Modules\User\Models\User;
 use Illuminate\Http\Request;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
-use Modules\User\Models\Role;
+use Modules\User\Requests\AdminRequest;
+use Spatie\Permission\Models\Role;
 
 class ModeratorsController extends HelperController
 {
     public function __construct()
     {
-        $this->role_name = "Roles";
-
         $this->model = new Admin;
         $this->rows = Admin::where('id', '!=', 1);
         $this->title = "Moderators";
@@ -47,15 +46,7 @@ class ModeratorsController extends HelperController
     public function active_status(Request $request)
     {
         $user = User::findOrFail($request->id);
-        if ($user->status == 1) {
-            $status = 0;
-        } else {
-            $status = 1;
-            if ($user->type == 'provider' && $device = $user->device) {
-                send_fcm([$device->token], $device->platform, __('Your account activated as provider'), 'provider', $user->id, 'provider');
-            }
-        }
-        $user->update(['status' => $status]);
+        $user->update(['status' => !$user->status]);
         return api_response('success', '', ['status' => 1]);
     }
 }

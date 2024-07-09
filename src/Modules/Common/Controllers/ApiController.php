@@ -3,6 +3,7 @@
 namespace Modules\Common\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Common\Resources\Notification\NotificationResource;
 use MshMsh\Enum\NotifyType;
 use Illuminate\Http\Request;
 use Modules\Common\Models\NotificationAction;
@@ -16,7 +17,7 @@ class ApiController extends Controller
         $user = auth('api')->user();
         $notifications = $user->allNotifications()->latest()->paginate(20);
         return ApiResponsder::loaded([
-            'notifications' => NotificationCollection::make($notifications)
+            'notifications' => NotificationResource::collection($notifications)
         ]);
     }
     public function deleteNotification($uuid)

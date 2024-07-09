@@ -3,7 +3,6 @@
 namespace Modules\Common\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use MshMsh\Actions\CheckRoles;
 use MshMsh\Actions\Crud;
 use MshMsh\Actions\Form;
 use MshMsh\Actions\ListItems;
@@ -12,8 +11,7 @@ class HelperController extends Controller
 {
     use Crud,
         Form,
-        ListItems,
-        CheckRoles;
+        ListItems;
 
     protected $model;
     protected string $name;

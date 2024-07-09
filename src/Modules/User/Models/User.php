@@ -4,7 +4,6 @@ namespace Modules\User\Models;
 
 use MshMsh\Actions\DefaultMediaImage;
 use MshMsh\Actions\HasActive;
-use MshMsh\Actions\WalletRelations;
 use Carbon\Carbon;
 use MshMsh\Enum\NotifyType;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,7 +20,7 @@ class User extends Authenticatable implements HasMedia
     use Notifiable,InteractsWithMedia,
         DefaultMediaImage,
         HasApiTokens,
-        SoftDeletes,HasActive,WalletRelations;
+        SoftDeletes,HasActive;
     use HasRoles;
 
     /**
@@ -39,7 +38,6 @@ class User extends Authenticatable implements HasMedia
         'lang',
         'banned',
         'type',
-        'wallet',
         'notify',
         'image',
     ];
@@ -63,10 +61,6 @@ class User extends Authenticatable implements HasMedia
         'password', 'remember_token',
     ];
 
-    public function area()
-    {
-        return $this->belongsTo(Area::class);
-    }
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
@@ -114,25 +108,6 @@ class User extends Authenticatable implements HasMedia
         return $this->morphMany(Device::class,'user','user_type','user_id')->latest();
     }
 
-
-    public function addresses()
-    {
-        return $this->hasMany(Address::class);
-    }
-    public function rates()
-    {
-        return $this->hasMany(Rate::class);
-    }
-
-    public function myrates()
-    {
-        return $this->morphMany(Rate::class, 'rated');
-    }
-
-    public function getMyrateAttribute()
-    {
-        return number_format($this->myrates()->avg('rate'), 1);
-    }
 
 
 

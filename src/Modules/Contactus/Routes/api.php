@@ -1,3 +1,6 @@
 <?php
 
-Route::any('contactus', 'ApiController@contactus');
+use Modules\Contactus\Controllers\{
+    ApiController
+};
+Route::any('contactus', [ApiController::class,'contactus']);

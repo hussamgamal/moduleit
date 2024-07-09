@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('mobile')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('role_id')->index();
             $table->boolean('status')->default(1)->nullable();
             $table->rememberToken();
             $table->timestamps();

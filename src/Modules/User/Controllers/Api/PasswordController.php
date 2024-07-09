@@ -4,13 +4,11 @@ namespace Modules\User\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\User\Models\Device;
 use Modules\User\Models\Token;
 use Modules\User\Models\User;
-use Modules\User\Resources\UserResource;
 use MshMsh\Helpers\ApiResponsder;
 
-class AuthController extends Controller
+class PasswordController extends Controller
 {
     public function forget(Request $request)
     {

@@ -41,10 +41,6 @@ class Admin extends Authenticatable implements HasMedia
     }
 
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
 
     public function setPasswordAttribute($pass)
     {

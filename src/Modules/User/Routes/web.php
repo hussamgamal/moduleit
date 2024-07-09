@@ -1,27 +1,31 @@
 <?php
-use Modules\User\Controllers\{
-    Admin\AdminController
+use Modules\User\Controllers\Web\{
+    AuthController,
+    WebController,
+    ProfileController,
+    PaymentController,
+    PasswordController,
 };
 include __DIR__ . '/auth.php';
 
 Route::group(['namespace' => 'Web'], function () {
-    Route::resource('users', 'WebController');
-    Route::any('login', 'AuthController@login')->name('login');
-    Route::any('activate/{token}', 'AuthController@activate')->name('activate');
-    Route::any('register', 'AuthController@register')->name('register');
+    Route::resource('users', WebController::class);
+    Route::any('login', [AuthController::class,'login'])->name('login');
+    Route::any('activate/{token}', [AuthController::class,'activate'])->name('activate');
+    Route::any('register', [AuthController::class,'register'])->name('register');
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::any('profile/edit', 'ProfileController@edit')->name('profile.edit');
-        Route::get('profile/logout', 'ProfileController@logout')->name('logout');
+        Route::any('profile/edit', [ProfileController::class,'edit'])->name('profile.edit');
+        Route::get('profile/logout', [ProfileController::class,'logout'])->name('logout');
 
-        Route::get('notifications', 'ProfileController@notifications')->name('notifications');
+        Route::get('notifications', [ProfileController::class,'notifications'])->name('notifications');
 
-        Route::get('payments' , 'PaymentController@index')->name('payments.index');
-        Route::any('payments/{id}/pay' , 'PaymentController@pay')->name('payments.pay');
+        Route::get('payments' , [PaymentController::class,'index'])->name('payments.index');
+        Route::any('payments/{id}/pay' , [PaymentController::class,'pay'])->name('payments.pay');
 
-        Route::any('password/change' , 'PasswordController@change')->name('password.change');
+        Route::any('password/change' , [PasswordController::class,'change'])->name('password.change');
     });
-    Route::any('password/forget' , 'PasswordController@forget')->name('password.forget');
-    Route::any('password/reset/{mobile}' , 'PasswordController@reset')->name('password.reset');
-    Route::any('password/new/{mobile}' , 'PasswordController@new')->name('password.new');
+    Route::any('password/forget' , [PasswordController::class,'forget'])->name('password.forget');
+    Route::any('password/reset/{mobile}' , [PasswordController::class,'reset'])->name('password.reset');
+    Route::any('password/new/{mobile}' , [PasswordController::class,'new'])->name('password.new');
 });

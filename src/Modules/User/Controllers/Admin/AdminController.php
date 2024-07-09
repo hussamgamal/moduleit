@@ -3,23 +3,30 @@
 namespace Modules\User\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
-use Modules\Areas\Models\Area;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\User;
 
-class AdminController extends HelperController
+class AdminController extends HelperController implements HasMiddleware
 {
     public function __construct()
     {
         $this->model = new User;
-
         $this->roleName = "User";
-
         $this->title = "Users";
         $this->name = 'users';
-
         $this->moreActions[] = 'admin_flag';
+    }
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:admin.users.index',only: ['index']),
+            new Middleware('permission:admin.users.create',only: ['create']),
+            new Middleware('permission:admin.users.edit',only: ['edit']),
+            new Middleware('permission:admin.users.destroy',only: ['destroy']),
+        ];
     }
 
     public function listBuilder()
@@ -34,26 +41,13 @@ class AdminController extends HelperController
     }
 
 
-    public function admin_flag($model)
-    {
-        if ($model->created_at >= date('Y-m-d H:i:s', strtotime('-1 minute'))) {
-            $model->update(['added_from' => 'admin']);
-        }
-    }
-
     public function formBuilder()
     {
-        $areas = [];
-        $rows = Area::get();
-        foreach ($rows as $row) {
-            $areas[$row->id] = $row->name->{app()->getLocale()};
-        }
         $this->inputs = [
             'name' => ['title' => 'الاسم '],
             'mobile' => ['title' => 'رقم الجوال'],
             'email' => ['title' => 'البريد الإلكتروني', 'empty' => 1],
             'password' => ['title' => 'كلمة المرور', 'type' => 'password', 'empty' => 1],
-            // 'status' => ['title' => 'الحالة', 'type' => 'hidden', 'value' => request('status', 1)],
             'image' => ['title' => 'الصورة', 'type' => 'image', 'empty' => 1],
         ];
     }
@@ -61,34 +55,10 @@ class AdminController extends HelperController
     public function active_status(Request $request)
     {
         $user = User::findOrFail($request->id);
-        if ($user->status == 1) {
-            $status = 0;
-        } else {
-            $status = 1;
-            if ($user->type == 'provider' && $device = $user->device) {
-                send_fcm([$device->device_token], $device->device_type, __('Your account activated as provider'), 'provider', $user->id, 'provider');
-            }
-        }
-        $user->update(['status' => $status]);
+        $user->update(['status' => !$user->status]);
         return api_response('success', '', ['status' => 1]);
     }
 
-    public function address()
-    {
-        $user = User::findOrFail(request('user_id'));
-        $address = $user->addresses()->latest()->first();
-        $data = [
-            'age' => $address->info['age'] ?? '',
-            'height' => $address->info['height'] ?? '',
-            'weight' => $address->info['weight'] ?? '',
-            'gender' => $address->info['gender'] ?? '',
-            'address' => $address->address ?? [],
-            'address_area_id' => $address->area_id ?? '',
-            'area_id' => $address->area->area_id ?? '',
-            'mobile' => $user->mobile
-        ];
-        return response()->json($data);
-    }
 
     public function login(Request $request)
     {

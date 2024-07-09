@@ -30,7 +30,7 @@ class Sidebar
         $links = null;
         if (!$links) {
             $links = self::getLinks();
-            $roles = auth('admin')->user()->role->roles ?? [];
+            $roles = auth()->user()->role->roles ?? [];
             foreach ($links as $title => $sub_links) {
                 foreach ($sub_links as $ken => $len) {
                     if (!in_array($ken, $roles)) {

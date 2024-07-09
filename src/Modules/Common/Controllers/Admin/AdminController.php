@@ -8,6 +8,7 @@ use Modules\Orders\Models\Order;
 use Modules\Products\Models\Product;
 use Modules\Services\Models\Service;
 use Modules\User\Models\User;
+use MshMsh\Helpers\PermissionsList;
 
 class AdminController extends Controller
 {

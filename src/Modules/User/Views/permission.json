@@ -2,19 +2,19 @@
     "User": {
         "Admin": [
             {
-                "title": "users list",
+                "title": "list",
                 "link": "admin.users.index"
             },
             {
-                "title": "create user",
+                "title": "create",
                 "link": "admin.users.create"
             },
             {
-                "title": "edit user",
+                "title": "edit",
                 "link": "admin.users.edit"
             },
             {
-                "title": "delete user",
+                "title": "delete",
                 "link": "admin.users.destroy"
             }
         ]
@@ -22,19 +22,19 @@
     "Role": {
         "Admin": [
             {
-                "title": "roles list",
+                "title": "list",
                 "link": "admin.roles.index"
             },
             {
-                "title": "create role",
+                "title": "create",
                 "link": "admin.roles.create"
             },
             {
-                "title": "edit role",
+                "title": "edit",
                 "link": "admin.roles.edit"
             },
             {
-                "title": "delete role",
+                "title": "delete",
                 "link": "admin.roles.destroy"
             }
         ]
@@ -42,19 +42,19 @@
     "Admin": {
         "Admin": [
             {
-                "title": "admins list",
+                "title": "list",
                 "link": "admin.admins.index"
             },
             {
-                "title": "create admin",
+                "title": "create",
                 "link": "admin.admins.create"
             },
             {
-                "title": "edit admin",
+                "title": "edit",
                 "link": "admin.admins.edit"
             },
             {
-                "title": "delete admin",
+                "title": "delete",
                 "link": "admin.admins.destroy"
             }
         ]

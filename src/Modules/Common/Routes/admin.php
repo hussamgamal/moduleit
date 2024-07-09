@@ -6,7 +6,7 @@ use Modules\Common\Controllers\Admin\{
     SettingsController,
 };
 
-Route::group(['namespace' => 'Admin'], function () {
+Route::group(['namespace' => 'Admin','middleware'=>'auth:admin'], function () {
     Route::get('/', [AdminController::class,'home'])->name('home');
     Route::get('/loading', [AdminController::class,'load'])->name('load');
 

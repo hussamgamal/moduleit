@@ -2,7 +2,7 @@
 use Modules\User\Controllers\{
     Admin\AdminController,
     WebController,
-    PasswordController,
+    Web\PasswordController,
 };
 
 Route::any('admin/login', [AdminController::class,'login']);
