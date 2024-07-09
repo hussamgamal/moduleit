@@ -5,13 +5,14 @@ namespace Modules\User\Controllers\Admin;
 use Illuminate\Support\Facades\Cache;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
-use Modules\User\Models\Role;
+use Spatie\Permission\Models\Role;
 
 class RolesController extends HelperController
 {
     public function __construct()
     {
-        $this->model = new Role;
+        $this->model = new Role();
+        $this->rows = $this->model->where('name','!=','Super Admin');
         $this->title = "Roles";
         $this->name =  'roles';
         $this->list = ['name' => 'الاسم'];

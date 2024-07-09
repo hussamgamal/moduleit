@@ -14,7 +14,7 @@ class AdminController extends HelperController implements HasMiddleware
     public function __construct()
     {
         $this->model = new User;
-        $this->roleName = "User";
+
         $this->title = "Users";
         $this->name = 'users';
         $this->moreActions[] = 'admin_flag';
