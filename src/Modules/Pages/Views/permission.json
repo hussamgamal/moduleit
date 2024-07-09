@@ -1,0 +1,22 @@
+{
+    "Page": {
+        "admin": [
+            {
+                "title": "list",
+                "route": "admin.pages.index"
+            },
+            {
+                "title": "create",
+                "route": "admin.pages.create"
+            },
+            {
+                "title": "edit",
+                "route": "admin.pages.edit"
+            },
+            {
+                "title": "delete",
+                "route": "admin.pages.destroy"
+            }
+        ]
+    }
+}

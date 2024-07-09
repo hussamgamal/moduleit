@@ -2,7 +2,7 @@
 
 namespace Modules\Contactus\Controllers\Admin;
 
-use Modules\Common\Controllers\HelperController;
+use Modules\Common\Controllers\Admin\HelperController;
 use Modules\Contactus\Models\Contactus;
 
 class AdminController extends HelperController

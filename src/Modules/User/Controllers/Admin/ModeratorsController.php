@@ -13,7 +13,7 @@ class ModeratorsController extends HelperController
 {
     public function __construct()
     {
-        $this->model = new Admin;
+        $this->model = new Admin();
         $this->rows = Admin::where('id', '!=', 1);
         $this->title = "Moderators";
         $this->name =  'moderators';
@@ -43,6 +43,37 @@ class ModeratorsController extends HelperController
         ];
     }
 
+    public function store(Request $request)
+    {
+        $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
+
+        $model = $this->model->create($data);
+
+        $this->setImages($model);
+
+        $this->syncActions($model);
+        $role = Role::findById($request['role_id']);
+        $model->syncRoles($role);
+
+        return $this->successfullResponse();
+    }
+
+
+
+    public function update(Request $request, $id)
+    {
+        $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
+        $this->model = $this->model->findOrFail($id);
+        $this->model->update($data);
+
+        $this->setImages($this->model);
+
+        $this->syncActions($this->model);
+        $role = Role::findById($request['role_id']);
+        $this->model->syncRoles($role);
+
+        return $this->successfullResponse();
+    }
     public function active_status(Request $request)
     {
         $user = User::findOrFail($request->id);

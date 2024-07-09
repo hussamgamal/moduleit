@@ -3,19 +3,19 @@
         "admin": [
             {
                 "title": "list",
-                "link": "admin.users.index"
+                "route": "admin.users.index"
             },
             {
                 "title": "create",
-                "link": "admin.users.create"
+                "route": "admin.users.create"
             },
             {
                 "title": "edit",
-                "link": "admin.users.edit"
+                "route": "admin.users.edit"
             },
             {
                 "title": "delete",
-                "link": "admin.users.destroy"
+                "route": "admin.users.destroy"
             }
         ]
     },
@@ -23,19 +23,19 @@
         "admin": [
             {
                 "title": "list",
-                "link": "admin.roles.index"
+                "route": "admin.roles.index"
             },
             {
                 "title": "create",
-                "link": "admin.roles.create"
+                "route": "admin.roles.create"
             },
             {
                 "title": "edit",
-                "link": "admin.roles.edit"
+                "route": "admin.roles.edit"
             },
             {
                 "title": "delete",
-                "link": "admin.roles.destroy"
+                "route": "admin.roles.destroy"
             }
         ]
     },
@@ -43,19 +43,19 @@
         "admin": [
             {
                 "title": "list",
-                "link": "admin.admins.index"
+                "route": "admin.admins.index"
             },
             {
                 "title": "create",
-                "link": "admin.admins.create"
+                "route": "admin.admins.create"
             },
             {
                 "title": "edit",
-                "link": "admin.admins.edit"
+                "route": "admin.admins.edit"
             },
             {
                 "title": "delete",
-                "link": "admin.admins.destroy"
+                "route": "admin.admins.destroy"
             }
         ]
     }

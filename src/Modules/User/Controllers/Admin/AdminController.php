@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\User;
 
-class AdminController extends HelperController implements HasMiddleware
+class AdminController extends HelperController
 {
     public function __construct()
     {
         $this->model = new User;
-
         $this->title = "Users";
         $this->name = 'users';
         $this->moreActions[] = 'admin_flag';

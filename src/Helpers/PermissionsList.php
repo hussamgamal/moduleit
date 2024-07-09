@@ -2,13 +2,13 @@
 
 namespace MshMsh\Helpers;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class PermissionsList
 {
-    static function getLinks()
+    static function getLinks($view)
     {
-        $permissionFiles = glob(base_path("Modules/**/Views/permission.json"));
+        $permissionFiles = glob(base_path("Modules/".$view."/Views/permission.json"));
         $permissions = [];
         foreach ($permissionFiles as $file) {
             $fileLinks = (array) json_decode(file_get_contents($file));
@@ -24,27 +24,22 @@ class PermissionsList
         return $permissions;
     }
 
-    static function list()
+    static function list($guard = 'admin',$view = "**")
     {
-        // $links = env('CacheSidebar') ? Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id()) : null;
-        $links = null;
-        if (!$links) {
-            $links = self::getLinks();
-            $roles = auth('admin')->user()->role->roles ?? [];
-            foreach ($links as $title => $sub_links) {
-                foreach ($sub_links as $ken => $len) {
-                    if (!in_array($ken, $roles)) {
-                        unset($sub_links[$ken]);
-                    }
-                }
-                if (count($sub_links)) {
-                    $links[$title] = $sub_links;
-                } else {
-                    unset($links[$title]);
+        $links = self::getLinks($view);
+        foreach ($links as $title => $sub_links) {
+            foreach ($sub_links as $ken => $len) {
+                if ($ken != $guard) {
+                    unset($sub_links[$ken]);
                 }
             }
-            // Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id(), $links);
+            if (count($sub_links)) {
+                $links[$title] = $sub_links[$ken];
+            } else {
+                unset($links[$title]);
+            }
         }
         return $links;
     }
+
 }

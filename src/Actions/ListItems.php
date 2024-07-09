@@ -14,7 +14,6 @@ trait ListItems
 
         $this->search();
 
-        $this->check_user_roles();
 
 
         $this->treeViewBuilder();

@@ -18,7 +18,7 @@ class Admin extends Authenticatable implements HasMedia
     use HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'mobile','status','image'
+        'name', 'email', 'password','mobile','status','image'
     ];
     /**
      * The attributes that are mass assignable.
@@ -40,7 +40,10 @@ class Admin extends Authenticatable implements HasMedia
         return $this->getFirstOrDefaultMediaUrl('image');
     }
 
-
+    public function getRoleNameAttribute()
+    {
+        return @$this->roles->first()['name'];
+    }
 
     public function setPasswordAttribute($pass)
     {

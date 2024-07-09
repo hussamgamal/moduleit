@@ -1,0 +1,22 @@
+{
+    "Contactus": {
+        "admin": [
+            {
+                "title": "list",
+                "route": "admin.contactus.index"
+            },
+            {
+                "title": "create",
+                "route": "admin.contactus.create"
+            },
+            {
+                "title": "edit",
+                "route": "admin.contactus.edit"
+            },
+            {
+                "title": "delete",
+                "route": "admin.contactus.destroy"
+            }
+        ]
+    }
+}

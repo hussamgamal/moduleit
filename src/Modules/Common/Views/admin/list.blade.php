@@ -5,11 +5,13 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{ __($title) }}</h3>
-                    @if ($canAdd)
-                        <a href="{{ route("admin.$name.create", request()->query()) }}" class="mlink btn btn-success"><i
-                                class="fa fa-plus"></i>
-                            <span>{{ __('Add new') }}</span></a>
-                    @endif
+                    @can("admin.$name.create")
+                        @if(Route::has("admin.$name.create"))
+                            <a href="{{ route("admin.$name.create", request()->query()) }}" class="mlink btn btn-success"><i
+                                    class="fa fa-plus"></i>
+                                <span>{{ __('Add new') }}</span></a>
+                        @endif
+                    @endcan
                     @if(count($speed_links) > 0)
                         <ul class="d-flex list-unstyled">
                         @foreach($speed_links as $link)
@@ -40,16 +42,21 @@
                                         <th>{{ __($stitle) }}</th>
                                     @endforeach
                                 @endif
-                                @if ($canEdit)
-                                    <th>{{ __('Edit') }}</th>
-                                @endif
-                                @if ($canShow)
-                                    <th>{{ __('Show') }}</th>
-                                @endif
-
-                                @if ($canDelete)
-                                    <th>{{ __('Delete') }}</th>
-                                @endif
+                                @can("admin.$name.edit")
+                                    @if(Route::has("admin.$name.edit"))
+                                        <th>{{ __('Edit') }}</th>
+                                    @endif
+                                @endcan
+                                @can("admin.$name.show")
+                                    @if(Route::has("admin.$name.show"))
+                                        <th>{{ __('Show') }}</th>
+                                    @endif
+                                @endcan
+                                @can("admin.$name.destroy")
+                                    @if(Route::has("admin.$name.destroy"))
+                                        <th>{{ __('Delete') }}</th>
+                                    @endif
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -95,36 +102,42 @@
                                             </td>
                                         @endforeach
                                     @endif
-                                    @if ($canEdit)
-                                        <td>
+                                    @can("admin.$name.edit")
+                                        @if(Route::has("admin.$name.edit"))
+                                            <td>
 
-                                            <a class="btn btn-primary mlink"
-                                                href="{{ route("admin.$name.edit", array_merge([$row->id], request()->query())) }}">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    @endif
-                                    @if ($canShow)
-                                        <td>
+                                                <a class="btn btn-primary mlink"
+                                                    href="{{ route("admin.$name.edit", array_merge([$row->id], request()->query())) }}">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+                                    @endcan
+                                    @can("admin.$name.show")
+                                        @if(Route::has("admin.$name.show"))
+                                            <td>
 
-                                            <a class="btn btn-warning mlink"
-                                                href="{{ route("admin.$name.show", array_merge([$row->id], request()->query())) }}">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        </td>
-                                    @endif
-                                    @if ($canDelete)
-                                        <td>
-                                            <form action="{{ route("admin.$name.destroy", $row->id) }}" method="post"
-                                                class="action_form remove">
-                                                @csrf
-                                                {{ method_field('delete') }}
-                                                <button type="submit" class="btn btn-danger removethis">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    @endif
+                                                <a class="btn btn-warning mlink"
+                                                    href="{{ route("admin.$name.show", array_merge([$row->id], request()->query())) }}">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+                                    @endcan
+                                    @can("admin.$name.destroy")
+                                        @if(Route::has("admin.$name.destroy"))
+                                            <td>
+                                                <form action="{{ route("admin.$name.destroy", $row->id) }}" method="post"
+                                                    class="action_form remove">
+                                                    @csrf
+                                                    {{ method_field('delete') }}
+                                                    <button type="submit" class="btn btn-danger removethis">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>

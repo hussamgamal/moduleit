@@ -12,7 +12,15 @@ trait Helpers
             }
         }
     }
-
+    public function getGuard()
+    {
+        $guards = array_keys(config('auth.guards'));
+        foreach($guards as $guard){
+            if(auth()->guard($guard)->check()){
+                return $guard;
+            }
+        }
+    }
     public function syncActions($model)
     {
         foreach ($this->moreActions as $action) {

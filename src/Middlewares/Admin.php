@@ -17,20 +17,9 @@ class Admin extends Middleware
      */
     public function handle($request, Closure $next, ...$gaurds)
     {
-        $role = $gaurds[0] ?? null;
-        
-        $user = auth('admin')->user();
-        if (auth('admin')->check() && auth('admin')->user()->role) {
-            $route_name = Route::currentRouteName();
-            if (in_array($route_name, ['admin.home', 'admin.load'])) {
-                return $next($request);
-            }
-
-            if ($user && $user->role_id && in_array($role, $user->role->roles)) {
-                return $next($request);
-            }
+        if (auth('admin')->check()) {
+            return $next($request);
         }
-        auth('admin')->logout();
         return redirect()->to('admin/login')->with('error', 'ليس لديك تصريح للدخول لهذة الصفحة');
     }
 }

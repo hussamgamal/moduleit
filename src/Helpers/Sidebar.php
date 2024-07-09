@@ -24,27 +24,36 @@ class Sidebar
         return $links;
     }
 
-    static function list()
+    static function list($guard = 'admin')
     {
         // $links = env('CacheSidebar') ? Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id()) : null;
         $links = null;
+        $arr = [];
         if (!$links) {
             $links = self::getLinks();
-            $roles = auth()->user()->role->roles ?? [];
-            foreach ($links as $title => $sub_links) {
-                foreach ($sub_links as $ken => $len) {
-                    if (!in_array($ken, $roles)) {
-                        unset($sub_links[$ken]);
+            $role = auth($guard)->user()->roles->first();
+            if($role->name != 'Super Admin'){
+                $permissions = $role->permissions->pluck('name')->toArray();
+                foreach ($links as $title => $sub_links) {
+                    $arr[$title] = [];
+                    foreach ($sub_links as $len) {
+                        $lists = json_decode(json_encode($len),true);
+                        $linkList = \Arr::pluck($lists,'link');
+                        foreach ($linkList as $link){
+                            if (in_array($link, $permissions)) {
+                                $arr[$title][] = json_encode(\Arr::first(\Arr::where($lists,function ($q) use ($link){
+                                    return @$q['link'] == @$link;
+                                })));
+                            }
+                        }
                     }
                 }
-                if (count($sub_links)) {
-                    $links[$title] = $sub_links;
-                } else {
-                    unset($links[$title]);
-                }
+            }else{
+                $arr = $links;
             }
+
             // Cache::tags('cachedSidebar')->get('sidebar-' . auth('admin')->id(), $links);
         }
-        return $links;
+        return $arr;
     }
 }
