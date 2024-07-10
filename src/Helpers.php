@@ -65,29 +65,6 @@ if (!function_exists('hours')) {
     }
 }
 
-if (!function_exists('admin_roles')) {
-    function admin_roles()
-    {
-        $modules = glob(base_path("Modules/*"));
-        $roles[] = "Roles";
-        $roles[] = "Moderators";
-        $roles[] = "Notifications";
-        foreach ($modules as $module) {
-            $module = array_reverse(explode('/', $module))[0];
-            if (strpos($module, '.php') === false) {
-                $roles[] = $module;
-            }
-        }
-        foreach ($roles as $role) {
-            if (!in_array($role, ['Chats'])) {
-                $rows[$role] = $role;
-            }
-        }
-        // dd($rows);
-        return $rows;
-    }
-}
-
 if (!function_exists('get_select_data')) {
     function get_select_data($rows, $key = 'id', $value = 'name', $main = false)
     {
@@ -199,7 +176,14 @@ if (!function_exists('sidebar')) {
         return Sidebar::list();
     }
 }
-
+if (!function_exists('array_remove_object')) {
+    function array_remove_object($array, $value, $prop)
+    {
+        return array_filter($array, function($a) use($value, $prop) {
+            return $a->$prop !== $value;
+        });
+    }
+}
 if (!function_exists('admin_actions')) {
     function admin_actions()
     {

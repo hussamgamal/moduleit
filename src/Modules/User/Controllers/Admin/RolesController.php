@@ -2,9 +2,13 @@
 
 namespace Modules\User\Controllers\Admin;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Route;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
+use MshMsh\Helpers\PermissionsList;
 use Spatie\Permission\Models\Role;
 
 class RolesController extends HelperController
@@ -17,37 +21,52 @@ class RolesController extends HelperController
         $this->name =  'roles';
         $this->list = ['name' => 'الاسم'];
 
+
         $this->inputs = [
             'name' => ['title' =>  'اسم الصلاحية '],
-            'roles[]' =>  ['title' => 'الصلاحيات', 'type' => 'select', 'values' => admin_roles(), 'multiple' => 'multiple']
         ];
 
         $this->includes[] = 'User::admin.roles';
-        $this->moreActions[] = 'forgetCached';
     }
 
-    public function forgetCached()
+    public function store(Request $request)
     {
-        Cache::forget('cachedSidebar');
+        $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
+        $data['guard_name'] = 'admin';
+        PermissionsList::storePermissions($request['permissions']);
+        $model = $this->model->create($data);
+        $model->syncPermissions($request['permissions']);
+        return $this->successfullResponse();
     }
-
+    public function update(Request $request, $id)
+    {
+        $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
+        $this->model = $this->model->findOrFail($id);
+        PermissionsList::storePermissions($request['permissions']);
+        $this->model->update($data);
+        $this->model->syncPermissions($request['permissions']);
+        \Artisan::call('optimize:clear');
+        \Artisan::call('cache:forget spatie.permission.cache ');
+        return $this->successfullResponse();
+    }
     public function destroy($id)
     {
-        $this->model->findOrFail($id)->delete();
-        Admin::where('role_id', $id)->update(['role_id' => null]);
+        $model = $this->model->findOrFail($id);
+        if($model->users()->count() > 0) {
+            return $this->failedfullResponse();
+        }
+        $model->delete();
         return response()->json(['url' => route('admin.' . $this->name . '.index'), 'message' => __("Deleted successfully")]);
     }
-
     public function moderators()
     {
         if (!request('role_id')) abort(404);
         if (request()->isMethod('get')) {
-            $users = Admin::where('role_id', request('role_id'))->orWhere('role_id', null)->get();
+            $users = Admin::all();
             $role = Role::find(request('role_id'));
             $title = "Moderators";
             return view('User::admin.moderators', get_defined_vars());
         }
-        $users = Admin::whereIn('id', request('users'))->update(['role_id' => request('role_id')]);
         return response()->json(['url' => route('admin.roles.index'), 'message' => __("Info saved successfully")]);
     }
 }

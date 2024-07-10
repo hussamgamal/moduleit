@@ -18,15 +18,6 @@ class AdminController extends HelperController
         $this->name = 'users';
         $this->moreActions[] = 'admin_flag';
     }
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('permission:admin.users.index',only: ['index']),
-            new Middleware('permission:admin.users.create',only: ['create']),
-            new Middleware('permission:admin.users.edit',only: ['edit']),
-            new Middleware('permission:admin.users.destroy',only: ['destroy']),
-        ];
-    }
 
     public function listBuilder()
     {

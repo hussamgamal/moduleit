@@ -6,12 +6,8 @@
                 "route": "admin.contactus.index"
             },
             {
-                "title": "create",
-                "route": "admin.contactus.create"
-            },
-            {
-                "title": "edit",
-                "route": "admin.contactus.edit"
+                "title": "show",
+                "route": "admin.contactus.show"
             },
             {
                 "title": "delete",

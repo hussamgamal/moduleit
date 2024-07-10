@@ -3,6 +3,7 @@
 namespace MshMsh\Helpers;
 
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
 
 class PermissionsList
 {
@@ -41,5 +42,13 @@ class PermissionsList
         }
         return $links;
     }
-
+    static function storePermissions($permissions){
+        $array = array_map(function ($permission) {
+            return [
+                'name' => $permission,
+                'guard_name' => 'admin',
+            ];
+        },$permissions);
+        \DB::table('permissions')->upsert($array,'name');
+    }
 }
