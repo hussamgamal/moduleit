@@ -2,6 +2,8 @@
 
 namespace Modules\ModelName\Controllers;
 
+use Modules\ModelName\Models\ModelName;
+
 use Modules\Common\Controllers\Admin\HelperController;
 
 class AdminController extends HelperController
