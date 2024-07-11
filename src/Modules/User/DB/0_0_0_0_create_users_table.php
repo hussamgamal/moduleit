@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mobile')->unique()->nullable();
             $table->string('new_mobile')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('lang', 2)->default('ar');
             $table->string('type', 20)->default(MshMsh\Enum\UserType::CLIENT);
