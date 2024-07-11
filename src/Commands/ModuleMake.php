@@ -4,6 +4,7 @@ namespace MshMsh\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class ModuleMake extends Command
 {
@@ -98,7 +99,7 @@ class ModuleMake extends Command
         $content = file_get_contents(__DIR__ . "/Demo/Models/Module.php");
         $content = str_replace(
             ['ModuleName', 'module_name', 'ModelName','ParentModule'],
-            [$module, strtolower($module), $filename,str_replace('=', '', $this->option('module'))],
+            [$module, strtolower($module), $filename,Str::ucfirst(str_replace('=', '', $this->option('module')))],
             $content
         );
         if (file_exists(base_path("Modules/$module/Models/$filename.php"))) {
@@ -119,7 +120,7 @@ class ModuleMake extends Command
         $filename = Carbon::now()->format('Y_m_d_'.time().'_') . strtolower($name);
         $content = file_get_contents(__DIR__ . "/Demo/DB/2_0_0_0_create_module_table.php");
         $content = str_replace(
-            ['CreateModuleNameTable', 'ModuleName', 'module_name'],
+            ['CreateModuleTable', 'ModuleName', 'module_name'],
             [$tablename, $module, $classname],
             $content
         );
