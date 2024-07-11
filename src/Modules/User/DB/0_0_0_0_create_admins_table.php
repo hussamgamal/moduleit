@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('mobile')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password');
-            $table->boolean('status')->default(1)->nullable();
+            $table->boolean('status')->default(true);
+            $table->boolean('banned')->default(false)->comment('for block and unblock');
             $table->rememberToken();
             $table->timestamps();
         });

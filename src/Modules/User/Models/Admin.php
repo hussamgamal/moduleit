@@ -18,7 +18,7 @@ class Admin extends Authenticatable implements HasMedia
     use HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password','mobile','status','image'
+        'name', 'email', 'password','mobile','status','image','banned'
     ];
     /**
      * The attributes that are mass assignable.
