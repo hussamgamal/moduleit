@@ -4,7 +4,7 @@ namespace Modules\User\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Modules\Common\Models\Notification;
-use Modules\Common\Resources\NotificationResource;
+use Modules\Common\Resources\Notification\NotificationResource;
 use MshMsh\Helpers\ApiResponder;
 
 class NotificationController extends Controller

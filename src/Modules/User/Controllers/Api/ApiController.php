@@ -4,8 +4,6 @@ namespace Modules\User\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\Aqars\Models\Aqar;
-use Modules\Aqars\Resources\AqarsResource;
 use Modules\User\Models\User;
 use Modules\User\Resources\UserResource;
 use MshMsh\Helpers\ApiResponder;
@@ -107,32 +105,5 @@ class ApiController extends Controller
         return ApiResponder::loaded($address,200, __('Contact info saved successfully'));
     }
 
-    public function rate(Request $request, $id)
-    {
-        $aqar = Aqar::where('id', $id)->with('user')->firstOrFail();
-        // dd('ddd');
-        $user = $aqar->user;
-        $authed = auth()->user();
-        $user->rates()->firstOrCreate([
-            'user_id' => $authed->id
-        ])->update([
-            'rate' => $request->rate,
-            'text' => $request->comment
-        ]);
-        return ApiResponder::loaded(null,200, __('Rate saved successfully'));
-    }
 
-    public function myrates()
-    {
-        $user = auth()->user();
-        $user = User::with('rates')->where('id', $user->id)->first(['id', 'name', 'image']);
-        return ApiResponder::loaded($user);
-    }
-
-    public function myaqars()
-    {
-        $user = auth()->user();
-        $rows = $user->aqars()->latest()->paginate(20);
-        return ApiResponder::loaded(AqarsResource::collection($rows));
-    }
 }
