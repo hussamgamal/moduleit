@@ -7,7 +7,12 @@
         "spatie/laravel-translatable": "*",
         "spatie/laravel-medialibrary": "*",
         "spatie/laravel-permission": "*",
-        "propaganistas/laravel-phone": "*"
+        "propaganistas/laravel-phone": "*",
+        "michael-rubel/laravel-enhanced-pipeline": "*",
+        "laravel/telescope": "*"
+    },
+    "require-dev": {
+        "kkomelin/laravel-translatable-string-exporter": "*"
     },
     "authors": [{
         "name": "Hossam MshMsh",
