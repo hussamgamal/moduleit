@@ -9,10 +9,8 @@
         "spatie/laravel-permission": "*",
         "propaganistas/laravel-phone": "*",
         "michael-rubel/laravel-enhanced-pipeline": "*",
+        "kkomelin/laravel-translatable-string-exporter": "*",
         "laravel/telescope": "*"
-    },
-    "require-dev": {
-        "kkomelin/laravel-translatable-string-exporter": "*"
     },
     "authors": [{
         "name": "Hossam MshMsh",
