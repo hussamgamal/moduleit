@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
 use Modules\User\Requests\AdminRequest;
+use MshMsh\Helpers\ApiResponder;
 use Spatie\Permission\Models\Role;
 
 class ModeratorsController extends HelperController
@@ -78,6 +79,6 @@ class ModeratorsController extends HelperController
     {
         $user = User::findOrFail($request->id);
         $user->update(['status' => !$user->status]);
-        return api_response('success', '', ['status' => 1]);
+        return ApiResponder::loaded(['status' => 1]);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\User\Models\Token;
 use Modules\User\Models\User;
+use MshMsh\Helpers\ApiResponder;
 use MshMsh\Helpers\ApiResponsder;
 
 class PasswordController extends Controller
@@ -15,11 +16,11 @@ class PasswordController extends Controller
         $this->validate($request, ['mobile' => 'required']);
         $user = User::whereMobile(request('mobile'))->first();
         if (!$user) {
-            return api_response('error', __("Mobile not found"));
+            return ApiResponder::failed(__("Mobile not found"));
         }
         (new ConfirmationController)->sendConfirmationCode($user);
 
-        return ApiResponsder::get(__("Reset password code sent to your mobile"), [
+        return ApiResponsder::get(__("Reset password code sent to your mobile"),[
             'code' => $user->token->token,
             'mobile' => request('mobile'),
         ]);

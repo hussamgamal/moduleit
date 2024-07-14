@@ -3,8 +3,7 @@
 namespace Modules\User\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
+use MshMsh\Helpers\ApiResponder;
 use Illuminate\Support\Facades\Auth;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\User;
@@ -13,16 +12,14 @@ class AdminController extends HelperController
 {
     public function __construct()
     {
-        $this->model = new User;
+        $this->model = new User();
         $this->title = "Users";
         $this->name = 'users';
-        $this->moreActions[] = 'admin_flag';
     }
 
     public function listBuilder()
     {
         $this->list = [
-            'code' => 'الكود',
             'name' => 'الاسم',
             'mobile' => 'رقم الجوال',
             'email' => 'البريد الإلكتروني',
@@ -46,7 +43,7 @@ class AdminController extends HelperController
     {
         $user = User::findOrFail($request->id);
         $user->update(['status' => !$user->status]);
-        return api_response('success', '', ['status' => 1]);
+        return ApiResponder::loaded(['status' => 1]);
     }
 
 
@@ -60,7 +57,7 @@ class AdminController extends HelperController
             'password' => 'required'
         ]);
         if (auth('admin')->attempt($data, true)) {
-            return redirect()->to('/admin');
+            return redirect()->intended('/admin');
         }
         return back()->with('error', "بيانات الدخول خاطئة");
     }

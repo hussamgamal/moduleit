@@ -5,6 +5,7 @@ namespace Modules\User\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Modules\Common\Models\Notification;
 use Modules\Common\Resources\NotificationResource;
+use MshMsh\Helpers\ApiResponder;
 
 class NotificationController extends Controller
 {
@@ -12,26 +13,26 @@ class NotificationController extends Controller
     {
         $user = auth()->user();
         if (!$user) {
-            return api_response('error', 'User not found');
+            return ApiResponder::failed( 'User not found');
         }
         $notifications = Notification::where('to_user_id', $user->id);
         $notifications = $notifications->whereDate('created_at', '>=', $user->created_at)->latest()->paginate(20);
 
         $notifications = NotificationResource::collection($notifications);
-        return api_response('success', '', $notifications);
+        return ApiResponder::loaded( $notifications);
     }
 
     public function seen($id)
     {
         $user = auth()->user();
         $user->seen_notifications()->attach($id);
-        return api_response('success', '');
+        return ApiResponder::loaded();
     }
 
     public function toggle()
     {
         $user = auth()->user();
         $user->update(['notify' => !$user->notify]);
-        return api_response('success', '', ['notify' => $user->notify]);
+        return ApiResponder::loaded(['notify' => $user->notify]);
     }
 }

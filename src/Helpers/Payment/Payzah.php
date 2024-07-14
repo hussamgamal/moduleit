@@ -4,6 +4,7 @@ namespace MshMsh\Helpers\Payment;
 
 use Modules\Contracts\Models\Bill;
 use Modules\Orders\Models\Order;
+use MshMsh\Helpers\ApiResponder;
 
 class Payzah
 {
@@ -86,6 +87,6 @@ class Payzah
             }
         }
         return '';
-        return api_response('error', $message);
+        return ApiResponder::failed($message);
     }
 }
