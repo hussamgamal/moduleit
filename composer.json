@@ -10,6 +10,7 @@
         "propaganistas/laravel-phone": "*",
         "michael-rubel/laravel-enhanced-pipeline": "*",
         "kkomelin/laravel-translatable-string-exporter": "*",
+        "doctrine/dbal": "*",
         "laravel/telescope": "*"
     },
     "authors": [{

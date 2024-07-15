@@ -32,8 +32,5 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function () {
         Route::post('profile/confirm_new_mobile', [ApiController::class,'confirm_new_mobile']);
         Route::post('profile/change_password', [ApiController::class,'change_password']);
 
-        Route::get('notifications_toggle', [ApiController::class,'notifyStatus']);
-        Route::get('notifications', [ApiController::class,'notifications']);
-        Route::delete('notifications/{uuid}', [ApiController::class,'deleteNotification']);
     });
 });

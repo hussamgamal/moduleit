@@ -8,7 +8,7 @@ use MshMsh\Enum\NotifyType;
 use Illuminate\Http\Request;
 use Modules\Common\Models\NotificationAction;
 use Modules\Common\Resources\Notification\NotificationCollection;
-use MshMsh\Helpers\ApiResponsder;
+use MshMsh\Helpers\ApiResponder;
 
 class ApiController extends Controller
 {
@@ -16,7 +16,7 @@ class ApiController extends Controller
     {
         $user = auth('api')->user();
         $notifications = $user->allNotifications()->latest()->paginate(20);
-        return ApiResponsder::loaded([
+        return ApiResponder::loaded([
             'notifications' => NotificationResource::collection($notifications)
         ]);
     }
@@ -33,7 +33,7 @@ class ApiController extends Controller
                 'type' => NotifyType::DELETE,
             ]);
         }
-        return ApiResponsder::deleted();
+        return ApiResponder::deleted();
     }
 
     public function notifyStatus(Request $request)
@@ -42,7 +42,7 @@ class ApiController extends Controller
         $user->update([
             'notify' => !$user->notify
         ]);
-        return ApiResponsder::updated();
+        return ApiResponder::updated();
     }
     public function changeLang(Request $request)
     {
@@ -50,6 +50,6 @@ class ApiController extends Controller
         $user->update([
             'lang' => @$request->lang ?? 'ar'
         ]);
-        return ApiResponsder::updated();
+        return ApiResponder::updated();
     }
 }

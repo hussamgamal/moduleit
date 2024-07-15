@@ -95,9 +95,9 @@ class User extends Authenticatable implements HasMedia
     {
         return \Modules\Common\Models\Notification::whereDate('created_at','>=',$this->created_at)->where(function($q){
             $q->where('notifiable_id',$this->id)->orWhere(function ($q){
-                $q->where('notifiable_id',0)->where('notifiable_type',User::class);
+                $q->where('notifiable_id',0)->where('notifiable_type',User::class)->whereDate('created_at','>=',$this->created_at)->wheredoesnthave('notificationActions',fn($q)=>$q->where('user_id',$this->id)->where('type',NotifyType::DELETE));
             });
-        })->wheredoesnthave('notificationActions',fn($q)=>$q->where('user_id',$this->id)->where('type',NotifyType::DELETE))->with(['notificationActions'=>fn($q)=>$q->where('user_id',$this->id)]);
+        })->with(['notificationActions'=>fn($q)=>$q->where('user_id',$this->id)]);
     }
     public function getFullPhoneAttribute()
     {
