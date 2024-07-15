@@ -41,12 +41,12 @@ class ApiResponder
     }
     public static function success($message = '', $data = null)
     {
-        return self::make($message, $data);
+        return self::make($data,$message);
     }
 
     public static function error($message = '', $data = null)
     {
-        return self::make($message, $data, 400);
+        return self::make($data,$message, 400);
     }
 
     public static function loaded($data = null,$code = 200,$message = "Loaded Successfully")
