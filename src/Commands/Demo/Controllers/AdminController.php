@@ -27,7 +27,7 @@ class AdminController extends HelperController
 
     public function formBuilder()
     {
-        $this->lang_inputs = [
+        $this->langInputs = [
             'title' => ['title' => 'العنوان '],
             'content' => ['title' => 'الوصف'],
         ];

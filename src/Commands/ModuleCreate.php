@@ -82,7 +82,7 @@ class ModuleCreate extends Command
                                 [Str::plural($lower)],
                                 $migration_content
                             );
-                            $filename = Carbon::now()->format('Y_m_d_'.time().'_') . strtolower($name);
+                            $filename = Carbon::now()->format('Y_m_d_'.time().'_') .'create_'. strtolower($name).'_table';
                             file_put_contents(base_path("Modules/$name/DB/$filename.php"), $migration_content);
                         } else {
                             copy($src . '/' . $file, $dst . '/' . $file);
