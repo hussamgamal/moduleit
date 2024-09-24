@@ -6,9 +6,12 @@ trait Helpers
 {
     public function setImages($model)
     {
-        if ($images = request('images')) {
-            foreach ($images as $image) {
-                $model->images()->create(['image' => $image]);
+        if (request('images')) {
+            foreach (request('images') as $image) {
+                if (is_uploaded_file($image)) {
+                    $model->addMedia($image)
+                        ->toMediaCollection('image');
+                }
             }
         }
     }
