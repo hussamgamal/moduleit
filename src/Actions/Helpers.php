@@ -10,7 +10,7 @@ trait Helpers
             foreach (request('images') as $image) {
                 if (is_uploaded_file($image)) {
                     $model->addMedia($image)
-                        ->toMediaCollection('image');
+                        ->toMediaCollection('images');
                 }
             }
         }
