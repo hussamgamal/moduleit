@@ -10,7 +10,7 @@ class ApiResponder
     {
         if ($status_code == 422) {
             if ($data && count($data)) {
-                $message = $data[array_key_first($data)];
+                $message = $data[array_key_first($data)][0];
                 $data = null;
             }
         }
