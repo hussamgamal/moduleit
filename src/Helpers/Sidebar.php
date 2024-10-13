@@ -46,7 +46,7 @@ class Sidebar
                                     }
                                 }
                             }else{
-                                if (!in_array('admin.'.$link->link, $permissions)) {
+                                if (!in_array('admin.'.@$link->link, $permissions)) {
                                     unset($lists[$key]);
                                 }
                             }
