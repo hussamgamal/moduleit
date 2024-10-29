@@ -42,7 +42,10 @@ class Sidebar
                                 $childLists = (array) $link->childs;
                                 foreach($childLists as $childKey => $child){
                                     if (!in_array('admin.'.$child->link, $permissions)) {
-                                        unset($childLists[$childKey]);
+                                        unset($lists[$key]->childs[$childKey]);
+                                    }
+                                    if(count($lists[$key]->childs) == 0){
+                                        unset($lists[$key]);
                                     }
                                 }
                             }else{
