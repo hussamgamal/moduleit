@@ -1,6 +1,6 @@
 @php $image = is_string($value) ? url($value) : ""; @endphp
 <div class="form-group">
-    <label for="exampleInputFile">{{ $mytitle }}</label>
+    <label for="exampleInputFile">{{ $input['title'] }}</label>
     @if ($image)
         <a href="{{ $image }}" target="_blank" style="font-size:13px">عرض المرفق</a>
     @endif

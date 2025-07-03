@@ -3,15 +3,18 @@
 namespace Modules\Contactus\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Common\Controllers\Admin\HelperController;
 use Modules\Contactus\Models\Contactus;
 
-class AdminController extends Controller
+class AdminController extends HelperController
 {
-    public function index()
+
+    public function __construct()
     {
-        $messages = Contactus::latest()->paginate(25);
-        $title = "Contactus messages";
-        return view('Contactus::admin.list', get_defined_vars());
+        $this->model = new Contactus();
+        $this->title = "Contact Us";
+        $this->name =  'contactus';
+        $this->list = ['name' => 'الاسم','mobile'=>'الجوال','created_at'=>'تم الانشاء'];
     }
 
     public function show($id)

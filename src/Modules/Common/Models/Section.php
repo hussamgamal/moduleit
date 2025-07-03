@@ -2,7 +2,9 @@
 
 namespace Modules\Common\Models;
 
-class Section extends HelperModel
+use Illuminate\Database\Eloquent\Model;
+
+class Section extends Model
 {
     protected $table = "home_sections";
     protected $fillable = ['type', 'title', 'content'];

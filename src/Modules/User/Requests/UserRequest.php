@@ -25,8 +25,24 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'required',
-            'email' => 'nullable|sometimes|email'
+            'name' => 'required|min:1|max:60',
+            'image' => 'required|image',
+            'mobile' => 'required|unique:users,mobile,' . $this->route('user').',id,deleted_at,NULL|regex:/^05\d{8}$/',
+            'email' => 'required|email|unique:users,email,' . $this->route('user').',id,deleted_at,NULL|email',
+            'password' => 'required',
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $mobile = (string) convert_to_english($this->input('mobile'));
+        if($mobile){
+            if(!str_starts_with($mobile,0)){
+                $mobile = '0'.$mobile;
+            }
+            $this->merge([
+                'mobile' => $mobile,
+                'password' => 'P@ssw0rd',
+            ]);
+        }
     }
 }

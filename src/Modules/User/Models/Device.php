@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    protected $table = "user_devices";
-    protected $fillable = ['user_id' , 'token' , 'platform'];
+    protected $fillable = ['user_id' ,'user_type' , 'token' , 'platform','uuid'];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->morphTo('user');
     }
 }

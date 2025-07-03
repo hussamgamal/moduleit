@@ -15,7 +15,7 @@ class Locale
      */
     public function handle($request, Closure $next)
     {
-        if ($request->wantsJson()) {
+        if ($request->is('api/*')) {
             $locale = request()->header('Accept-Language') ?? request()->header('Lang');
             if (in_array($locale, ['ar', 'en'])) {
                 app()->setLocale($locale);

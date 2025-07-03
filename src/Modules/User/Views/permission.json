@@ -1,0 +1,62 @@
+{
+    "User": {
+        "admin": [
+            {
+                "title": "list",
+                "route": "admin.users.index"
+            },
+            {
+                "title": "create",
+                "route": "admin.users.create"
+            },
+            {
+                "title": "edit",
+                "route": "admin.users.edit"
+            },
+            {
+                "title": "delete",
+                "route": "admin.users.destroy"
+            }
+        ]
+    },
+    "Role": {
+        "admin": [
+            {
+                "title": "list",
+                "route": "admin.roles.index"
+            },
+            {
+                "title": "create",
+                "route": "admin.roles.create"
+            },
+            {
+                "title": "edit",
+                "route": "admin.roles.edit"
+            },
+            {
+                "title": "delete",
+                "route": "admin.roles.destroy"
+            }
+        ]
+    },
+    "Admin": {
+        "admin": [
+            {
+                "title": "list",
+                "route": "admin.admins.index"
+            },
+            {
+                "title": "create",
+                "route": "admin.admins.create"
+            },
+            {
+                "title": "edit",
+                "route": "admin.admins.edit"
+            },
+            {
+                "title": "delete",
+                "route": "admin.admins.destroy"
+            }
+        ]
+    }
+}

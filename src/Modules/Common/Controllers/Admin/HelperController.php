@@ -3,17 +3,18 @@
 namespace Modules\Common\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Modules\Common\Controllers\Admin\Actions\CheckRoles;
-use Modules\Common\Controllers\Admin\Actions\Crud;
-use Modules\Common\Controllers\Admin\Actions\Form;
-use Modules\Common\Controllers\Admin\Actions\ListItems;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use MshMsh\Actions\Crud;
+use MshMsh\Actions\Form;
+use MshMsh\Actions\ListItems;
+use MshMsh\Actions\MiddlewareList;
 
-class HelperController extends Controller
+class HelperController extends Controller implements HasMiddleware
 {
     use Crud,
         Form,
         ListItems,
-        CheckRoles;
+        MiddlewareList;
 
     protected $model;
     protected string $name;
@@ -23,16 +24,14 @@ class HelperController extends Controller
     protected array $langInputs;
     protected string $method = 'post';
     protected string $action;
-    protected bool $canDelete = true;
-    protected bool $canAdd = true;
-    protected bool $canEdit = true;
-    protected bool $canShow = false;
     protected bool $paginate = true;
     protected array $includes = [];
     protected array $queryParams = [];
     protected array $moreActions = [];
-    protected array $treeView = [];
-    protected $roleName = null;
+    public array $treeView = [];
+    public array $speed_links = [];
+    protected $routeSortList = null;
     protected string $searchable;
     protected $formRequest;
+    protected $requestQueries = [];
 }

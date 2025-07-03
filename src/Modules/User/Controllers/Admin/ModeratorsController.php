@@ -6,15 +6,15 @@ use Modules\User\Models\User;
 use Illuminate\Http\Request;
 use Modules\Common\Controllers\Admin\HelperController;
 use Modules\User\Models\Admin;
-use Modules\User\Models\Role;
+use Modules\User\Requests\AdminRequest;
+use MshMsh\Helpers\ApiResponder;
+use Spatie\Permission\Models\Role;
 
 class ModeratorsController extends HelperController
 {
     public function __construct()
     {
-        $this->role_name = "Roles";
-
-        $this->model = new Admin;
+        $this->model = new Admin();
         $this->rows = Admin::where('id', '!=', 1);
         $this->title = "Moderators";
         $this->name =  'moderators';
@@ -44,18 +44,41 @@ class ModeratorsController extends HelperController
         ];
     }
 
+    public function store(Request $request)
+    {
+        $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
+
+        $model = $this->model->create($data);
+
+        $this->setImages($model);
+
+        $this->syncActions($model);
+        $role = Role::findById($request['role_id']);
+        $model->syncRoles($role);
+
+        return $this->successfullResponse();
+    }
+
+
+
+    public function update(Request $request, $id)
+    {
+        $data = $this->formRequest ? app($this->formRequest)->validated() : $request->all();
+        $this->model = $this->model->findOrFail($id);
+        $this->model->update($data);
+
+        $this->setImages($this->model);
+
+        $this->syncActions($this->model);
+        $role = Role::findById($request['role_id']);
+        $this->model->syncRoles($role);
+
+        return $this->successfullResponse();
+    }
     public function active_status(Request $request)
     {
         $user = User::findOrFail($request->id);
-        if ($user->status == 1) {
-            $status = 0;
-        } else {
-            $status = 1;
-            if ($user->type == 'provider' && $device = $user->device) {
-                send_fcm([$device->token], $device->platform, __('Your account activated as provider'), 'provider', $user->id, 'provider');
-            }
-        }
-        $user->update(['status' => $status]);
-        return api_response('success', '', ['status' => 1]);
+        $user->update(['status' => !$user->status]);
+        return ApiResponder::loaded(['status' => 1]);
     }
 }

@@ -2,30 +2,67 @@
 
 namespace Modules\User\Models;
 
+use MshMsh\Actions\DefaultMediaImage;
+use MshMsh\Actions\HasActive;
+use MshMsh\Actions\HelperModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Modules\Common\Models\HelperModel;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class Admin extends Authenticatable
+class Admin extends Authenticatable implements HasMedia
 {
-    use Notifiable;
+    use Notifiable,InteractsWithMedia,
+        DefaultMediaImage,HelperModel,HasActive;
+    use HasRoles;
 
+    protected $fillable = [
+        'name', 'email', 'password','mobile','status','image','banned'
+    ];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'mobile'
-    ];
 
+    public function setImageAttribute($image)
+    {
+        if (is_uploaded_file($image)) {
+            $this->clearMediaCollection('image');
+            $this->addMediaFromRequest('image')
+                ->toMediaCollection('image');
+        }
+    }
 
-    public function role()
+    public function getImageAttribute()
     {
-        return $this->belongsTo(Role::class);
+        return $this->getFirstOrDefaultMediaUrl('image');
     }
-    public function getValOfKey($row, $col)
+
+    public function getRoleNameAttribute()
     {
-        return (new HelperModel())->getValOfKey($row, $col);
+        return @$this->roles->first()['name'];
     }
+
+    public function setPasswordAttribute($pass)
+    {
+        if ($pass) {
+            $this->attributes['password'] = bcrypt($pass);
+        }
+    }
+
+    public function devices()
+    {
+        return $this->morphMany(Device::class,'user','user_type','user_id')->latest();
+    }
+    public function allNotifications()
+    {
+        return \Modules\Common\Models\Notification::whereDate('created_at','>=',$this->created_at)->where(function($q){
+            $q->where('notifiable_id',$this->id)->orWhere(function ($q){
+                $q->where('notifiable_id',0)->where('notifiable_type',Admin::class);
+            });
+        });
+    }
+
 }

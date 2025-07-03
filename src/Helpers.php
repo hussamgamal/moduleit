@@ -28,6 +28,20 @@ if (!function_exists('week_days')) {
     }
 }
 
+#convert arabic number to english format - user model
+if (!function_exists('convert_to_english')) {
+    function convert_to_english($string)
+    {
+        $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+        $num = range(0, 9);
+        $convertedPersianNums = str_replace($persian, $num, $string);
+        $englishNumbersOnly = str_replace($arabic, $num, $convertedPersianNums);
+
+        return $englishNumbersOnly;
+    }
+}
 if (!function_exists('hours')) {
     function hours($index = -1)
     {
@@ -62,29 +76,6 @@ if (!function_exists('hours')) {
         }
 
         return $index > -1 ? $hours[$index] : $hours;
-    }
-}
-
-if (!function_exists('admin_roles')) {
-    function admin_roles()
-    {
-        $modules = glob(base_path("Modules/*"));
-        $roles[] = "Roles";
-        $roles[] = "Moderators";
-        $roles[] = "Notifications";
-        foreach ($modules as $module) {
-            $module = array_reverse(explode('/', $module))[0];
-            if (strpos($module, '.php') === false) {
-                $roles[] = $module;
-            }
-        }
-        foreach ($roles as $role) {
-            if (!in_array($role, ['Chats'])) {
-                $rows[$role] = $role;
-            }
-        }
-        // dd($rows);
-        return $rows;
     }
 }
 
@@ -199,7 +190,14 @@ if (!function_exists('sidebar')) {
         return Sidebar::list();
     }
 }
-
+if (!function_exists('array_remove_object')) {
+    function array_remove_object($array, $value, $prop)
+    {
+        return array_filter($array, function($a) use($value, $prop) {
+            return $a->$prop !== $value;
+        });
+    }
+}
 if (!function_exists('admin_actions')) {
     function admin_actions()
     {

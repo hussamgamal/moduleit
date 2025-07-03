@@ -20,6 +20,7 @@ class CreateContactusTable extends Migration
             $table->string('email')->nullable();
             $table->string('mobile');
             $table->text('message');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

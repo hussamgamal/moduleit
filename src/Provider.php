@@ -30,6 +30,8 @@ class Provider extends ServiceProvider
             Commands\ModuleCreate::class,
             Commands\ModuleMake::class
         ]);
+        $this->app->register('Spatie\Permission\PermissionServiceProvider');
+
     }
 
     /**

@@ -1,0 +1,8 @@
+<?php
+namespace MshMsh\Enum;
+
+
+class UserType{
+    const CLIENT = 'client';
+    const DELEGATE = 'delegate';
+}

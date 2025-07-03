@@ -1,10 +1,18 @@
 <?php
-Route::group(['namespace' => 'Admin'] , function(){
-    Route::resource('users', 'AdminController');
-    
-    Route::resource('roles', 'RolesController');
-    Route::resource('moderators', 'ModeratorsController');
 
+use Modules\User\Controllers\Admin\{
+    AdminController,
+    ModeratorsController,
+    RolesController,
+};
+Route::group(['namespace' => 'Admin','middleware'=>'auth:admin'] , function(){
+    Route::get('all/notifications' , [AdminController::class,'notifications'])->name('notifications.page');
+    Route::post('notifications/mark/read' , [AdminController::class,'markNotifyRead'])->name('notifications.read');
+    Route::resource('users', AdminController::class);
+    Route::post('saveToken', [AdminController::class,'saveToken'])->name('saveToken');
 
-    Route::get('user_active_status', 'AdminController@active_status')->name('users.active_status');
+    Route::resource('roles', RolesController::class)->except(['show']);
+    Route::resource('moderators', ModeratorsController::class)->except(['show']);
+
+    Route::get('user_active_status',[AdminController::class,'active_status'])->name('users.active_status');
 });

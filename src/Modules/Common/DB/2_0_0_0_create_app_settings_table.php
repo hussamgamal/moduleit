@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppSettingsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -16,8 +16,7 @@ class CreateAppSettingsTable extends Migration
         Schema::create('app_settings', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->longText('value')->nullable();
-            $table->string('image')->nullable();
+            $table->text('value')->nullable();
             $table->string('type' , 20)->nullable();
             $table->timestamps();
         });
@@ -32,4 +31,4 @@ class CreateAppSettingsTable extends Migration
     {
         Schema::dropIfExists('app_settings');
     }
-}
+};

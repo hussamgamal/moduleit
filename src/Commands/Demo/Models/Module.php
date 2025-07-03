@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\ModuleName\Models;
+namespace Modules\ParentModule\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ModelName extends Model
-{
+class ModelName extends Model{
+
 }

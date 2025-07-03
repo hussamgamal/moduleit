@@ -2,7 +2,10 @@
 
 namespace MshMsh\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ModuleCreate extends Command
 {
@@ -11,7 +14,7 @@ class ModuleCreate extends Command
      *
      * @var string
      */
-    protected $signature = 'module:create 
+    protected $signature = 'module:create
                             {name : Name of new module , prefered to be plural}';
 
     /**
@@ -64,14 +67,23 @@ class ModuleCreate extends Command
                             $newfile = str_replace(['Module', 'module'], [$upper, $lower], $file);
                             copy($src . '/' . $file, $dst . '/' . $newfile);
                             $file = $dst . '/' . $newfile;
-                            file_put_contents(
+                            $content = file_put_contents(
                                 $file,
                                 str_replace(
-                                    ['ModuleName', 'module_name', 'ModelName'],
-                                    [$name, $lower, $model_name],
+                                    ['ModuleName', 'module_name', 'ModelName','ParentModule'],
+                                    [$name, $lower, $model_name,$upper],
                                     file_get_contents($file)
                                 )
                             );
+                            File::delete(base_path("/Modules/$name/DB/2_0_0_0_create_".$lower."_table.php"));
+                            $migration_content = file_get_contents(__DIR__ . "/Demo/DB/2_0_0_0_create_module_table.php");
+                            $migration_content = str_replace(
+                                ['CreateModuleTable'],
+                                [Str::plural($lower)],
+                                $migration_content
+                            );
+                            $filename = Carbon::now()->format('Y_m_d_'.time().'_') .'create_'. strtolower($name).'_table';
+                            file_put_contents(base_path("Modules/$name/DB/$filename.php"), $migration_content);
                         } else {
                             copy($src . '/' . $file, $dst . '/' . $file);
                         }

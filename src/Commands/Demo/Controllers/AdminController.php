@@ -1,6 +1,8 @@
 <?php
 
-namespace Modules\User\Controllers\Admin;
+namespace Modules\ModelName\Controllers;
+
+use Modules\ModelName\Models\ModelName;
 
 use Modules\Common\Controllers\Admin\HelperController;
 
@@ -8,14 +10,14 @@ class AdminController extends HelperController
 {
     public function __construct()
     {
-        $this->model = new ModelName;
+        $this->model = new ModelName();
         $this->rows = ModelName::whereNull('role_id');
 
         $this->title = "ModuleName";
         $this->name = 'module_name';
     }
 
-    public function list_builder()
+    public function listBuilder()
     {
         $this->list = [
             'title' => 'العنوان',
@@ -23,9 +25,9 @@ class AdminController extends HelperController
         ];
     }
 
-    public function form_builder()
+    public function formBuilder()
     {
-        $this->lang_inputs = [
+        $this->langInputs = [
             'title' => ['title' => 'العنوان '],
             'content' => ['title' => 'الوصف'],
         ];

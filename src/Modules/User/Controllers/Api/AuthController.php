@@ -8,6 +8,7 @@ use Modules\User\Models\Device;
 use Modules\User\Models\Token;
 use Modules\User\Models\User;
 use Modules\User\Resources\UserResource;
+use MshMsh\Helpers\ApiResponder;
 use MshMsh\Helpers\ApiResponsder;
 
 class AuthController extends Controller
@@ -44,23 +45,23 @@ class AuthController extends Controller
             $user = auth()->user();
             if (!$user->status) {
                 $code = (new ConfirmationController)->sendConfirmationCode($user);
-                return api_response('success', __('Your account is not activated yet , Activation code sent to your mobile'), [
+                return ApiResponder::loaded([
                     'mobile' => $user->mobile,
                     'code' => $code,
-                ]);
+                ],200,__('Your account is not activated yet , Activation code sent to your mobile'));
             }
             $user->access_token = $token;
-            return api_response('success', '', new UserResource($user));
+            return ApiResponder::loaded(new UserResource($user));
         }
 
-        return api_response('error', __('Not correct mobile or password'));
+        return ApiResponder::failed(__('Not correct mobile or password'));
     }
 
     public function logout()
     {
         $user = auth()->user();
         Device::where('user_id', $user->id)->delete();
-        return api_response('success', '');
+        return ApiResponder::loaded();
     }
 
     public function addMyDevice($user)

@@ -4,24 +4,23 @@ namespace Modules\User\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\User\Models\Device;
 use Modules\User\Models\Token;
 use Modules\User\Models\User;
-use Modules\User\Resources\UserResource;
+use MshMsh\Helpers\ApiResponder;
 use MshMsh\Helpers\ApiResponsder;
 
-class AuthController extends Controller
+class PasswordController extends Controller
 {
     public function forget(Request $request)
     {
         $this->validate($request, ['mobile' => 'required']);
         $user = User::whereMobile(request('mobile'))->first();
         if (!$user) {
-            return api_response('error', __("Mobile not found"));
+            return ApiResponder::failed(__("Mobile not found"));
         }
         (new ConfirmationController)->sendConfirmationCode($user);
 
-        return ApiResponsder::get(__("Reset password code sent to your mobile"), [
+        return ApiResponsder::get(__("Reset password code sent to your mobile"),[
             'code' => $user->token->token,
             'mobile' => request('mobile'),
         ]);

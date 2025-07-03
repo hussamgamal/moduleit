@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(1)->nullable();
-            $table->unsignedBigInteger('role_id')->index();
             $table->string('name');
             $table->string('mobile')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password');
+            $table->boolean('status')->default(true);
+            $table->boolean('banned')->default(false)->comment('for block and unblock');
             $table->rememberToken();
             $table->timestamps();
         });

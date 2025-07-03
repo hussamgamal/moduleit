@@ -1,28 +1,36 @@
 <?php
+
+
+use Modules\User\Controllers\Api\{
+    AuthController,
+    PasswordController,
+    ConfirmationController,
+    ApiController,
+};
+use Modules\Common\Controllers\Api\{
+    NotificationController,
+};
 Route::group(['namespace' => 'Api', 'middleware' => 'api'], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-    
-    Route::post('forget', 'PasswordController@forget');
-    Route::post('reset_code', 'PasswordController@reset_code');
-    Route::post('reset', 'PasswordController@reset');
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('signup', [AuthController::class,'signup']);
 
-    Route::post('activate', 'ConfirmationController@activate');
-    Route::post('resend_code', 'ConfirmationController@resend_code');
+    Route::post('forget', [PasswordController::class,'forget']);
+    Route::post('reset_code', [PasswordController::class,'reset_code']);
+    Route::post('reset', [PasswordController::class,'reset']);
 
-    // Route::get('profile/{id}', 'ApiController@show');
+    Route::post('activate', [ConfirmationController::class,'activate']);
+    Route::post('resend_code', [ConfirmationController::class,'resend_code']);
+
+    // Route::get('profile/{id}', [ApiController::class,'show');]
     Route::group(['middleware' => 'auth:api'], function () {
-        Route::get('myprofile', 'AuthController@myprofile');
+        Route::get('myprofile', [AuthController::class,'myprofile']);
 
-        Route::get('logout', 'AuthController@logout');
-        Route::delete('delete_account', 'AuthController@delete_account');
-        Route::post('profile/edit', 'ApiController@update');
-        Route::post('profile/edit_mobile', 'ApiController@edit_mobile');
-        Route::post('profile/confirm_new_mobile', 'ApiController@confirm_new_mobile');
-        Route::post('profile/change_password', 'ApiController@change_password');
+        Route::get('logout', [AuthController::class,'logout']);
+        Route::delete('delete_account', [AuthController::class,'delete_account']);
+        Route::post('profile/edit', [ApiController::class,'update']);
+        Route::post('profile/edit_mobile', [ApiController::class,'edit_mobile']);
+        Route::post('profile/confirm_new_mobile', [ApiController::class,'confirm_new_mobile']);
+        Route::post('profile/change_password', [ApiController::class,'change_password']);
 
-        Route::get('notifications_toggle', 'NotificationController@toggle');
-        Route::get('notifications', 'NotificationController@index');
-        Route::get('notifications/{id}', 'NotificationController@seen');
     });
 });

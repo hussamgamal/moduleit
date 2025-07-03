@@ -1,6 +1,6 @@
 <div class="mb-3">
-    <label>{{ $mytitle }}</label>
-    <textarea class="textarea" name="{{ $name }}" placeholder="{{ $mytitle }}">{{ $value }}</textarea>
+    <label>{{ $input['title'] }}</label>
+    <textarea class="textarea" name="{{ $name }}" placeholder="{{ $input['title'] }}">{{ $value }}</textarea>
 </div>
 <script>
     $('.textarea').summernote({

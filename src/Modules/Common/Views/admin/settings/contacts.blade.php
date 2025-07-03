@@ -28,8 +28,6 @@
                                 <td><input type="text" name="value[]"
                                         value="{{ $contact->value->all ?? ($contact->value ?? '') }}" class="form-control">
                                 </td>
-                                <td><a href="#!" class="remove_contact btn btn-danger" id="{{ $contact->id }}"><i
-                                            class="fa fa-trash"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -67,32 +65,8 @@
     </form>
     <script>
         $('.select2').select2();
-        $('body').on('click', '.remove_contact', function() {
-            var id = parseInt($(this).attr('id'));
-            var btn = $(this);
-            if (id && id != 0) {
-                Swal.fire({
-                    icon: "warning",
-                    text: "هل تريد الحذف",
-                    showConfirmButton: true,
-                    confirmButtonText: "نعم",
-                    showCancelButton: true,
-                    cancelButtonText: "لا"
-                }).then(function(ok) {
-                    if (!ok.value) {
-                        return false;
-                    } else {
-                        $.get("{{ route('admin.remove_contact') }}", {
-                            id: id
-                        });
-                        btn.closest('tr').remove();
-                    }
-                });
-            } else {
-                btn.closest('tr').remove();
-            }
-        });
-        $('.add_contact').click(function() {
+        $('.add_contact').click(function(e) {
+            e.preventDefault();
             $('tbody').append("<tr>" + $('.contactTr').html() + "</tr>");
             return false;
         })
