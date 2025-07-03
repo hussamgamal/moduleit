@@ -6,7 +6,12 @@ trait ListItems
 {
     public function index()
     {
-
+        if ($this->canSort) {
+            $this->routeSortList = route('admin.changeSortable', ['model' => $this->name]);
+        }
+        if ($this->canChangeStatus) {
+            $this->switches['status'] = route('admin.changeStatus', ['model' => $this->name]);
+        }
         if (!isset($this->rows)) {
             $this->rows = $this->model;
         }
@@ -18,8 +23,17 @@ trait ListItems
 
         $this->treeViewBuilder();
 
-        $this->rows = $this->rows->latest()->paginate(25);
-
+        $this->rows = $this->rows;
+        if (request('action') == 'export') {
+            $this->exportList();
+            $this->rows = $this->rows->latest()->paginate(99999999999);
+        } else {
+            if ($this->canSort) {
+                $this->rows = $this->rows->sort()->paginate(25);
+            } else {
+                $this->rows = $this->rows->latest()->paginate(25);
+            }
+        }
         $this->locale = app()->getLocale();
 
         $this->requestQueries = request()->query();
@@ -39,17 +53,19 @@ trait ListItems
         }
     }
 
-    public function listBuilder()
-    {
-    }
+    function exportList() {}
+
+    public function listBuilder() {}
 
     public function queryParams()
     {
-        $params = $this->queryParams;
+        $rows = $this->queryParams;
+        $params = [];
+        foreach ($rows as $row) {
+            $params[$row] = request($row);
+        }
         return $params;
     }
 
-    public function treeViewBuilder()
-    {
-    }
+    public function treeViewBuilder() {}
 }
