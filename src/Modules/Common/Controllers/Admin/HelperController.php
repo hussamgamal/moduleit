@@ -34,4 +34,6 @@ class HelperController extends Controller implements HasMiddleware
     protected string $searchable;
     protected $formRequest;
     protected $requestQueries = [];
+    protected bool $canSort = false;
+    protected bool $canChangeStatus = false;
 }

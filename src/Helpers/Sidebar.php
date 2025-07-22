@@ -26,43 +26,46 @@ class Sidebar
 
     static function list()
     {
-        $user =  auth('admin')->user() ?? auth()->user() ;
+        $user =  auth('admin')->user() ?? auth()->user();
 
         $links = null;
         $arr = [];
 
         if (!$links) {
             $links = self::getLinks();
-            $permissions = $user->getAllPermissions()->pluck('name')->toArray();
+            if (!$user->hasRole('Super Admin')) {
+                $permissions = $user->getAllPermissions()->pluck('name')->toArray();
 
-            foreach ($links as $title => $sub_links) {
-                foreach ($sub_links as $key => $len) {
-                    $lists = (array) $len;
+                foreach ($links as $title => $sub_links) {
+                    foreach ($sub_links as $key => $len) {
+                        $lists = (array) $len;
 
-                    if (@$len->childs) {
-                        $childLists = (array) $len->childs;
-                        foreach ($childLists as $childKey => $child) {
-                            if (!in_array('admin.' . $child->link, $permissions)) {
-                                unset($sub_links[$key]->childs[$childKey]);
+                        if (@$len->childs) {
+                            $childLists = (array) $len->childs;
+                            foreach ($childLists as $childKey => $child) {
+                                if (!in_array('admin.' . $child->link, $permissions)) {
+                                    unset($sub_links[$key]->childs[$childKey]);
+                                }
+                                if (count($sub_links[$key]->childs) == 0) {
+                                    unset($sub_links[$key]);
+                                }
                             }
-                            if (count($sub_links[$key]->childs) == 0) {
+                        } else {
+                            if (!in_array('admin.' . @$len->link, $permissions)) {
                                 unset($sub_links[$key]);
                             }
                         }
-                    } else {
-                        if (!in_array('admin.' . @$len->link, $permissions)) {
-                            unset($sub_links[$key]);
+
+                        if (count($sub_links)) {
+                            $arr[$title] = $sub_links;
+                        } else {
+                            unset($arr[$title]);
                         }
                     }
-
-                    if (count($sub_links)) {
-                        $arr[$title] = $sub_links;
-                    } else {
-                        unset($arr[$title]);
-                    }
                 }
+            } else {
+                $arr = $links;
             }
-
             // Optional caching here if needed
             // Cache::tags('cachedSidebar')->put('sidebar-' . $user->id, $arr);
         }

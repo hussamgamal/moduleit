@@ -6,10 +6,10 @@ trait ListItems
 {
     public function index()
     {
-        if ($this->canSort) {
+        if (isset($this->canSort) && $this->canSort) {
             $this->routeSortList = route('admin.changeSortable', ['model' => $this->name]);
         }
-        if ($this->canChangeStatus) {
+        if (isset($this->canChangeStatus) &&  $this->canChangeStatus) {
             $this->switches['status'] = route('admin.changeStatus', ['model' => $this->name]);
         }
         if (!isset($this->rows)) {
@@ -28,7 +28,7 @@ trait ListItems
             $this->exportList();
             $this->rows = $this->rows->latest()->paginate(99999999999);
         } else {
-            if ($this->canSort) {
+            if (isset($this->canSort) && $this->canSort) {
                 $this->rows = $this->rows->sort()->paginate(25);
             } else {
                 $this->rows = $this->rows->latest()->paginate(25);
